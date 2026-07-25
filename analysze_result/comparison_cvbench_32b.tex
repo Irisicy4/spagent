@@ -1,0 +1,17 @@
+% Requires \usepackage{booktabs}
+\begin{table}[htbp]
+\centering
+\caption{CVBench Qwen2.5-VL-32B: Image-only vs.\ text-only object detection encoding. Accuracy (\%); $\uparrow$/$\downarrow$ = change vs.\ image-only.}
+\label{tab:cvbench-32b-compare}
+\begin{tabular}{lrr}
+\toprule
+Metric & Image only & Text only \\
+\midrule
+Overall & 73.2 & 75.4 $\uparrow$ \\
+Count & 61.0 & 63.4 $\uparrow$ \\
+Depth & 85.0 & 84.0 $\downarrow$ \\
+Distance & 73.3 & 75.0 $\uparrow$ \\
+Relation & 80.0 & 85.0 $\uparrow$ \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -46,13 +46,14 @@ class DepthClient:
             logger.error(f"测试推理失败: {e}")
             return None
     
-    def infer(self, image_path):
+    def infer(self, image_path, colormap: str = 'turbo'):
         """
         发送图片进行深度估计
-        
+
         Args:
             image_path: 图片路径
-            
+            colormap: 调色板名称，支持 'gray' / 'plasma' / 'turbo'（默认 'turbo'）
+
         Returns:
             推理结果，如果失败则返回None
         """
@@ -61,28 +62,29 @@ class DepthClient:
             if not os.path.exists(image_path):
                 logger.error(f"图片文件不存在: {image_path}")
                 return None
-                
+
             # 读取图片
             logger.info(f"读取图片: {image_path}")
             image = cv2.imread(image_path)
             if image is None:
                 logger.error(f"无法读取图片: {image_path}")
                 return None
-            
+
             logger.info(f"图片尺寸: {image.shape}")
-            
+
             # 将图片编码为base64
             _, buffer = cv2.imencode('.jpg', image)
             image_b64 = base64.b64encode(buffer).decode('utf-8')
-            
+
             # 准备请求数据
             data = {
                 'image': image_b64,
                 'input_size': 518,
-                'return_colored': True
+                'return_colored': True,
+                'colormap': colormap,
             }
-            
-            logger.info("发送推理请求...")
+
+            logger.info(f"发送推理请求（colormap={colormap}）...")
             # 发送POST请求
             response = requests.post(
                 f'{self.server_url}/infer',
@@ -91,64 +93,49 @@ class DepthClient:
                 timeout=60
             )
             response.raise_for_status()
-            
+
             # 解析响应
             result = response.json()
-            
+
             if result.get('success'):
                 # 解码深度图
                 depth_bytes = base64.b64decode(result['depth_map'])
                 depth_array = cv2.imdecode(
                     np.frombuffer(depth_bytes, np.uint8),
-                    cv2.IMREAD_COLOR if result.get('return_colored', True) else cv2.IMREAD_GRAYSCALE
+                    cv2.IMREAD_COLOR
                 )
-                
-                # 将原图和深度图调整为相同宽度
-                original_height, original_width = image.shape[:2]
+
+                # 调整深度图尺寸与原图宽度一致
+                original_width = image.shape[1]
                 depth_height, depth_width = depth_array.shape[:2]
-                
-                # 以原图宽度为准，调整深度图尺寸
                 if depth_width != original_width:
-                    depth_array = cv2.resize(depth_array, (original_width, depth_height * original_width // depth_width))
-                
-                # 确保原图和深度图都是3通道（彩色）
-                if len(image.shape) == 2:  # 原图是灰度图
-                    image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
-                if len(depth_array.shape) == 2:  # 深度图是灰度图
-                    depth_array = cv2.cvtColor(depth_array, cv2.COLOR_GRAY2BGR)
-                
-                # 竖着拼接原图和深度图（原图在上，深度图在下）
-                combined_image = np.vstack([image, depth_array])
-                
-                # 生成输出文件名（基于输入文件名）
+                    depth_array = cv2.resize(
+                        depth_array,
+                        (original_width, depth_height * original_width // depth_width)
+                    )
+
+                # 生成输出文件名（基于输入文件名和调色板）
                 input_filename = os.path.basename(image_path)
                 name_without_ext = os.path.splitext(input_filename)[0]
-                
+
                 # 创建outputs目录（如果不存在）
                 os.makedirs("outputs", exist_ok=True)
-                
-                # 保存拼接后的图像
-                combined_filename = f"outputs/depth_combined_{name_without_ext}.png"
-                cv2.imwrite(combined_filename, combined_image)
-                logger.info(f"拼接图像已保存至: {combined_filename}")
-                
-                # 同时保存单独的深度图（可选）
-                depth_only_filename = f"outputs/depth_only_{name_without_ext}.png"
-                cv2.imwrite(depth_only_filename, depth_array)
-                logger.info(f"深度图已保存至: {depth_only_filename}")
-                
+
+                # 保存深度图（仅深度图，不拼接原图）
+                depth_filename = f"outputs/depth_{colormap}_{name_without_ext}.png"
+                cv2.imwrite(depth_filename, depth_array)
+                logger.info(f"深度图已保存至: {depth_filename}")
+
                 return {
                     'depth_array': depth_array,
-                    'combined_array': combined_image,
                     'shape': result['shape'],
-                    'output_path': combined_filename,
-                    'depth_only_path': depth_only_filename,
+                    'output_path': depth_filename,
                     'success': True
                 }
             else:
                 logger.error(f"服务器返回错误: {result.get('error')}")
                 return None
-                
+
         except Exception as e:
             logger.error(f"推理请求失败: {e}")
             return None

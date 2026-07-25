@@ -1,7 +1,10 @@
 from typing import List, Dict, Any, Tuple
 import json
 import os
+import threading
 import pandas as pd
+
+_csv_lock = threading.Lock()
 
 
 def load_json_data(data_path: str) -> List[Dict[str, Any]]:
@@ -211,17 +214,20 @@ def save_result_to_csv(result_data: Dict[str, Any], csv_file: str = "error_analy
         'follow_up_prompt': result_data.get('follow_up_prompt', '')
     }
     
-    # 检查文件是否存在
-    if os.path.exists(csv_file):
-        # 如果文件存在，追加数据
-        df_existing = pd.read_csv(csv_file, encoding='utf-8', on_bad_lines='skip', engine='python')
-        df_new = pd.DataFrame([row_data])
-        df_combined = pd.concat([df_existing, df_new], ignore_index=True)
-        df_combined.to_csv(csv_file, index=False)
-    else:
-        # 如果文件不存在，创建新文件
-        df_new = pd.DataFrame([row_data])
-        df_new.to_csv(csv_file, index=False)
+    # 检查文件是否存在（加锁防止并发写冲突）
+    with _csv_lock:
+        if os.path.exists(csv_file):
+            try:
+                df_existing = pd.read_csv(csv_file, encoding='utf-8', on_bad_lines='skip', engine='python')
+                df_new = pd.DataFrame([row_data])
+                df_combined = pd.concat([df_existing, df_new], ignore_index=True)
+                df_combined.to_csv(csv_file, index=False)
+            except Exception:
+                df_new = pd.DataFrame([row_data])
+                df_new.to_csv(csv_file, index=False)
+        else:
+            df_new = pd.DataFrame([row_data])
+            df_new.to_csv(csv_file, index=False)
 
 def extract_objects_from_response(response: str) -> list:
     """

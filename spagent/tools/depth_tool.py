@@ -17,27 +17,56 @@ from core.tool import Tool
 
 logger = logging.getLogger(__name__)
 
+DEPTH_COLORMAP_LEGENDS = {
+    "gray": (
+        "The color palette is grayscale, where bright white tones represent "
+        "the closest proximity and dark black tones represent the furthest depth."
+    ),
+    "plasma": (
+        "The color palette is Magma (plasma), where bright yellow highlights "
+        "represent the closest proximity and darker purple tones represent the furthest depth."
+    ),
+    "turbo": (
+        "The color palette is Turbo: blue represents the closest proximity, "
+        "green-yellow mid range, and red the furthest depth."
+    ),
+}
+
 
 class DepthEstimationTool(Tool):
     """Tool for depth estimation using Depth-AnythingV2"""
-    
-    def __init__(self, use_mock: bool = True, server_url: str = "http://10.8.131.51:20019"):
+
+    def __init__(
+        self,
+        use_mock: bool = True,
+        server_url: str = "http://10.8.131.51:20019",
+        colormap: str = "turbo",
+    ):
         """
         Initialize depth estimation tool
-        
+
         Args:
             use_mock: Whether to use mock client for testing
             server_url: URL of the depth estimation server
+            colormap: Colour palette for the depth map visualisation.
+                      One of 'gray', 'plasma', or 'turbo' (default 'turbo').
         """
+        if colormap not in DEPTH_COLORMAP_LEGENDS:
+            raise ValueError(f"colormap must be one of {list(DEPTH_COLORMAP_LEGENDS)}; got '{colormap}'")
+
         super().__init__(
             name="depth_estimation_tool",
-            description="Generate a depth map for the input image to analyze the 3D spatial relationships and depth distribution of objects in the scene."
+            description=(
+                "Generate a depth map for the input image to analyze the 3D spatial "
+                "relationships and depth distribution of objects in the scene."
+            ),
         )
-        
+
         self.use_mock = use_mock
         self.server_url = server_url
+        self.colormap = colormap
         self._client = None
-        
+
         # Initialize client
         self._init_client()
     
@@ -96,11 +125,11 @@ class DepthEstimationTool(Tool):
             
             # Call depth estimation
             if hasattr(self._client, 'infer'):
-                result = self._client.infer(image_path)
+                result = self._client.infer(image_path, colormap=self.colormap)
             else:
                 # Fallback for different client interfaces
                 result = self._client.process_image(image_path)
-            
+
             if result and result.get('success'):
                 logger.info("Depth estimation completed successfully")
                 return {
@@ -108,7 +137,7 @@ class DepthEstimationTool(Tool):
                     "result": result,
                     "output_path": result.get('output_path'),
                     "shape": result.get('shape'),
-                    "depth_data": result.get('depth_data')
+                    "description": DEPTH_COLORMAP_LEGENDS[self.colormap],
                 }
             else:
                 error_msg = result.get('error', 'Unknown error') if result else 'No result returned'

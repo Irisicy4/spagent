@@ -483,7 +483,12 @@ def evaluate_tool_config(
     max_samples: int = None,
     max_workers: int = 4,
     max_iterations: int = 3,
-    data_collector=None  # NEW: Optional DataCollector
+    data_collector=None,
+    system_prompt: str = None,
+    continuation_hint: str = None,
+    temperature: float = 0.0,
+    seed: int = 42,
+    top_p: float = 1.0,
 ) -> Dict[str, Any]:
     """Evaluate a specific tool configuration
     
@@ -496,7 +501,16 @@ def evaluate_tool_config(
         max_samples: Maximum number of samples to evaluate
         max_workers: Maximum number of parallel workers
         max_iterations: Maximum number of tool-call iterations
-        
+        data_collector: Optional DataCollector for training data collection
+        system_prompt: Optional system prompt template string passed to SPAgent.
+                       May contain a {tools_json} placeholder. Defaults to the
+                       built-in 3D spatial prompt when None.
+        continuation_hint: Optional next-step instructions for multi-step iterations.
+                           Defaults to auto-selection based on system_prompt.
+        temperature: Sampling temperature (default 0.0 for deterministic output).
+        seed: Random seed passed to the model API for reproducibility (default 42).
+        top_p: Nucleus sampling probability mass (default 1.0, no truncation).
+
     Returns:
         Evaluation results dictionary
     """
@@ -510,10 +524,12 @@ def evaluate_tool_config(
     
     # Create SPAgent instance
     agent = SPAgent(
-        model=GPTModel(model_name=model),
+        model=GPTModel(model_name=model, temperature=temperature, seed=seed, top_p=top_p),
         tools=tools,
         max_workers=max_workers,
-        data_collector=data_collector  # NEW: Pass DataCollector
+        data_collector=data_collector,
+        system_prompt=system_prompt,
+        continuation_hint=continuation_hint,
     )
     
     print(f"Evaluating {len(data)} samples with {model}")

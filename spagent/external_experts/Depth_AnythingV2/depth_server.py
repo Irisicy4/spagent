@@ -149,28 +149,39 @@ def infer():
         # 获取可选参数
         input_size = data.get('input_size', 518)  # 默认输入尺寸
         return_colored = data.get('return_colored', True)  # 是否返回彩色深度图
-        
+        colormap = data.get('colormap', 'turbo')  # 调色板: gray / plasma / turbo
+
         # 解码base64图像
         try:
             image_bytes = base64.b64decode(data['image'])
             image = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_COLOR)
         except:
             return jsonify({"error": "图像数据无效"}), 400
-        
+
         # 运行推理
         logger.info("正在进行深度估计...")
         with torch.no_grad():
             depth = model.infer_image(image, input_size)
-        
-        # 归一化深度图
-        depth = (depth - depth.min()) / (depth.max() - depth.min()) * 255.0
-        depth = depth.astype(np.uint8)
-        
-        # 如果需要，应用颜色映射
+
+        # 归一化深度图到 [0, 1]（小值=近，大值=远）
+        depth_norm = (depth - depth.min()) / (depth.max() - depth.min() + 1e-8)
+
+        # 应用颜色映射
         if return_colored:
             import matplotlib
-            cmap = matplotlib.colormaps.get_cmap('Spectral_r')
-            depth = (cmap(depth)[:, :, :3] * 255)[:, :, ::-1].astype(np.uint8)
+            # gray_r: close(0)=white, far(1)=black
+            # plasma_r: close(0)=yellow, far(1)=purple
+            # turbo:    close(0)=blue,   far(1)=red
+            COLORMAP_NAMES = {
+                'gray': 'gray_r',
+                'plasma': 'plasma_r',
+                'turbo': 'turbo',
+            }
+            cmap_name = COLORMAP_NAMES.get(colormap, 'turbo')
+            cmap = matplotlib.colormaps.get_cmap(cmap_name)
+            depth = (cmap(depth_norm)[:, :, :3] * 255)[:, :, ::-1].astype(np.uint8)
+        else:
+            depth = (depth_norm * 255).astype(np.uint8)
         
         # 编码结果为base64
         _, buffer = cv2.imencode('.png', depth)
@@ -227,4 +238,4 @@ if __name__ == '__main__':
     
     logger.info("模型加载成功，正在启动服务器...")
     # 启动Flask服务器
-    app.run(host='0.0.0.0', port=args.port, debug=False) 
+    app.run(host='0.0.0.0', port=args.port, debug=False, threaded=True)

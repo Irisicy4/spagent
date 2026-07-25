@@ -1,0 +1,27 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\begin{document}
+% Requires \usepackage{booktabs}
+\begin{table}[htbp]
+\centering
+\caption{SpAgent evaluation results: overall and per-task accuracy (\%). $\uparrow$ / $\downarrow$ vs.\ image-only baseline.}
+\label{tab:spagent-results}
+\small
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lll|r|rrrrrrrrr}
+\toprule
+Dataset & Model & Obj. detection & Overall (\%) & Art\_Style & Count & Depth & Distance & Functional\_Correspondence & Jigsaw & Relation & Visual\_Correspondence & Visual\_Similarity \\
+\midrule
+BLINK & Qwen2.5-VL-3B-Instruct & Image only & 60.0 & 100.0 & --- & --- & --- & 0.0 & 100.0 & --- & 0.0 & 100.0 \\
+CVBench & Qwen2.5-VL-32B-Instruct & Image only & 73.2 & --- & 61.0 & 85.0 & 73.3 & --- & --- & 80.0 & --- & --- \\
+CVBench & Qwen2.5-VL-32B-Instruct & Text only & 75.4 $\uparrow$ & --- & 63.4 & 84.0 & 75.0 & --- & --- & 85.0 & --- & --- \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+\end{document}
