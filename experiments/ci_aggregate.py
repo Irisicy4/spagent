@@ -92,7 +92,7 @@ def main():
 
     if args.ci_runs:
         print("\nAcross-repeat aggregation (rerun_ci.sh):")
-        for vdir in sorted(glob.glob(f"{RESULTS}/E1-det-encoding/*/ci_runs/*/")):
+        for vdir in sorted(glob.glob(f"{RESULTS}/E*/*/ci_runs/*/")):
             accs = []
             for rep in sorted(glob.glob(os.path.join(vdir, "repeat*/"))):
                 r = load_run(rep)
