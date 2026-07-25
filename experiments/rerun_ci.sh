@@ -19,7 +19,7 @@ export OPENAI_BASE_URL="${OPENAI_BASE_URL:-http://localhost:8001/v1}"
 export OPENAI_API_KEY="${OPENAI_API_KEY:-EMPTY}"
 
 MODEL="${MODEL:-Qwen2.5-VL-72B-Instruct}"
-DATASET="${DATASET:-dataset_william/cvbench_data_500sample.jsonl}"
+DATASET="${DATASET:-dataset/cvbench_data_500sample.jsonl}"
 N_REPEATS="${N_REPEATS:-3}"
 CI_OUT="experiments/results/E1-det-encoding/cvbench_qwen72b/ci_runs"
 

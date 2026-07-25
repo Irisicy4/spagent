@@ -20,7 +20,7 @@ export OPENAI_BASE_URL="${OPENAI_BASE_URL:-http://localhost:8001/v1}"
 export OPENAI_API_KEY="${OPENAI_API_KEY:-EMPTY}"
 
 MODEL="${MODEL:-Qwen2.5-VL-72B-Instruct}"
-DATASET="${DATASET:-dataset_william/cvbench_data_500sample.jsonl}"
+DATASET="${DATASET:-dataset/cvbench_data_500sample.jsonl}"
 BENCH_TAG="${BENCH_TAG:-cvbench_qwen72b}"        # matches results/ layout
 OUT="experiments/results"
 
