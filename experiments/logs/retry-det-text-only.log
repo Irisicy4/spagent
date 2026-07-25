@@ -1,0 +1,200 @@
+2026-05-07 10:49:53,534 - numexpr.utils - INFO - Note: detected 160 virtual cores but NumExpr set to maximum of 64, check "NUMEXPR_MAX_THREADS" environment variable.
+2026-05-07 10:49:53,534 - numexpr.utils - INFO - Note: NumExpr detected 160 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 16.
+2026-05-07 10:49:53,534 - numexpr.utils - INFO - NumExpr defaulting to 16 threads.
+2026-05-07 10:49:53,677 - spagent.tools.depth_tool - INFO - Using real depth estimation service at http://127.0.0.1:20019
+2026-05-07 10:49:53,677 - spagent.tools.detection_tool - INFO - Using real GroundingDINO service at http://127.0.0.1:20022
+2026-05-07 10:49:53,677 - spagent.tools.segmentation_tool - INFO - Using real SAM2 service at http://127.0.0.1:20020
+2026-05-07 10:49:53,677 - spagent.tools.segmentation_tool - INFO - Using real SAM2 service at http://localhost:20020
+2026-05-07 10:49:53,677 - spagent.tools.depth_tool - INFO - Using real depth estimation service at http://localhost:20019
+2026-05-07 10:49:54,266 - spagent.models.gpt_model - INFO - Initialized GPT model: Qwen2.5-VL-72B-Instruct
+2026-05-07 10:49:54,266 - spagent.core.tool - INFO - Registered tool: detect_objects_text_only
+2026-05-07 10:49:54,266 - spagent.core.tool - INFO - Registered tool: segment_image_tool
+2026-05-07 10:49:54,266 - spagent.core.tool - INFO - Registered tool: depth_estimation_tool
+2026-05-07 10:49:54,266 - spagent.core.spagent - INFO - Initialized SPAgent with model: Qwen2.5-VL-72B-Instruct
+
+Evaluating configuration: dinosam
+Loading data from /raid/.cache/tmp/tmplm5va2o0.jsonl
+Evaluating 2 samples with Qwen2.5-VL-72B-Instruct
+Evaluating:   0%|          | 0/2 [00:00<?, ?it/s]2026-05-07 10:49:54,272 - spagent.core.spagent - INFO - Starting problem solving for question: Considering the relative positions of the person (annotated by the red box) and the sports ball in the image provided, where is the person (annotated by the red box) located with respect to the sports ball?
+Select from the following choices:
+(A) above
+(B) below
+ (max_iterations=3)
+2026-05-07 10:49:54,272 - spagent.core.spagent - INFO - === Iteration 1/3 ===
+2026-05-07 10:49:54,272 - spagent.core.spagent - INFO - Getting initial model response...
+2026-05-07 10:50:54,536 - openai._base_client - INFO - Retrying request to /chat/completions in 0.377445 seconds
+2026-05-07 10:51:54,979 - openai._base_client - INFO - Retrying request to /chat/completions in 0.915218 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+2026-05-07 10:52:55,973 - spagent.models.gpt_model - ERROR - GPT single image inference failed: Request timed out.
+Evaluating:  50%|█████     | 1/2 [03:01<03:01, 181.70s/it]2026-05-07 10:52:55,974 - spagent.core.spagent - INFO - Starting problem solving for question: Considering the relative positions of the bottle (annotated by the red box) and the person in the image provided, where is the bottle (annotated by the red box) located with respect to the person?
+Select from the following choices:
+(A) left
+(B) right
+ (max_iterations=3)
+2026-05-07 10:52:55,974 - spagent.core.spagent - INFO - === Iteration 1/3 ===
+2026-05-07 10:52:55,974 - spagent.core.spagent - INFO - Getting initial model response...
+2026-05-07 10:52:59,932 - httpx - INFO - HTTP Request: POST http://localhost:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-07 10:52:59,951 - spagent.core.spagent - INFO - Response: <think>
+To determine the relative position of the bottle (annotated by the red box) with respect to the person, I need to first identify the locations of both the bottle and the person in the image. The bottle is already annotated, so I will focus on detecting the person.
+</think>
+<tool_call>
+{"name": "detect_objects_text_only", "arguments": {"image_path": "dataset/CVBench/2D/001081.png", "text_prompt": "person"}}
+⚗
+2026-05-07 10:52:59,952 - spagent.core.spagent - INFO - Executing 1 tool calls in iteration 1...
+2026-05-07 10:52:59,953 - spagent.core.spagent - INFO - Executing tool: detect_objects_text_only with args: {'image_path': 'dataset/CVBench/2D/001081.png', 'text_prompt': 'person'}
+2026-05-07 10:52:59,953 - external_experts.GroundingDINO.grounding_dino_client - INFO - 读取图片: dataset/CVBench/2D/001081.png
+2026-05-07 10:52:59,965 - external_experts.GroundingDINO.grounding_dino_client - INFO - 图片尺寸: (317, 496, 3)
+2026-05-07 10:52:59,967 - external_experts.GroundingDINO.grounding_dino_client - INFO - 发送目标检测请求，文本提示：person
+2026-05-07 10:53:00,485 - external_experts.GroundingDINO.grounding_dino_client - INFO - 检测结果已保存至: outputs/detected_001081.png
+2026-05-07 10:53:00,486 - external_experts.GroundingDINO.grounding_dino_client - INFO - 检测到 1 个目标
+2026-05-07 10:53:00,486 - spagent.external_experts.GroundingDINO_text_only.grounding_dino_text_only_tool - INFO - Detected 1 object(s): [{"label": "person", "bbox": [0.247, 0.5485, 0.4925, 0.8941]}]
+2026-05-07 10:53:00,486 - spagent.core.spagent - INFO - Tool detect_objects_text_only completed successfully
+2026-05-07 10:53:00,487 - spagent.core.spagent - INFO - === Iteration 2/3 ===
+2026-05-07 10:53:00,487 - spagent.core.spagent - INFO - Getting continuation response for iteration 2...
+2026-05-07 10:53:02,813 - httpx - INFO - HTTP Request: POST http://localhost:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-07 10:53:02,814 - spagent.core.spagent - INFO - Response: <think>
+The person is bending over near the refrigerator, and the bottle (annotated by the red box) is inside the refrigerator. From the perspective of the person, the bottle is to their right side as they face the refrigerator.
+</think>
+<answer>(B) right</answer>
+2026-05-07 10:53:02,814 - spagent.core.spagent - INFO - No tool calls found in iteration 2
+2026-05-07 10:53:02,814 - spagent.core.spagent - INFO - Ending workflow: final answer provided or max iterations reached
+Evaluating: 100%|██████████| 2/2 [03:08<00:00, 78.85s/it] Evaluating: 100%|██████████| 2/2 [03:08<00:00, 94.28s/it]
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001353.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001081.png
+[参数] max_tokens: None, temperature: 0.0
+[推理成功] 返回长度: 419
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001081.png
+[参数] max_tokens: None, temperature: 0.0
+[推理成功] 返回长度: 264
+✓ Detailed interaction records saved to: dinosam_detailed_interactions.json
+
+Results for dinosam:
+
+============================================================
+BLINK DATASET EVALUATION RESULTS
+============================================================
+Model: Qwen2.5-VL-72B-Instruct
+Total samples: 2
+Successful samples: 1
+Failed samples: 1
+Overall accuracy: 1.0000 (100.00%)
+Average inference time: 6.84 seconds
+Total inference time: 6.84 seconds
+
+Task-wise Statistics:
+----------------------------------------
+Relation            : 1.0000 (1/1)
+
+Correct questions: 1 IDs
+Incorrect questions: 0 IDs
+
+Failed samples (1):
+----------------------------------------
+ID: Relation_1353, Error: Request timed out.
+
+All results saved to ./test/CVBench_Qwen2.5-VL-72B-Instruct-det-text-only_retry/spagent_evaluation_results_Qwen2.5_VL_72B_Instruct_3_all.json
+Found 2 failed samples to retry
+Filtered dataset: 2 samples → /raid/.cache/tmp/tmplm5va2o0.jsonl
+
+Running: /raid/miniconda3/bin/python examples/evaluation/evaluate_dinosam_det-text-only.py --data_path /raid/.cache/tmp/tmplm5va2o0.jsonl --output_dir ./test/CVBench_Qwen2.5-VL-72B-Instruct-det-text-only_retry --model Qwen2.5-VL-72B-Instruct --output_dir ./test/CVBench_Qwen2.5-VL-72B-Instruct-det-text-only_retry
+
+
+Merged results saved to: test/CVBench_Qwen2.5-VL-72B-Instruct-det-text-only_merged/spagent_evaluation_results_Qwen2.5_VL_72B_Instruct_3_all.json
+  Total:      500
+  Successful: 499
+  Failed:     1
+  Accuracy:   0.7234 (72.34%)

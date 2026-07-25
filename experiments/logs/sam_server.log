@@ -1,0 +1,34 @@
+2026-05-06 20:45:41,379 - __main__ - INFO - 正在启动服务器...
+2026-05-06 20:45:41,379 - __main__ - INFO - 模型路径: checkpoints/sam2/sam2.1_b.pt
+2026-05-06 20:45:41,379 - __main__ - INFO - 服务端口: 20020
+2026-05-06 20:45:41,379 - __main__ - INFO - 正在加载模型（类型：sam2.1_b）...
+2026-05-06 20:45:42,485 - __main__ - INFO - 使用设备：cuda
+2026-05-06 20:45:44,487 - __main__ - INFO - 模型加载完成！
+2026-05-06 20:45:44,487 - __main__ - INFO - 模型加载成功，正在启动服务器...
+ * Serving Flask app 'sam2_server'
+ * Debug mode: off
+2026-05-06 20:45:44,490 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:20020
+ * Running on http://10.2.201.11:20020
+2026-05-06 20:45:44,490 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-05-06 20:48:11,978 - __main__ - INFO - 健康检查结果：{'status': '健康', 'model_name': 'sam2.1_b', 'device': 'cuda:0'}
+2026-05-06 20:48:11,979 - werkzeug - INFO - 127.0.0.1 - - [06/May/2026 20:48:11] "GET /health HTTP/1.1" 200 -
+2026-05-07 11:27:55,161 - werkzeug - INFO - 64.62.197.152 - - [07/May/2026 11:27:55] "[33mGET / HTTP/1.1[0m" 404 -
+2026-05-07 11:28:39,987 - werkzeug - INFO - 64.62.197.159 - - [07/May/2026 11:28:39] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-07 16:35:34,629 - werkzeug - ERROR - 47.103.140.214 - - [07/May/2026 16:35:34] code 400, message Bad request syntax ('\x03\x00\x00\x13\x0eà\x00\x00\x00\x00\x00\x01\x00\x08\x00\x03\x00\x00\x00')
+2026-05-07 16:35:34,629 - werkzeug - INFO - 47.103.140.214 - - [07/May/2026 16:35:34] "[31m[1m\x03\x00\x00\x13\x0eà\x00\x00\x00\x00\x00\x01\x00\x08\x00\x03\x00\x00\x00[0m" 400 -
+2026-05-08 10:36:06,443 - werkzeug - ERROR - 91.231.89.250 - - [08/May/2026 10:36:06] code 400, message Bad request version ('À#À¬À®À+À')
+2026-05-08 10:36:06,443 - werkzeug - INFO - 91.231.89.250 - - [08/May/2026 10:36:06] "[31m[1m\x16\x03\x03\x02b\x01\x00\x02^\x03\x03´'+ô\x11Öß¸ÑÂ¼\x02dc£'zË¤5g\x0f>¯\x12%k\x87!32M \x80LaU¡Â`C±ñK¹ê\x8açC\x07²æ\x10æ'ã¬8Ü}ºýðï>\x00\x8a\x00\x16\x003\x00gÀ\x9eÀ¢\x00\x9e\x009\x00kÀ\x9fÀ£\x00\x9f\x00E\x00¾\x00\x88\x00Ä\x00\x9aÀ\x08À\x09À#À¬À®À+À[0m" 400 -
+2026-05-08 10:36:11,648 - werkzeug - INFO - 91.231.89.152 - - [08/May/2026 10:36:11] "[33mGET / HTTP/1.1[0m" 404 -
+2026-05-08 10:38:38,581 - werkzeug - INFO - 91.231.89.132 - - [08/May/2026 10:38:38] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-08 11:17:21,556 - werkzeug - INFO - 64.62.156.162 - - [08/May/2026 11:17:21] "[33mGET / HTTP/1.1[0m" 404 -
+2026-05-08 11:17:46,659 - werkzeug - INFO - 64.62.156.162 - - [08/May/2026 11:17:46] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-08 20:48:28,741 - werkzeug - ERROR - 45.82.78.105 - - [08/May/2026 20:48:28] code 400, message Bad request version ('À\x13À')
+2026-05-08 20:48:28,742 - werkzeug - INFO - 45.82.78.105 - - [08/May/2026 20:48:28] "[31m[1m\x16\x03\x01\x05Â\x01\x00\x05¾\x03\x03XP\x9dH\x93sÙÆ\x0eW£üã²\x9c¨\x84R\x8f\x7f4kñwâ\x94ù0¹PÃ% Ë\\M\x1fÆ\x89\x9fR\x14á\x87ïð~xd\x15C\x83\x9cx1#\x9dV\x93\x9cR\x93\x9c \x13\x00\x1aÀ+À/À,À0Ì©Ì¨À\x09À\x13À[0m" 400 -
+2026-05-08 20:48:33,971 - werkzeug - ERROR - 45.82.78.105 - - [08/May/2026 20:48:33] code 400, message Bad request version ('À\x13À')
+2026-05-08 20:48:33,971 - werkzeug - INFO - 45.82.78.105 - - [08/May/2026 20:48:33] "[31m[1m\x16\x03\x01\x05Â\x01\x00\x05¾\x03\x03Kul\x7fá¤gô\x03y\x07å/0O$á¿Ív\x01\x1bÈ+è\x13Qh¤\x1b8U Ì+´kHa\x96[e\x16³¼\x9d\x92\x163\x96à\x15°\\ÔÅÕi,°\x93%\x04áQ\x00\x1aÀ+À/À,À0Ì©Ì¨À\x09À\x13À[0m" 400 -
+2026-05-08 20:48:34,131 - werkzeug - INFO - 45.82.78.105 - - [08/May/2026 20:48:34] "[33mGET / HTTP/1.1[0m" 404 -
+2026-05-08 20:48:38,134 - werkzeug - INFO - 45.131.155.110 - - [08/May/2026 20:48:38] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-09 01:09:34,010 - werkzeug - INFO - 64.62.197.137 - - [09/May/2026 01:09:34] "[33mGET / HTTP/1.1[0m" 404 -
+2026-05-09 01:09:57,110 - werkzeug - INFO - 64.62.197.149 - - [09/May/2026 01:09:57] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -

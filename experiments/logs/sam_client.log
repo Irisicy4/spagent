@@ -1,0 +1,1468 @@
+2026-02-28 13:19:29,218 - external_experts.SAM2.sam2_client - INFO - 读取图片: ./apple.jpg
+2026-02-28 13:19:29,220 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (225, 224, 3)
+2026-02-28 13:19:29,221 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-02-28 13:20:29,283 - external_experts.SAM2.sam2_client - ERROR - 推理请求失败: HTTPConnectionPool(host='10.8.131.51', port=20020): Max retries exceeded with url: /infer (Caused by ConnectTimeoutError(<HTTPConnection(host='10.8.131.51', port=20020) at 0x7f654ad9ccd0>, 'Connection to 10.8.131.51 timed out. (connect timeout=60)'))
+2026-02-28 13:29:27,630 - external_experts.SAM2.sam2_client - INFO - 读取图片: ./apple.jpg
+2026-02-28 13:29:27,631 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (225, 224, 3)
+2026-02-28 13:29:27,632 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-02-28 13:29:31,059 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_apple.png
+2026-02-28 13:29:31,065 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_apple.png
+2026-02-28 13:29:31,066 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_apple.png
+2026-03-04 08:23:33,687 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000070_img1.jpg
+2026-03-04 08:23:33,688 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000070_img2.jpg
+2026-03-04 08:23:33,688 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000070_img3.jpg
+2026-03-04 08:23:33,689 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (123, 200, 3)
+2026-03-04 08:23:33,689 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (246, 400, 3)
+2026-03-04 08:23:33,689 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (123, 200, 3)
+2026-03-04 08:23:33,689 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:23:33,689 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:23:33,691 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:23:33,803 - external_experts.SAM2.sam2_client - ERROR - 推理请求失败: 500 Server Error: INTERNAL SERVER ERROR for url: http://localhost:20020/infer
+2026-03-04 08:23:37,459 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000070_img3.png
+2026-03-04 08:23:37,462 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000070_img3.png
+2026-03-04 08:23:37,462 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000070_img3.png
+2026-03-04 08:23:40,004 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000070_img1.png
+2026-03-04 08:23:40,013 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000070_img1.png
+2026-03-04 08:23:40,013 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000070_img1.png
+2026-03-04 08:26:13,687 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000079_img2.jpg
+2026-03-04 08:26:13,688 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000079_img1.jpg
+2026-03-04 08:26:13,688 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000079_img3.jpg
+2026-03-04 08:26:13,689 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-04 08:26:13,690 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:26:13,690 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-04 08:26:13,692 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-04 08:26:13,694 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:26:13,696 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:26:16,173 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000079_img2.png
+2026-03-04 08:26:16,178 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000079_img2.png
+2026-03-04 08:26:16,178 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000079_img2.png
+2026-03-04 08:26:18,590 - external_experts.SAM2.sam2_client - ERROR - 推理请求失败: 400 Client Error: BAD REQUEST for url: http://localhost:20020/infer
+2026-03-04 08:26:21,139 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000079_img1.png
+2026-03-04 08:26:21,147 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000079_img1.png
+2026-03-04 08:26:21,148 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000079_img1.png
+2026-03-04 08:31:06,234 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000049_img1.jpg
+2026-03-04 08:31:06,251 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-04 08:31:06,254 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:31:09,950 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000049_img1.png
+2026-03-04 08:31:09,980 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000049_img1.png
+2026-03-04 08:31:09,982 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000049_img1.png
+2026-03-04 08:32:43,477 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000002_img1.jpg
+2026-03-04 08:32:43,479 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-04 08:32:43,481 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:32:43,486 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000002_img1.jpg
+2026-03-04 08:32:43,489 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-04 08:32:43,492 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:32:47,455 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000002_img1.png
+2026-03-04 08:32:47,477 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000002_img1.png
+2026-03-04 08:32:47,479 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000002_img1.png
+2026-03-04 08:32:50,697 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000002_img1.png
+2026-03-04 08:32:50,710 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000002_img1.png
+2026-03-04 08:32:50,711 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000002_img1.png
+2026-03-04 08:39:39,134 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000057_img1.jpg
+2026-03-04 08:39:39,136 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-04 08:39:39,137 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:39:44,680 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000057_img1.png
+2026-03-04 08:39:44,696 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000057_img1.png
+2026-03-04 08:39:44,698 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000057_img1.png
+2026-03-04 08:51:00,926 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000076_img1.jpg
+2026-03-04 08:51:00,927 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000076_img2.jpg
+2026-03-04 08:51:00,928 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000076_img3.jpg
+2026-03-04 08:51:00,928 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (224, 400, 3)
+2026-03-04 08:51:00,928 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (112, 200, 3)
+2026-03-04 08:51:00,930 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:51:00,930 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (112, 200, 3)
+2026-03-04 08:51:00,931 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:51:00,933 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:51:04,457 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000076_img1.png
+2026-03-04 08:51:04,468 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000076_img1.png
+2026-03-04 08:51:04,476 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000076_img1.png
+2026-03-04 08:51:07,770 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000076_img3.png
+2026-03-04 08:51:07,775 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000076_img3.png
+2026-03-04 08:51:07,775 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000076_img3.png
+2026-03-04 08:51:11,144 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000076_img2.png
+2026-03-04 08:51:11,148 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000076_img2.png
+2026-03-04 08:51:11,148 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000076_img2.png
+2026-03-04 08:51:33,134 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000063_img1.jpg
+2026-03-04 08:51:33,140 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-04 08:51:33,146 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:51:37,569 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000063_img1.png
+2026-03-04 08:51:37,601 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000063_img1.png
+2026-03-04 08:51:37,603 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000063_img1.png
+2026-03-04 08:52:34,657 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000077_img1.jpg
+2026-03-04 08:52:34,657 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000077_img2.jpg
+2026-03-04 08:52:34,658 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-04 08:52:34,659 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000077_img3.jpg
+2026-03-04 08:52:34,659 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:52:34,660 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-04 08:52:34,662 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-04 08:52:34,663 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:52:34,663 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:52:38,093 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000077_img2.png
+2026-03-04 08:52:38,098 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000077_img2.png
+2026-03-04 08:52:38,098 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000077_img2.png
+2026-03-04 08:52:41,769 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000077_img1.png
+2026-03-04 08:52:41,776 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000077_img1.png
+2026-03-04 08:52:41,777 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000077_img1.png
+2026-03-04 08:52:45,073 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000077_img3.png
+2026-03-04 08:52:45,077 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000077_img3.png
+2026-03-04 08:52:45,077 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000077_img3.png
+2026-03-04 08:58:23,287 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000108_img1.jpg
+2026-03-04 08:58:23,296 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-04 08:58:23,298 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 08:58:27,090 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000108_img1.png
+2026-03-04 08:58:27,120 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000108_img1.png
+2026-03-04 08:58:27,122 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000108_img1.png
+2026-03-04 09:07:10,584 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000121_img1.jpg
+2026-03-04 09:07:10,588 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-04 09:07:10,594 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:07:15,042 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000121_img1.png
+2026-03-04 09:07:15,137 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000121_img1.png
+2026-03-04 09:07:15,140 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000121_img1.png
+2026-03-04 09:08:51,041 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000128_img1.jpg
+2026-03-04 09:08:51,041 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000128_img2.jpg
+2026-03-04 09:08:51,048 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-04 09:08:51,049 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-04 09:08:51,051 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:08:51,052 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:08:54,553 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000128_img1.png
+2026-03-04 09:08:54,580 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000128_img1.png
+2026-03-04 09:08:54,582 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000128_img1.png
+2026-03-04 09:08:57,744 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000128_img2.png
+2026-03-04 09:08:57,772 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000128_img2.png
+2026-03-04 09:08:57,774 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000128_img2.png
+2026-03-04 09:14:46,063 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img1.jpg
+2026-03-04 09:14:46,065 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img2.jpg
+2026-03-04 09:14:46,065 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img3.jpg
+2026-03-04 09:14:46,065 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img2.jpg
+2026-03-04 09:14:46,065 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-04 09:14:46,066 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-04 09:14:46,066 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-04 09:14:46,066 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:14:46,066 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-04 09:14:46,066 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:14:46,068 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:14:46,069 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:14:49,370 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img2.png
+2026-03-04 09:14:49,373 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img2.png
+2026-03-04 09:14:49,374 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img2.png
+2026-03-04 09:14:49,374 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img3.jpg
+2026-03-04 09:14:49,375 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-04 09:14:49,375 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:14:52,310 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img3.png
+2026-03-04 09:14:52,326 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img3.png
+2026-03-04 09:14:52,327 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img3.png
+2026-03-04 09:14:52,328 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img2.jpg
+2026-03-04 09:14:52,329 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-04 09:14:52,329 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:14:55,515 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img2.png
+2026-03-04 09:14:55,521 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img2.png
+2026-03-04 09:14:55,522 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img2.png
+2026-03-04 09:14:55,523 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img3.jpg
+2026-03-04 09:14:55,524 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-04 09:14:55,524 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:14:58,879 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img1.png
+2026-03-04 09:14:58,899 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img1.png
+2026-03-04 09:14:58,911 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img1.png
+2026-03-04 09:15:02,044 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img3.png
+2026-03-04 09:15:02,048 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img3.png
+2026-03-04 09:15:02,049 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img3.png
+2026-03-04 09:15:05,362 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img2.png
+2026-03-04 09:15:05,365 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img2.png
+2026-03-04 09:15:05,365 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img2.png
+2026-03-04 09:15:08,645 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img3.png
+2026-03-04 09:15:08,648 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img3.png
+2026-03-04 09:15:08,648 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img3.png
+2026-03-04 09:15:11,905 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img1.jpg
+2026-03-04 09:15:11,908 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-04 09:15:11,909 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:15:15,281 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img1.png
+2026-03-04 09:15:15,287 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img1.png
+2026-03-04 09:15:15,287 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img1.png
+2026-03-04 09:22:19,986 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000013_img1.jpg
+2026-03-04 09:22:19,986 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000013_img2.jpg
+2026-03-04 09:22:19,987 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-04 09:22:19,987 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000013_img3.jpg
+2026-03-04 09:22:19,988 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000013_img2.jpg
+2026-03-04 09:22:19,988 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-04 09:22:19,988 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-04 09:22:19,988 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:22:19,988 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:22:19,989 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-04 09:22:19,989 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:22:19,991 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:22:23,292 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000013_img2.png
+2026-03-04 09:22:23,294 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000013_img2.png
+2026-03-04 09:22:23,294 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000013_img2.png
+2026-03-04 09:22:23,294 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000013_img3.jpg
+2026-03-04 09:22:23,295 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-04 09:22:23,295 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:22:26,137 - external_experts.SAM2.sam2_client - ERROR - 推理请求失败: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'
+2026-03-04 09:22:29,417 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000013_img2.png
+2026-03-04 09:22:29,419 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000013_img2.png
+2026-03-04 09:22:29,420 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000013_img2.png
+2026-03-04 09:22:32,344 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000013_img1.png
+2026-03-04 09:22:32,348 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000013_img1.png
+2026-03-04 09:22:32,351 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000013_img1.png
+2026-03-04 09:22:35,139 - external_experts.SAM2.sam2_client - ERROR - 推理请求失败: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'
+2026-03-04 09:26:52,865 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000015_img1.jpg
+2026-03-04 09:26:52,867 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-04 09:26:52,869 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:26:56,836 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000015_img1.png
+2026-03-04 09:26:56,887 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000015_img1.png
+2026-03-04 09:26:56,889 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000015_img1.png
+2026-03-04 09:31:04,128 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/IQ_Test_val_000069_img1.jpg
+2026-03-04 09:31:04,131 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (170, 443, 3)
+2026-03-04 09:31:04,133 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-04 09:31:07,455 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_IQ_Test_val_000069_img1.png
+2026-03-04 09:31:07,460 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_IQ_Test_val_000069_img1.png
+2026-03-04 09:31:07,461 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_IQ_Test_val_000069_img1.png
+2026-03-05 11:42:21,862 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Art_Style_val_000051_img1.jpg
+2026-03-05 11:42:21,890 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (1382, 1753, 3)
+2026-03-05 11:42:21,910 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:42:25,204 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Art_Style_val_000051_img1.png
+2026-03-05 11:42:25,347 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Art_Style_val_000051_img1.png
+2026-03-05 11:42:25,356 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Art_Style_val_000051_img1.png
+2026-03-05 11:43:11,680 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000033_img1.jpg
+2026-03-05 11:43:11,683 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 11:43:11,686 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:43:14,349 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000033_img1.png
+2026-03-05 11:43:14,366 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000033_img1.png
+2026-03-05 11:43:14,368 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000033_img1.png
+2026-03-05 11:43:18,940 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000032_img1.jpg
+2026-03-05 11:43:18,941 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000032_img2.jpg
+2026-03-05 11:43:18,942 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000032_img3.jpg
+2026-03-05 11:43:18,942 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (210, 400, 3)
+2026-03-05 11:43:18,942 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (105, 200, 3)
+2026-03-05 11:43:18,942 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (105, 200, 3)
+2026-03-05 11:43:18,942 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:43:18,943 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:43:18,943 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:43:21,398 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000032_img2.png
+2026-03-05 11:43:21,400 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000032_img2.png
+2026-03-05 11:43:21,400 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000032_img2.png
+2026-03-05 11:43:23,867 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000032_img3.png
+2026-03-05 11:43:23,869 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000032_img3.png
+2026-03-05 11:43:23,870 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000032_img3.png
+2026-03-05 11:43:26,355 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000032_img1.png
+2026-03-05 11:43:26,362 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000032_img1.png
+2026-03-05 11:43:26,363 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000032_img1.png
+2026-03-05 11:48:35,522 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000113_img1.jpg
+2026-03-05 11:48:35,527 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 11:48:35,532 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:48:38,384 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000113_img1.png
+2026-03-05 11:48:38,416 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000113_img1.png
+2026-03-05 11:48:38,418 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000113_img1.png
+2026-03-05 11:50:48,197 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000079_img1.jpg
+2026-03-05 11:50:48,198 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000079_img2.jpg
+2026-03-05 11:50:48,204 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 11:50:48,204 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 11:50:48,207 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:50:48,207 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:50:50,899 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000079_img1.png
+2026-03-05 11:50:50,917 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000079_img1.png
+2026-03-05 11:50:50,918 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000079_img1.png
+2026-03-05 11:50:53,431 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000079_img2.png
+2026-03-05 11:50:53,449 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000079_img2.png
+2026-03-05 11:50:53,450 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000079_img2.png
+2026-03-05 11:51:03,061 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000077_img1.jpg
+2026-03-05 11:51:03,063 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 11:51:03,066 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:51:04,901 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000077_img2.jpg
+2026-03-05 11:51:04,903 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 11:51:04,906 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:51:05,995 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000077_img1.png
+2026-03-05 11:51:06,006 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000077_img1.png
+2026-03-05 11:51:06,007 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000077_img1.png
+2026-03-05 11:51:08,473 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000077_img2.png
+2026-03-05 11:51:08,489 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000077_img2.png
+2026-03-05 11:51:08,490 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000077_img2.png
+2026-03-05 11:51:40,165 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000071_img1.jpg
+2026-03-05 11:51:40,166 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000071_img2.jpg
+2026-03-05 11:51:40,171 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 11:51:40,171 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 11:51:40,173 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:51:40,174 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:51:42,845 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000071_img2.png
+2026-03-05 11:51:42,862 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000071_img2.png
+2026-03-05 11:51:42,863 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000071_img2.png
+2026-03-05 11:51:45,370 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000071_img1.png
+2026-03-05 11:51:45,388 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000071_img1.png
+2026-03-05 11:51:45,389 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000071_img1.png
+2026-03-05 11:52:01,718 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000079_img1.jpg
+2026-03-05 11:52:01,718 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000079_img2.jpg
+2026-03-05 11:52:01,718 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000079_img3.jpg
+2026-03-05 11:52:01,721 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 11:52:01,721 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 11:52:01,722 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-05 11:52:01,722 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:52:01,722 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:52:01,723 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:52:04,142 - external_experts.SAM2.sam2_client - ERROR - 推理请求失败: 400 Client Error: BAD REQUEST for url: http://localhost:20020/infer
+2026-03-05 11:52:06,609 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000079_img2.png
+2026-03-05 11:52:06,614 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000079_img2.png
+2026-03-05 11:52:06,614 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000079_img2.png
+2026-03-05 11:52:09,146 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000079_img1.png
+2026-03-05 11:52:09,154 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000079_img1.png
+2026-03-05 11:52:09,155 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000079_img1.png
+2026-03-05 11:52:22,940 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000024_img1.jpg
+2026-03-05 11:52:22,941 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000024_img2.jpg
+2026-03-05 11:52:22,942 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000024_img3.jpg
+2026-03-05 11:52:22,942 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (113, 200, 3)
+2026-03-05 11:52:22,944 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (226, 400, 3)
+2026-03-05 11:52:22,944 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (113, 200, 3)
+2026-03-05 11:52:22,945 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:52:22,945 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:52:22,947 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:52:25,404 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000024_img2.png
+2026-03-05 11:52:25,407 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000024_img2.png
+2026-03-05 11:52:25,407 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000024_img2.png
+2026-03-05 11:52:27,815 - external_experts.SAM2.sam2_client - ERROR - 推理请求失败: 400 Client Error: BAD REQUEST for url: http://localhost:20020/infer
+2026-03-05 11:52:30,331 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000024_img1.png
+2026-03-05 11:52:30,338 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000024_img1.png
+2026-03-05 11:52:30,339 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000024_img1.png
+2026-03-05 11:57:03,314 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000019_img1.jpg
+2026-03-05 11:57:03,323 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 11:57:03,332 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:57:05,248 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000019_img2.jpg
+2026-03-05 11:57:05,254 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 11:57:05,259 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:57:05,360 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000019_img3.jpg
+2026-03-05 11:57:05,365 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 11:57:05,369 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:57:06,334 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000019_img1.png
+2026-03-05 11:57:06,370 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000019_img1.png
+2026-03-05 11:57:06,373 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000019_img1.png
+2026-03-05 11:57:08,801 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000019_img2.png
+2026-03-05 11:57:08,838 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000019_img2.png
+2026-03-05 11:57:08,840 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000019_img2.png
+2026-03-05 11:57:11,439 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000019_img3.png
+2026-03-05 11:57:11,459 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000019_img3.png
+2026-03-05 11:57:11,461 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000019_img3.png
+2026-03-05 11:57:50,020 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000008_img1.jpg
+2026-03-05 11:57:50,021 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000008_img2.jpg
+2026-03-05 11:57:50,026 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 11:57:50,027 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 11:57:50,029 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:57:50,030 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:57:52,718 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000008_img1.png
+2026-03-05 11:57:52,734 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000008_img1.png
+2026-03-05 11:57:52,735 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000008_img1.png
+2026-03-05 11:57:55,219 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000008_img2.png
+2026-03-05 11:57:55,235 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000008_img2.png
+2026-03-05 11:57:55,237 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000008_img2.png
+2026-03-05 11:59:10,418 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000090_img1.jpg
+2026-03-05 11:59:10,422 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 11:59:10,424 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 11:59:13,473 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000090_img1.png
+2026-03-05 11:59:13,490 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000090_img1.png
+2026-03-05 11:59:13,492 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000090_img1.png
+2026-03-05 12:00:16,903 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000002_img1.jpg
+2026-03-05 12:00:16,905 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 12:00:16,907 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:00:16,910 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000002_img2.jpg
+2026-03-05 12:00:16,913 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 12:00:16,914 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:00:18,205 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000002_img3.jpg
+2026-03-05 12:00:18,207 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 12:00:18,209 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:00:18,222 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000002_img4.jpg
+2026-03-05 12:00:18,225 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 12:00:18,229 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:00:19,709 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000002_img1.png
+2026-03-05 12:00:19,721 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000002_img1.png
+2026-03-05 12:00:19,723 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000002_img1.png
+2026-03-05 12:00:22,265 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000002_img2.png
+2026-03-05 12:00:22,280 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000002_img2.png
+2026-03-05 12:00:22,282 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000002_img2.png
+2026-03-05 12:00:24,859 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000002_img3.png
+2026-03-05 12:00:24,874 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000002_img3.png
+2026-03-05 12:00:24,875 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000002_img3.png
+2026-03-05 12:00:27,284 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000002_img4.png
+2026-03-05 12:00:27,299 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000002_img4.png
+2026-03-05 12:00:27,300 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000002_img4.png
+2026-03-05 12:03:17,879 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000086_img1.jpg
+2026-03-05 12:03:17,879 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000086_img2.jpg
+2026-03-05 12:03:17,885 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:03:17,886 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:03:17,888 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:03:17,889 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:03:20,859 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000086_img2.png
+2026-03-05 12:03:20,875 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000086_img2.png
+2026-03-05 12:03:20,877 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000086_img2.png
+2026-03-05 12:03:23,444 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000086_img1.png
+2026-03-05 12:03:23,462 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000086_img1.png
+2026-03-05 12:03:23,463 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000086_img1.png
+2026-03-05 12:03:32,477 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Counting_val_000041_img1.jpg
+2026-03-05 12:03:32,479 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (333, 500, 3)
+2026-03-05 12:03:32,481 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:03:35,138 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Counting_val_000041_img1.png
+2026-03-05 12:03:35,149 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Counting_val_000041_img1.png
+2026-03-05 12:03:35,150 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Counting_val_000041_img1.png
+2026-03-05 12:04:26,239 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000085_img1.jpg
+2026-03-05 12:04:26,252 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 12:04:26,263 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:04:29,066 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000085_img1.png
+2026-03-05 12:04:29,082 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000085_img1.png
+2026-03-05 12:04:29,083 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000085_img1.png
+2026-03-05 12:04:37,323 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000110_img1.jpg
+2026-03-05 12:04:37,323 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000110_img2.jpg
+2026-03-05 12:04:37,324 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000110_img3.jpg
+2026-03-05 12:04:37,330 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:04:37,330 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:04:37,330 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:04:37,335 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:04:37,336 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:04:37,336 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:04:40,217 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000110_img2.png
+2026-03-05 12:04:40,256 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000110_img2.png
+2026-03-05 12:04:40,259 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000110_img2.png
+2026-03-05 12:04:42,897 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000110_img3.png
+2026-03-05 12:04:42,935 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000110_img3.png
+2026-03-05 12:04:42,937 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000110_img3.png
+2026-03-05 12:04:45,560 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000110_img1.png
+2026-03-05 12:04:45,597 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000110_img1.png
+2026-03-05 12:04:45,600 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000110_img1.png
+2026-03-05 12:05:04,559 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000030_img1.jpg
+2026-03-05 12:05:04,560 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000030_img2.jpg
+2026-03-05 12:05:04,560 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000030_img3.jpg
+2026-03-05 12:05:04,566 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:05:04,567 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:05:04,569 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:05:04,571 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:05:04,574 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:05:04,578 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:05:07,222 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000030_img2.png
+2026-03-05 12:05:07,258 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000030_img2.png
+2026-03-05 12:05:07,260 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000030_img2.png
+2026-03-05 12:05:09,880 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000030_img3.png
+2026-03-05 12:05:09,915 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000030_img3.png
+2026-03-05 12:05:09,918 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000030_img3.png
+2026-03-05 12:05:12,339 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000030_img1.png
+2026-03-05 12:05:12,376 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000030_img1.png
+2026-03-05 12:05:12,379 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000030_img1.png
+2026-03-05 12:06:20,107 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000103_img1.jpg
+2026-03-05 12:06:20,110 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:06:20,112 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:06:22,883 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000103_img1.png
+2026-03-05 12:06:22,902 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000103_img1.png
+2026-03-05 12:06:22,903 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000103_img1.png
+2026-03-05 12:07:48,680 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000087_img1.jpg
+2026-03-05 12:07:48,681 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000087_img2.jpg
+2026-03-05 12:07:48,686 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:07:48,687 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:07:48,689 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:07:48,689 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:07:51,332 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000087_img2.png
+2026-03-05 12:07:51,346 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000087_img2.png
+2026-03-05 12:07:51,347 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000087_img2.png
+2026-03-05 12:07:53,858 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000087_img1.png
+2026-03-05 12:07:53,872 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000087_img1.png
+2026-03-05 12:07:53,873 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000087_img1.png
+2026-03-05 12:12:22,831 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000125_img1.jpg
+2026-03-05 12:12:22,832 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000125_img2.jpg
+2026-03-05 12:12:22,838 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:12:22,840 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:12:22,845 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:12:22,849 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:12:25,881 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000125_img1.png
+2026-03-05 12:12:25,917 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000125_img1.png
+2026-03-05 12:12:25,919 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000125_img1.png
+2026-03-05 12:12:28,412 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000125_img2.png
+2026-03-05 12:12:28,446 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000125_img2.png
+2026-03-05 12:12:28,449 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000125_img2.png
+2026-03-05 12:12:44,426 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000099_img1.jpg
+2026-03-05 12:12:44,427 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000099_img2.jpg
+2026-03-05 12:12:44,427 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000099_img3.jpg
+2026-03-05 12:12:44,432 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:12:44,433 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:12:44,436 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:12:44,438 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:12:44,439 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:12:44,446 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:12:47,450 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000099_img2.png
+2026-03-05 12:12:47,487 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000099_img2.png
+2026-03-05 12:12:47,490 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000099_img2.png
+2026-03-05 12:12:49,900 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000099_img1.png
+2026-03-05 12:12:49,937 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000099_img1.png
+2026-03-05 12:12:49,939 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000099_img1.png
+2026-03-05 12:12:52,343 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000099_img3.png
+2026-03-05 12:12:52,379 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000099_img3.png
+2026-03-05 12:12:52,381 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000099_img3.png
+2026-03-05 12:13:53,942 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000041_img1.jpg
+2026-03-05 12:13:53,942 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000041_img2.jpg
+2026-03-05 12:13:53,943 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (234, 400, 3)
+2026-03-05 12:13:53,944 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000041_img3.jpg
+2026-03-05 12:13:53,944 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (117, 200, 3)
+2026-03-05 12:13:53,945 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000041_img2.jpg
+2026-03-05 12:13:53,945 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:13:53,945 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:13:53,949 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (117, 200, 3)
+2026-03-05 12:13:53,949 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (117, 200, 3)
+2026-03-05 12:13:53,950 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:13:53,950 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:13:56,429 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000041_img1.png
+2026-03-05 12:13:56,434 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000041_img1.png
+2026-03-05 12:13:56,434 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000041_img1.png
+2026-03-05 12:13:56,435 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000041_img3.jpg
+2026-03-05 12:13:56,436 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (117, 200, 3)
+2026-03-05 12:13:56,436 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:13:58,880 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000041_img2.png
+2026-03-05 12:13:58,881 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000041_img2.png
+2026-03-05 12:13:58,882 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000041_img2.png
+2026-03-05 12:13:58,882 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000041_img3.jpg
+2026-03-05 12:13:58,883 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (117, 200, 3)
+2026-03-05 12:13:58,883 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:14:01,344 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000041_img2.png
+2026-03-05 12:14:01,347 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000041_img2.png
+2026-03-05 12:14:01,348 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000041_img2.png
+2026-03-05 12:14:01,349 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000041_img2.jpg
+2026-03-05 12:14:01,350 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (117, 200, 3)
+2026-03-05 12:14:01,350 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:14:03,810 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000041_img3.png
+2026-03-05 12:14:03,814 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000041_img3.png
+2026-03-05 12:14:03,815 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000041_img3.png
+2026-03-05 12:14:06,269 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000041_img3.png
+2026-03-05 12:14:06,272 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000041_img3.png
+2026-03-05 12:14:06,273 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000041_img3.png
+2026-03-05 12:14:08,855 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000041_img3.png
+2026-03-05 12:14:08,860 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000041_img3.png
+2026-03-05 12:14:08,861 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000041_img3.png
+2026-03-05 12:14:11,316 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000041_img2.png
+2026-03-05 12:14:11,319 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000041_img2.png
+2026-03-05 12:14:11,319 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000041_img2.png
+2026-03-05 12:19:49,022 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000036_img1.jpg
+2026-03-05 12:19:49,023 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000036_img2.jpg
+2026-03-05 12:19:49,029 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:19:49,029 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:19:49,032 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:19:49,032 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:19:51,734 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000036_img2.png
+2026-03-05 12:19:51,751 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000036_img2.png
+2026-03-05 12:19:51,753 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000036_img2.png
+2026-03-05 12:19:54,261 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000036_img1.png
+2026-03-05 12:19:54,279 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000036_img1.png
+2026-03-05 12:19:54,280 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000036_img1.png
+2026-03-05 12:23:19,617 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000063_img1.jpg
+2026-03-05 12:23:19,617 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000063_img2.jpg
+2026-03-05 12:23:19,618 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000063_img3.jpg
+2026-03-05 12:23:19,618 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-05 12:23:19,618 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 12:23:19,621 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 12:23:19,621 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:23:19,621 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:23:19,621 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:23:22,099 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000063_img2.png
+2026-03-05 12:23:22,102 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000063_img2.png
+2026-03-05 12:23:22,102 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000063_img2.png
+2026-03-05 12:23:24,626 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000063_img1.png
+2026-03-05 12:23:24,633 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000063_img1.png
+2026-03-05 12:23:24,634 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000063_img1.png
+2026-03-05 12:23:27,040 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000063_img3.png
+2026-03-05 12:23:27,042 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000063_img3.png
+2026-03-05 12:23:27,042 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000063_img3.png
+2026-03-05 12:27:35,299 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000070_img1.jpg
+2026-03-05 12:27:35,300 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000070_img2.jpg
+2026-03-05 12:27:35,301 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000070_img3.jpg
+2026-03-05 12:27:35,301 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (123, 200, 3)
+2026-03-05 12:27:35,302 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (246, 400, 3)
+2026-03-05 12:27:35,302 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:27:35,302 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (123, 200, 3)
+2026-03-05 12:27:35,304 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:27:35,306 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:27:38,131 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000070_img2.png
+2026-03-05 12:27:38,137 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000070_img2.png
+2026-03-05 12:27:38,137 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000070_img2.png
+2026-03-05 12:27:40,640 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000070_img3.png
+2026-03-05 12:27:40,645 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000070_img3.png
+2026-03-05 12:27:40,645 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000070_img3.png
+2026-03-05 12:27:43,170 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000070_img1.png
+2026-03-05 12:27:43,179 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000070_img1.png
+2026-03-05 12:27:43,179 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000070_img1.png
+2026-03-05 12:27:59,318 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000079_img1.jpg
+2026-03-05 12:27:59,319 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000079_img2.jpg
+2026-03-05 12:27:59,322 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:27:59,324 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:27:59,325 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:27:59,327 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:28:02,020 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000079_img1.png
+2026-03-05 12:28:02,038 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000079_img1.png
+2026-03-05 12:28:02,039 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000079_img1.png
+2026-03-05 12:28:04,539 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000079_img2.png
+2026-03-05 12:28:04,557 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000079_img2.png
+2026-03-05 12:28:04,558 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000079_img2.png
+2026-03-05 12:28:45,314 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000095_img1.jpg
+2026-03-05 12:28:45,320 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:28:45,325 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:28:45,461 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000095_img2.jpg
+2026-03-05 12:28:45,467 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:28:45,473 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:28:46,344 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000095_img3.jpg
+2026-03-05 12:28:46,350 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:28:46,355 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:28:48,311 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000095_img1.png
+2026-03-05 12:28:48,345 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000095_img1.png
+2026-03-05 12:28:48,348 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000095_img1.png
+2026-03-05 12:28:50,924 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000095_img2.png
+2026-03-05 12:28:50,958 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000095_img2.png
+2026-03-05 12:28:50,961 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000095_img2.png
+2026-03-05 12:28:53,483 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000095_img3.png
+2026-03-05 12:28:53,515 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000095_img3.png
+2026-03-05 12:28:53,517 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000095_img3.png
+2026-03-05 12:29:03,180 - external_experts.SAM2.sam2_client - INFO - 读取图片: outputs/pointing_Visual_Similarity_val_000095_img1.jpg
+2026-03-05 12:29:03,188 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:29:03,193 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:29:05,986 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_pointing_Visual_Similarity_val_000095_img1.png
+2026-03-05 12:29:06,020 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_pointing_Visual_Similarity_val_000095_img1.png
+2026-03-05 12:29:06,023 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_pointing_Visual_Similarity_val_000095_img1.png
+2026-03-05 12:33:02,238 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Counting_val_000079_img1.jpg
+2026-03-05 12:33:02,242 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (335, 500, 3)
+2026-03-05 12:33:02,244 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:33:05,060 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Counting_val_000079_img1.png
+2026-03-05 12:33:05,071 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Counting_val_000079_img1.png
+2026-03-05 12:33:05,072 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Counting_val_000079_img1.png
+2026-03-05 12:33:10,564 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000077_img1.jpg
+2026-03-05 12:33:10,565 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000077_img2.jpg
+2026-03-05 12:33:10,566 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000077_img3.jpg
+2026-03-05 12:33:10,566 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-05 12:33:10,566 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000077_img2.jpg
+2026-03-05 12:33:10,566 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 12:33:10,567 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 12:33:10,567 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:33:10,567 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 12:33:10,567 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:33:10,568 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:33:10,570 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:33:13,029 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000077_img2.png
+2026-03-05 12:33:13,034 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000077_img2.png
+2026-03-05 12:33:13,035 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000077_img2.png
+2026-03-05 12:33:13,035 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000077_img3.jpg
+2026-03-05 12:33:13,036 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 12:33:13,036 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:33:15,493 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000077_img3.png
+2026-03-05 12:33:15,497 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000077_img3.png
+2026-03-05 12:33:15,498 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000077_img3.png
+2026-03-05 12:33:18,041 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000077_img1.png
+2026-03-05 12:33:18,048 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000077_img1.png
+2026-03-05 12:33:18,048 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000077_img1.png
+2026-03-05 12:33:20,448 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000077_img2.png
+2026-03-05 12:33:20,453 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000077_img2.png
+2026-03-05 12:33:20,454 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000077_img2.png
+2026-03-05 12:33:23,161 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000077_img3.png
+2026-03-05 12:33:23,165 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000077_img3.png
+2026-03-05 12:33:23,165 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000077_img3.png
+2026-03-05 12:33:30,027 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000083_img1.jpg
+2026-03-05 12:33:30,028 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000083_img2.jpg
+2026-03-05 12:33:30,035 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:33:30,035 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:33:30,037 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:33:30,038 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:33:32,725 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000083_img2.png
+2026-03-05 12:33:32,743 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000083_img2.png
+2026-03-05 12:33:32,744 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000083_img2.png
+2026-03-05 12:33:35,228 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000083_img1.png
+2026-03-05 12:33:35,247 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000083_img1.png
+2026-03-05 12:33:35,248 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000083_img1.png
+2026-03-05 12:33:41,584 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000110_img1.jpg
+2026-03-05 12:33:41,585 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000110_img2.jpg
+2026-03-05 12:33:41,585 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000110_img3.jpg
+2026-03-05 12:33:41,586 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (116, 200, 3)
+2026-03-05 12:33:41,586 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (232, 400, 3)
+2026-03-05 12:33:41,587 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:33:41,587 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (116, 200, 3)
+2026-03-05 12:33:41,588 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:33:41,590 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:33:44,047 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000110_img2.png
+2026-03-05 12:33:44,049 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000110_img2.png
+2026-03-05 12:33:44,049 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000110_img2.png
+2026-03-05 12:33:46,603 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000110_img3.png
+2026-03-05 12:33:46,605 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000110_img3.png
+2026-03-05 12:33:46,605 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000110_img3.png
+2026-03-05 12:33:49,050 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000110_img1.png
+2026-03-05 12:33:49,057 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000110_img1.png
+2026-03-05 12:33:49,058 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000110_img1.png
+2026-03-05 12:39:19,337 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000084_img1.jpg
+2026-03-05 12:39:19,338 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000084_img2.jpg
+2026-03-05 12:39:19,339 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000084_img3.jpg
+2026-03-05 12:39:19,339 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (210, 400, 3)
+2026-03-05 12:39:19,339 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (105, 200, 3)
+2026-03-05 12:39:19,339 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (105, 200, 3)
+2026-03-05 12:39:19,340 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:39:19,340 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:39:19,340 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:39:21,824 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000084_img2.png
+2026-03-05 12:39:21,826 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000084_img2.png
+2026-03-05 12:39:21,827 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000084_img2.png
+2026-03-05 12:39:24,325 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000084_img1.png
+2026-03-05 12:39:24,332 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000084_img1.png
+2026-03-05 12:39:24,333 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000084_img1.png
+2026-03-05 12:39:26,759 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000084_img3.png
+2026-03-05 12:39:26,761 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000084_img3.png
+2026-03-05 12:39:26,761 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000084_img3.png
+2026-03-05 12:39:55,051 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000015_img1.jpg
+2026-03-05 12:39:55,051 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000015_img2.jpg
+2026-03-05 12:40:14,690 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000953.png
+2026-03-05 12:40:14,711 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (426, 640, 3)
+2026-03-05 12:40:14,714 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:40:17,658 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000953.png
+2026-03-05 12:40:17,675 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000953.png
+2026-03-05 12:40:17,676 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000953.png
+2026-03-05 12:40:21,577 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:40:21,578 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:40:21,581 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:40:21,581 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:40:24,292 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000015_img2.png
+2026-03-05 12:40:24,311 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000015_img2.png
+2026-03-05 12:40:24,313 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000015_img2.png
+2026-03-05 12:40:26,788 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000015_img1.png
+2026-03-05 12:40:26,807 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000015_img1.png
+2026-03-05 12:40:26,808 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000015_img1.png
+2026-03-05 12:43:39,388 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000084_img1.jpg
+2026-03-05 12:43:39,392 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:43:39,397 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:43:42,276 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000084_img2.jpg
+2026-03-05 12:43:42,280 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:43:42,284 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:43:42,377 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000084_img3.jpg
+2026-03-05 12:43:42,397 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:43:42,401 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:43:43,266 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000084_img1.png
+2026-03-05 12:43:43,292 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000084_img1.png
+2026-03-05 12:43:43,294 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000084_img1.png
+2026-03-05 12:43:47,150 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000084_img2.png
+2026-03-05 12:43:47,173 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000084_img2.png
+2026-03-05 12:43:47,174 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000084_img2.png
+2026-03-05 12:43:50,887 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000084_img3.png
+2026-03-05 12:43:50,947 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000084_img3.png
+2026-03-05 12:43:50,950 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000084_img3.png
+2026-03-05 12:44:48,416 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000060_img1.jpg
+2026-03-05 12:44:48,417 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000060_img2.jpg
+2026-03-05 12:44:48,418 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000060_img3.jpg
+2026-03-05 12:44:48,418 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000060_img4.jpg
+2026-03-05 12:44:48,420 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 12:44:48,420 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 12:44:48,420 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 12:44:48,420 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 12:44:48,422 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:44:48,422 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:44:48,423 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:44:48,423 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:44:52,600 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000060_img2.png
+2026-03-05 12:44:52,620 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000060_img2.png
+2026-03-05 12:44:52,622 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000060_img2.png
+2026-03-05 12:44:56,410 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000060_img3.png
+2026-03-05 12:44:56,426 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000060_img3.png
+2026-03-05 12:44:56,427 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000060_img3.png
+2026-03-05 12:45:00,232 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000060_img1.png
+2026-03-05 12:45:00,253 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000060_img1.png
+2026-03-05 12:45:00,254 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000060_img1.png
+2026-03-05 12:45:03,892 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000060_img4.png
+2026-03-05 12:45:03,909 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000060_img4.png
+2026-03-05 12:45:03,911 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000060_img4.png
+2026-03-05 12:45:24,224 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000020_img1.jpg
+2026-03-05 12:45:24,232 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 12:45:24,235 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:45:27,640 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000020_img1.png
+2026-03-05 12:45:27,656 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000020_img1.png
+2026-03-05 12:45:27,657 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000020_img1.png
+2026-03-05 12:46:51,915 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000030_img1.jpg
+2026-03-05 12:46:51,920 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:46:51,926 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:46:53,967 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000030_img2.jpg
+2026-03-05 12:46:53,972 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:46:53,978 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:46:54,004 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000030_img3.jpg
+2026-03-05 12:46:54,010 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 12:46:54,016 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:46:55,615 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000030_img1.png
+2026-03-05 12:46:55,640 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000030_img1.png
+2026-03-05 12:46:55,642 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000030_img1.png
+2026-03-05 12:46:59,409 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000030_img2.png
+2026-03-05 12:46:59,445 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000030_img2.png
+2026-03-05 12:46:59,448 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000030_img2.png
+2026-03-05 12:47:03,169 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000030_img3.png
+2026-03-05 12:47:03,205 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000030_img3.png
+2026-03-05 12:47:03,207 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000030_img3.png
+2026-03-05 12:47:32,592 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000023_img1.jpg
+2026-03-05 12:47:32,594 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 12:47:32,596 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:47:36,012 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000023_img1.png
+2026-03-05 12:47:36,027 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000023_img1.png
+2026-03-05 12:47:36,028 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000023_img1.png
+2026-03-05 12:53:21,256 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000120_img1.jpg
+2026-03-05 12:53:21,257 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (232, 400, 3)
+2026-03-05 12:53:21,258 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:53:24,844 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000120_img1.png
+2026-03-05 12:53:24,870 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000120_img1.png
+2026-03-05 12:53:24,884 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000120_img1.png
+2026-03-05 12:59:22,778 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000128_img1.jpg
+2026-03-05 12:59:22,779 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000128_img2.jpg
+2026-03-05 12:59:22,781 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:59:22,782 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 12:59:22,784 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:59:22,784 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 12:59:25,563 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000128_img1.png
+2026-03-05 12:59:25,580 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000128_img1.png
+2026-03-05 12:59:25,582 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000128_img1.png
+2026-03-05 12:59:28,390 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000128_img2.png
+2026-03-05 12:59:28,414 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000128_img2.png
+2026-03-05 12:59:28,417 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000128_img2.png
+2026-03-05 13:01:17,357 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000045_img1.jpg
+2026-03-05 13:01:17,357 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000045_img2.jpg
+2026-03-05 13:01:17,358 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000045_img3.jpg
+2026-03-05 13:01:17,358 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-05 13:01:17,359 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:01:17,359 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000045_img1.jpg
+2026-03-05 13:01:17,359 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:01:17,359 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:01:17,360 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:01:17,360 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:01:17,366 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-05 13:01:17,367 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:01:20,007 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000045_img2.png
+2026-03-05 13:01:20,014 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000045_img2.png
+2026-03-05 13:01:20,014 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000045_img2.png
+2026-03-05 13:01:20,015 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000045_img2.jpg
+2026-03-05 13:01:20,016 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:01:20,016 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:01:22,681 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000045_img1.png
+2026-03-05 13:01:22,688 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000045_img1.png
+2026-03-05 13:01:22,689 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000045_img1.png
+2026-03-05 13:01:22,689 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000045_img3.jpg
+2026-03-05 13:01:22,690 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:01:22,690 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:01:25,197 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000045_img3.png
+2026-03-05 13:01:25,199 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000045_img3.png
+2026-03-05 13:01:25,202 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000045_img3.png
+2026-03-05 13:01:25,203 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000045_img1.jpg
+2026-03-05 13:01:25,204 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-05 13:01:25,205 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:01:27,986 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000045_img1.png
+2026-03-05 13:01:27,991 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000045_img1.png
+2026-03-05 13:01:27,991 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000045_img1.png
+2026-03-05 13:01:27,992 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000045_img2.jpg
+2026-03-05 13:01:27,992 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:01:27,992 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:01:30,720 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000045_img2.png
+2026-03-05 13:01:30,724 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000045_img2.png
+2026-03-05 13:01:30,724 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000045_img2.png
+2026-03-05 13:01:30,725 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000045_img3.jpg
+2026-03-05 13:01:30,726 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:01:30,726 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:01:33,273 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000045_img3.png
+2026-03-05 13:01:33,275 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000045_img3.png
+2026-03-05 13:01:33,275 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000045_img3.png
+2026-03-05 13:01:33,276 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000045_img1.jpg
+2026-03-05 13:01:33,277 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-05 13:01:33,278 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:01:35,949 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000045_img1.png
+2026-03-05 13:01:35,957 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000045_img1.png
+2026-03-05 13:01:35,958 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000045_img1.png
+2026-03-05 13:01:38,485 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000045_img2.png
+2026-03-05 13:01:38,486 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000045_img2.png
+2026-03-05 13:01:38,487 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000045_img2.png
+2026-03-05 13:01:41,061 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000045_img3.png
+2026-03-05 13:01:41,064 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000045_img3.png
+2026-03-05 13:01:41,064 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000045_img3.png
+2026-03-05 13:01:43,764 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000045_img1.png
+2026-03-05 13:01:43,771 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000045_img1.png
+2026-03-05 13:01:43,772 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000045_img1.png
+2026-03-05 13:02:30,166 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000118_img1.jpg
+2026-03-05 13:02:30,171 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 13:02:30,175 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000118_img2.jpg
+2026-03-05 13:02:30,177 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:02:30,181 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 13:02:30,186 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:02:31,099 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000118_img3.jpg
+2026-03-05 13:02:31,107 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 13:02:31,114 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:02:33,450 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000118_img1.png
+2026-03-05 13:02:33,474 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000118_img1.png
+2026-03-05 13:02:33,476 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000118_img1.png
+2026-03-05 13:02:36,860 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000118_img2.png
+2026-03-05 13:02:36,897 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000118_img2.png
+2026-03-05 13:02:36,900 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000118_img2.png
+2026-03-05 13:02:39,804 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000118_img3.png
+2026-03-05 13:02:39,846 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000118_img3.png
+2026-03-05 13:02:39,849 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000118_img3.png
+2026-03-05 13:04:10,878 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000066_img1.jpg
+2026-03-05 13:04:10,880 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 13:04:10,883 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:04:13,771 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000066_img1.png
+2026-03-05 13:04:13,789 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000066_img1.png
+2026-03-05 13:04:13,790 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000066_img1.png
+2026-03-05 13:05:17,064 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000041_img1.jpg
+2026-03-05 13:05:17,071 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 13:05:17,073 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:05:19,926 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000041_img1.png
+2026-03-05 13:05:19,943 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000041_img1.png
+2026-03-05 13:05:19,944 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000041_img1.png
+2026-03-05 13:05:43,624 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000004_img1.jpg
+2026-03-05 13:05:43,632 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 13:05:43,641 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:05:45,665 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000004_img2.jpg
+2026-03-05 13:05:45,672 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 13:05:45,679 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:05:45,695 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000004_img3.jpg
+2026-03-05 13:05:45,701 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 13:05:45,707 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:05:46,992 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000004_img1.png
+2026-03-05 13:05:47,030 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000004_img1.png
+2026-03-05 13:05:47,032 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000004_img1.png
+2026-03-05 13:05:49,440 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000004_img2.png
+2026-03-05 13:05:49,478 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000004_img2.png
+2026-03-05 13:05:49,481 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000004_img2.png
+2026-03-05 13:05:51,996 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000004_img3.png
+2026-03-05 13:05:52,029 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000004_img3.png
+2026-03-05 13:05:52,033 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000004_img3.png
+2026-03-05 13:06:03,637 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000127_img1.jpg
+2026-03-05 13:06:03,638 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000127_img2.jpg
+2026-03-05 13:06:03,639 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000127_img3.jpg
+2026-03-05 13:06:03,639 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000127_img2.jpg
+2026-03-05 13:06:03,639 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-05 13:06:03,642 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:06:03,642 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:06:03,642 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:06:03,642 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:06:03,642 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:06:03,642 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:06:03,643 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:06:06,196 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000127_img2.png
+2026-03-05 13:06:06,198 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000127_img2.png
+2026-03-05 13:06:06,198 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000127_img2.png
+2026-03-05 13:06:06,199 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000127_img3.jpg
+2026-03-05 13:06:06,200 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:06:06,200 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:06:08,780 - external_experts.SAM2.sam2_client - ERROR - 推理请求失败: 400 Client Error: BAD REQUEST for url: http://localhost:20020/infer
+2026-03-05 13:06:08,781 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000127_img3.jpg
+2026-03-05 13:06:08,781 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:06:08,782 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:06:11,322 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000127_img2.png
+2026-03-05 13:06:11,325 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000127_img2.png
+2026-03-05 13:06:11,325 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000127_img2.png
+2026-03-05 13:06:14,026 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000127_img1.png
+2026-03-05 13:06:14,033 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000127_img1.png
+2026-03-05 13:06:14,034 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000127_img1.png
+2026-03-05 13:06:16,600 - external_experts.SAM2.sam2_client - ERROR - 推理请求失败: 400 Client Error: BAD REQUEST for url: http://localhost:20020/infer
+2026-03-05 13:06:19,081 - external_experts.SAM2.sam2_client - ERROR - 推理请求失败: 400 Client Error: BAD REQUEST for url: http://localhost:20020/infer
+2026-03-05 13:06:51,516 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000137_img1.jpg
+2026-03-05 13:06:51,518 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (266, 400, 3)
+2026-03-05 13:06:51,519 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:06:54,171 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000137_img1.png
+2026-03-05 13:06:54,178 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000137_img1.png
+2026-03-05 13:06:54,179 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000137_img1.png
+2026-03-05 13:09:20,773 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000128.png
+2026-03-05 13:09:20,791 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (500, 328, 3)
+2026-03-05 13:09:20,793 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:09:23,411 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000128.png
+2026-03-05 13:09:23,424 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000128.png
+2026-03-05 13:09:23,424 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000128.png
+2026-03-05 13:09:28,197 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000070_img1.jpg
+2026-03-05 13:09:28,198 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000070_img2.jpg
+2026-03-05 13:09:28,202 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 13:09:28,204 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:09:28,206 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 13:09:28,209 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:09:30,975 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000070_img1.png
+2026-03-05 13:09:30,987 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000070_img1.png
+2026-03-05 13:09:30,988 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000070_img1.png
+2026-03-05 13:09:33,920 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000070_img2.png
+2026-03-05 13:09:33,931 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000070_img2.png
+2026-03-05 13:09:33,932 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000070_img2.png
+2026-03-05 13:09:58,158 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img1.jpg
+2026-03-05 13:09:58,159 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img1.jpg
+2026-03-05 13:09:58,160 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-05 13:09:58,160 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-05 13:09:58,161 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:09:58,161 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:10:00,837 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img1.png
+2026-03-05 13:10:00,844 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img1.png
+2026-03-05 13:10:00,845 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img1.png
+2026-03-05 13:10:03,378 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img1.png
+2026-03-05 13:10:03,385 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img1.png
+2026-03-05 13:10:03,386 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img1.png
+2026-03-05 13:11:27,880 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000075_img1.jpg
+2026-03-05 13:11:27,883 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 13:11:27,885 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:11:30,671 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000075_img1.png
+2026-03-05 13:11:30,681 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000075_img1.png
+2026-03-05 13:11:30,682 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000075_img1.png
+2026-03-05 13:13:24,606 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000091_img1.jpg
+2026-03-05 13:13:24,613 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 13:13:24,618 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:13:27,676 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000091_img1.png
+2026-03-05 13:13:27,723 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000091_img1.png
+2026-03-05 13:13:27,727 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000091_img1.png
+2026-03-05 13:22:19,785 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Spatial_Relation_val_000002_img1.jpg
+2026-03-05 13:22:19,789 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 427, 3)
+2026-03-05 13:22:19,791 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:22:22,698 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Spatial_Relation_val_000002_img1.png
+2026-03-05 13:22:22,709 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Spatial_Relation_val_000002_img1.png
+2026-03-05 13:22:22,710 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Spatial_Relation_val_000002_img1.png
+2026-03-05 13:22:49,994 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000084_img2.jpg
+2026-03-05 13:22:49,995 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000084_img3.jpg
+2026-03-05 13:22:49,995 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (105, 200, 3)
+2026-03-05 13:22:49,996 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:22:49,997 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (105, 200, 3)
+2026-03-05 13:22:49,999 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:22:52,546 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000084_img2.png
+2026-03-05 13:22:52,548 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000084_img2.png
+2026-03-05 13:22:52,548 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000084_img2.png
+2026-03-05 13:22:55,095 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000084_img3.png
+2026-03-05 13:22:55,097 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000084_img3.png
+2026-03-05 13:22:55,097 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000084_img3.png
+2026-03-05 13:23:21,643 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000013_img1.jpg
+2026-03-05 13:23:21,644 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000013_img2.jpg
+2026-03-05 13:23:21,645 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-05 13:23:21,646 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000013_img3.jpg
+2026-03-05 13:23:21,649 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:23:21,649 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:23:21,651 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:23:21,651 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:23:21,654 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:23:24,211 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000013_img2.png
+2026-03-05 13:23:24,213 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000013_img2.png
+2026-03-05 13:23:24,214 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000013_img2.png
+2026-03-05 13:23:26,991 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000013_img1.png
+2026-03-05 13:23:26,997 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000013_img1.png
+2026-03-05 13:23:26,998 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000013_img1.png
+2026-03-05 13:23:29,510 - external_experts.SAM2.sam2_client - ERROR - 推理请求失败: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'
+2026-03-05 13:27:59,958 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Correspondence_val_000105_img2.jpg
+2026-03-05 13:27:59,973 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (1024, 1364, 3)
+2026-03-05 13:27:59,984 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:28:03,402 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Correspondence_val_000105_img2.png
+2026-03-05 13:28:03,476 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Correspondence_val_000105_img2.png
+2026-03-05 13:28:03,482 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Correspondence_val_000105_img2.png
+2026-03-05 13:28:19,142 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Art_Style_val_000016_img1.jpg
+2026-03-05 13:28:19,142 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Art_Style_val_000016_img1.jpg
+2026-03-05 13:28:19,168 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (1991, 1382, 3)
+2026-03-05 13:28:19,170 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (1991, 1382, 3)
+2026-03-05 13:28:19,190 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:28:19,192 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:28:22,525 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Art_Style_val_000016_img1.png
+2026-03-05 13:28:22,638 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Art_Style_val_000016_img1.png
+2026-03-05 13:28:22,644 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Art_Style_val_000016_img1.png
+2026-03-05 13:28:25,217 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Art_Style_val_000016_img1.png
+2026-03-05 13:28:25,383 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Art_Style_val_000016_img1.png
+2026-03-05 13:28:25,394 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Art_Style_val_000016_img1.png
+2026-03-05 13:29:03,564 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000015_img1.jpg
+2026-03-05 13:29:03,564 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000015_img2.jpg
+2026-03-05 13:29:03,565 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000015_img3.jpg
+2026-03-05 13:29:03,565 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000015_img4.jpg
+2026-03-05 13:29:03,567 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 13:29:03,568 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 13:29:03,569 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 13:29:03,569 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 13:29:03,570 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:29:03,573 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:29:03,573 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:29:03,573 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:29:06,390 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000015_img1.png
+2026-03-05 13:29:06,406 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000015_img1.png
+2026-03-05 13:29:06,407 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000015_img1.png
+2026-03-05 13:29:09,035 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000015_img2.png
+2026-03-05 13:29:09,051 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000015_img2.png
+2026-03-05 13:29:09,053 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000015_img2.png
+2026-03-05 13:29:11,741 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000015_img4.png
+2026-03-05 13:29:11,752 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000015_img4.png
+2026-03-05 13:29:11,753 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000015_img4.png
+2026-03-05 13:29:14,394 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000015_img3.png
+2026-03-05 13:29:14,405 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000015_img3.png
+2026-03-05 13:29:14,406 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000015_img3.png
+2026-03-05 13:29:48,087 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000028_img1.jpg
+2026-03-05 13:29:48,087 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000028_img2.jpg
+2026-03-05 13:29:48,092 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 13:29:48,094 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 13:29:48,095 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:29:48,097 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:29:50,777 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000028_img1.png
+2026-03-05 13:29:50,796 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000028_img1.png
+2026-03-05 13:29:50,797 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000028_img1.png
+2026-03-05 13:29:53,328 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000028_img2.png
+2026-03-05 13:29:53,347 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000028_img2.png
+2026-03-05 13:29:53,348 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000028_img2.png
+2026-03-05 13:29:59,737 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000028_img1.jpg
+2026-03-05 13:29:59,738 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000028_img2.jpg
+2026-03-05 13:29:59,739 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000028_img1.jpg
+2026-03-05 13:29:59,740 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 13:29:59,743 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:29:59,743 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 13:29:59,745 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 13:29:59,746 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:29:59,748 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:30:02,457 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000028_img1.png
+2026-03-05 13:30:02,476 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000028_img1.png
+2026-03-05 13:30:02,477 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000028_img1.png
+2026-03-05 13:30:04,996 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000028_img1.png
+2026-03-05 13:30:05,009 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000028_img1.png
+2026-03-05 13:30:05,009 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000028_img1.png
+2026-03-05 13:30:07,538 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000028_img2.png
+2026-03-05 13:30:07,557 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000028_img2.png
+2026-03-05 13:30:07,559 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000028_img2.png
+2026-03-05 13:32:06,200 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000328.png
+2026-03-05 13:32:06,209 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (256, 256, 3)
+2026-03-05 13:32:06,210 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:32:08,825 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000328.png
+2026-03-05 13:32:08,831 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000328.png
+2026-03-05 13:32:08,831 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000328.png
+2026-03-05 13:38:58,470 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000058_img1.jpg
+2026-03-05 13:38:58,470 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000058_img2.jpg
+2026-03-05 13:38:58,473 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 13:38:58,473 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 13:38:58,476 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:38:58,476 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:39:01,263 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000058_img1.png
+2026-03-05 13:39:01,279 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000058_img1.png
+2026-03-05 13:39:01,281 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000058_img1.png
+2026-03-05 13:39:04,139 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000058_img2.png
+2026-03-05 13:39:04,155 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000058_img2.png
+2026-03-05 13:39:04,157 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000058_img2.png
+2026-03-05 13:39:32,373 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000023_img1.jpg
+2026-03-05 13:39:32,376 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 13:39:32,378 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:39:35,166 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000023_img1.png
+2026-03-05 13:39:35,184 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000023_img1.png
+2026-03-05 13:39:35,185 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000023_img1.png
+2026-03-05 13:41:14,734 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000056_img1.jpg
+2026-03-05 13:41:14,735 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000056_img2.jpg
+2026-03-05 13:41:14,737 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 13:41:14,739 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:41:14,741 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 13:41:14,743 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:41:17,489 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000056_img1.png
+2026-03-05 13:41:17,503 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000056_img1.png
+2026-03-05 13:41:17,505 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000056_img1.png
+2026-03-05 13:41:20,072 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000056_img2.png
+2026-03-05 13:41:20,087 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000056_img2.png
+2026-03-05 13:41:20,088 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000056_img2.png
+2026-03-05 13:41:49,147 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000132_img1.jpg
+2026-03-05 13:41:49,153 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 13:41:49,161 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:41:51,004 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000132_img2.jpg
+2026-03-05 13:41:51,010 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 13:41:51,016 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:41:51,240 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000132_img3.jpg
+2026-03-05 13:41:51,246 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 13:41:51,252 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:41:52,370 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000132_img1.png
+2026-03-05 13:41:52,408 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000132_img1.png
+2026-03-05 13:41:52,411 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000132_img1.png
+2026-03-05 13:41:54,967 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000132_img2.png
+2026-03-05 13:41:55,005 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000132_img2.png
+2026-03-05 13:41:55,008 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000132_img2.png
+2026-03-05 13:41:57,794 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000132_img3.png
+2026-03-05 13:41:57,831 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000132_img3.png
+2026-03-05 13:41:57,834 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000132_img3.png
+2026-03-05 13:43:02,220 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Counting_val_000046_img1.jpg
+2026-03-05 13:43:02,224 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (332, 500, 3)
+2026-03-05 13:43:02,226 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:43:04,961 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Counting_val_000046_img1.png
+2026-03-05 13:43:04,971 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Counting_val_000046_img1.png
+2026-03-05 13:43:04,972 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Counting_val_000046_img1.png
+2026-03-05 13:57:12,193 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000074_img1.jpg
+2026-03-05 13:57:12,198 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 13:57:12,200 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:57:15,122 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000074_img1.png
+2026-03-05 13:57:15,137 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000074_img1.png
+2026-03-05 13:57:15,139 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000074_img1.png
+2026-03-05 13:59:19,526 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img1.jpg
+2026-03-05 13:59:19,527 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img2.jpg
+2026-03-05 13:59:19,527 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img3.jpg
+2026-03-05 13:59:19,527 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img2.jpg
+2026-03-05 13:59:19,528 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-05 13:59:19,529 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:59:19,529 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:59:19,529 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:59:19,530 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:59:19,530 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:59:19,530 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:59:19,530 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:59:22,070 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img2.png
+2026-03-05 13:59:22,073 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img2.png
+2026-03-05 13:59:22,073 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img2.png
+2026-03-05 13:59:22,074 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000022_img3.jpg
+2026-03-05 13:59:22,074 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 13:59:22,075 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 13:59:24,626 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img3.png
+2026-03-05 13:59:24,631 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img3.png
+2026-03-05 13:59:24,631 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img3.png
+2026-03-05 13:59:27,174 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img1.png
+2026-03-05 13:59:27,182 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img1.png
+2026-03-05 13:59:27,183 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img1.png
+2026-03-05 13:59:29,710 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img2.png
+2026-03-05 13:59:29,714 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img2.png
+2026-03-05 13:59:29,714 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img2.png
+2026-03-05 13:59:32,509 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000022_img3.png
+2026-03-05 13:59:32,513 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000022_img3.png
+2026-03-05 13:59:32,514 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000022_img3.png
+2026-03-05 14:06:34,198 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Forensic_Detection_val_000019_img1.jpg
+2026-03-05 14:06:34,201 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (512, 512, 3)
+2026-03-05 14:06:34,204 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:06:35,133 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000130.png
+2026-03-05 14:06:35,273 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (1536, 2048, 3)
+2026-03-05 14:06:35,288 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:06:37,097 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Forensic_Detection_val_000019_img1.png
+2026-03-05 14:06:37,114 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Forensic_Detection_val_000019_img1.png
+2026-03-05 14:06:37,115 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Forensic_Detection_val_000019_img1.png
+2026-03-05 14:06:41,446 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000130.png
+2026-03-05 14:06:41,609 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000130.png
+2026-03-05 14:06:41,621 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000130.png
+2026-03-05 14:08:14,065 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Multi-view_Reasoning_val_000021_img1.jpg
+2026-03-05 14:08:14,071 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 14:08:14,076 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:08:16,839 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Multi-view_Reasoning_val_000021_img1.png
+2026-03-05 14:08:16,857 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Multi-view_Reasoning_val_000021_img1.png
+2026-03-05 14:08:16,859 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Multi-view_Reasoning_val_000021_img1.png
+2026-03-05 14:09:16,228 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000013_img1.jpg
+2026-03-05 14:09:16,229 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000013_img2.jpg
+2026-03-05 14:09:16,230 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000013_img3.jpg
+2026-03-05 14:09:16,230 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (220, 400, 3)
+2026-03-05 14:09:16,230 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000013_img2.jpg
+2026-03-05 14:09:16,232 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 14:09:16,232 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 14:09:16,232 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 14:09:16,232 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:09:16,232 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:09:16,232 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:09:16,233 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:09:18,800 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000013_img2.png
+2026-03-05 14:09:18,802 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000013_img2.png
+2026-03-05 14:09:18,802 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000013_img2.png
+2026-03-05 14:09:18,803 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Jigsaw_val_000013_img3.jpg
+2026-03-05 14:09:18,804 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (110, 200, 3)
+2026-03-05 14:09:18,804 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:09:22,778 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000013_img1.png
+2026-03-05 14:09:22,784 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000013_img1.png
+2026-03-05 14:09:22,785 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000013_img1.png
+2026-03-05 14:09:26,019 - external_experts.SAM2.sam2_client - ERROR - 推理请求失败: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'
+2026-03-05 14:09:28,821 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Jigsaw_val_000013_img2.png
+2026-03-05 14:09:28,823 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Jigsaw_val_000013_img2.png
+2026-03-05 14:09:28,823 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Jigsaw_val_000013_img2.png
+2026-03-05 14:09:31,631 - external_experts.SAM2.sam2_client - ERROR - 推理请求失败: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'
+2026-03-05 14:10:15,709 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000055_img1.jpg
+2026-03-05 14:10:15,710 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000055_img2.jpg
+2026-03-05 14:10:15,711 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/BLINK_images/Visual_Similarity_val_000055_img3.jpg
+2026-03-05 14:10:15,717 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 14:10:15,717 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 14:10:15,718 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (768, 768, 3)
+2026-03-05 14:10:15,722 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:10:15,723 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:10:15,724 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:10:19,472 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000055_img1.png
+2026-03-05 14:10:19,508 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000055_img1.png
+2026-03-05 14:10:19,511 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000055_img1.png
+2026-03-05 14:10:21,780 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000055_img2.png
+2026-03-05 14:10:21,812 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000055_img2.png
+2026-03-05 14:10:21,815 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000055_img2.png
+2026-03-05 14:10:24,128 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_Visual_Similarity_val_000055_img3.png
+2026-03-05 14:10:24,166 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_Visual_Similarity_val_000055_img3.png
+2026-03-05 14:10:24,168 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_Visual_Similarity_val_000055_img3.png
+2026-03-05 14:14:05,278 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/001393.png
+2026-03-05 14:14:05,297 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (480, 640, 3)
+2026-03-05 14:14:05,301 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:14:08,070 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_001393.png
+2026-03-05 14:14:08,091 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_001393.png
+2026-03-05 14:14:08,093 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_001393.png
+2026-03-05 14:14:29,661 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000881.png
+2026-03-05 14:14:29,683 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 427, 3)
+2026-03-05 14:14:29,687 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:14:32,769 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000881.png
+2026-03-05 14:14:32,787 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000881.png
+2026-03-05 14:14:32,788 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000881.png
+2026-03-05 14:19:12,296 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/001083.png
+2026-03-05 14:19:12,313 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (369, 492, 3)
+2026-03-05 14:19:12,315 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:19:14,965 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_001083.png
+2026-03-05 14:19:14,978 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_001083.png
+2026-03-05 14:19:14,979 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_001083.png
+2026-03-05 14:20:56,010 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000022.png
+2026-03-05 14:20:56,019 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (300, 300, 3)
+2026-03-05 14:20:56,021 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 14:20:59,040 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000022.png
+2026-03-05 14:20:59,048 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000022.png
+2026-03-05 14:20:59,049 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000022.png
+2026-03-05 15:09:30,961 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000130.png
+2026-03-05 15:09:31,073 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (1536, 2048, 3)
+2026-03-05 15:09:31,083 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 15:09:35,152 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000130.png
+2026-03-05 15:09:35,269 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000130.png
+2026-03-05 15:09:35,282 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000130.png
+2026-03-05 15:15:52,013 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000881.png
+2026-03-05 15:15:52,033 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 427, 3)
+2026-03-05 15:15:52,035 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 15:15:54,868 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000881.png
+2026-03-05 15:15:54,886 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000881.png
+2026-03-05 15:15:54,888 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000881.png
+2026-03-05 15:16:24,012 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000418.png
+2026-03-05 15:16:24,018 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (256, 256, 3)
+2026-03-05 15:16:24,019 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 15:16:26,536 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000418.png
+2026-03-05 15:16:26,543 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000418.png
+2026-03-05 15:16:26,543 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000418.png
+2026-03-05 15:25:36,397 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000700.png
+2026-03-05 15:25:36,416 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 427, 3)
+2026-03-05 15:25:36,418 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 15:25:39,101 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000700.png
+2026-03-05 15:25:39,111 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000700.png
+2026-03-05 15:25:39,112 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000700.png
+2026-03-05 15:33:40,793 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/001010.png
+2026-03-05 15:33:40,817 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (514, 640, 3)
+2026-03-05 15:33:40,820 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 15:33:43,551 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_001010.png
+2026-03-05 15:33:43,572 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_001010.png
+2026-03-05 15:33:43,574 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_001010.png
+2026-03-05 15:37:35,825 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000655.png
+2026-03-05 15:37:35,849 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 15:37:35,851 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 15:37:38,757 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000655.png
+2026-03-05 15:37:38,778 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000655.png
+2026-03-05 15:37:38,779 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000655.png
+2026-03-05 15:37:59,702 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000260.png
+2026-03-05 15:37:59,707 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (256, 256, 3)
+2026-03-05 15:37:59,708 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 15:38:02,246 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000260.png
+2026-03-05 15:38:02,253 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000260.png
+2026-03-05 15:38:02,254 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000260.png
+2026-03-05 15:54:21,986 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/001085.png
+2026-03-05 15:54:22,007 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 427, 3)
+2026-03-05 15:54:22,010 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 15:54:24,654 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_001085.png
+2026-03-05 15:54:24,671 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_001085.png
+2026-03-05 15:54:24,672 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_001085.png
+2026-03-05 15:57:06,968 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000942.png
+2026-03-05 15:57:06,987 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (427, 640, 3)
+2026-03-05 15:57:06,990 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 15:57:10,008 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000942.png
+2026-03-05 15:57:10,024 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000942.png
+2026-03-05 15:57:10,025 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000942.png
+2026-03-05 15:59:49,311 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000128.png
+2026-03-05 15:59:49,325 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (500, 328, 3)
+2026-03-05 15:59:49,331 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 15:59:51,868 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000128.png
+2026-03-05 15:59:51,882 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000128.png
+2026-03-05 15:59:51,883 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000128.png
+2026-03-05 16:00:23,785 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000974.png
+2026-03-05 16:00:23,806 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (640, 480, 3)
+2026-03-05 16:00:23,809 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:00:26,521 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000974.png
+2026-03-05 16:00:26,540 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000974.png
+2026-03-05 16:00:26,542 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000974.png
+2026-03-05 16:02:06,646 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000877.png
+2026-03-05 16:02:06,665 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (458, 640, 3)
+2026-03-05 16:02:06,667 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:02:09,486 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000877.png
+2026-03-05 16:02:09,509 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000877.png
+2026-03-05 16:02:09,511 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000877.png
+2026-03-05 16:02:12,117 - external_experts.SAM2.sam2_client - INFO - 读取图片: outputs/pointing_000877.png
+2026-03-05 16:02:12,132 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (458, 640, 3)
+2026-03-05 16:02:12,135 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:02:14,763 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_pointing_000877.png
+2026-03-05 16:02:14,782 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_pointing_000877.png
+2026-03-05 16:02:14,783 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_pointing_000877.png
+2026-03-05 16:08:11,124 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000784.png
+2026-03-05 16:08:11,142 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (427, 640, 3)
+2026-03-05 16:08:11,145 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:08:13,886 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000784.png
+2026-03-05 16:08:13,900 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000784.png
+2026-03-05 16:08:13,901 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000784.png
+2026-03-05 16:16:11,913 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000634.png
+2026-03-05 16:16:11,934 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (483, 640, 3)
+2026-03-05 16:16:11,937 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:16:14,655 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000634.png
+2026-03-05 16:16:14,675 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000634.png
+2026-03-05 16:16:14,676 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000634.png
+2026-03-05 16:16:51,710 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000891.png
+2026-03-05 16:16:51,725 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (500, 375, 3)
+2026-03-05 16:16:51,728 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:16:54,489 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000891.png
+2026-03-05 16:16:54,501 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000891.png
+2026-03-05 16:16:54,502 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000891.png
+2026-03-05 16:27:45,237 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000280.png
+2026-03-05 16:27:45,414 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (1650, 2200, 3)
+2026-03-05 16:27:45,432 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:27:51,056 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000280.png
+2026-03-05 16:27:51,279 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000280.png
+2026-03-05 16:27:51,293 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000280.png
+2026-03-05 16:32:05,032 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000335.png
+2026-03-05 16:32:05,045 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (371, 493, 3)
+2026-03-05 16:32:05,046 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:32:08,250 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000335.png
+2026-03-05 16:32:08,261 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000335.png
+2026-03-05 16:32:08,262 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000335.png
+2026-03-05 16:42:00,846 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/001167.png
+2026-03-05 16:42:00,868 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (480, 640, 3)
+2026-03-05 16:42:00,871 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:42:03,595 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_001167.png
+2026-03-05 16:42:03,614 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_001167.png
+2026-03-05 16:42:03,616 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_001167.png
+2026-03-05 16:49:55,006 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000208.png
+2026-03-05 16:49:55,011 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (256, 256, 3)
+2026-03-05 16:49:55,012 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:49:57,583 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000208.png
+2026-03-05 16:49:57,590 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000208.png
+2026-03-05 16:49:57,591 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000208.png
+2026-03-05 16:56:35,184 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000860.png
+2026-03-05 16:56:35,185 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000860.png
+2026-03-05 16:56:35,185 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000860.png
+2026-03-05 16:56:35,199 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (375, 500, 3)
+2026-03-05 16:56:35,199 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (375, 500, 3)
+2026-03-05 16:56:35,199 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (375, 500, 3)
+2026-03-05 16:56:35,201 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:56:35,202 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:56:35,202 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:56:35,887 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000860.png
+2026-03-05 16:56:35,901 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (375, 500, 3)
+2026-03-05 16:56:35,903 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:56:37,888 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000860.png
+2026-03-05 16:56:37,900 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000860.png
+2026-03-05 16:56:37,901 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000860.png
+2026-03-05 16:56:37,901 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000860.png
+2026-03-05 16:56:37,911 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (375, 500, 3)
+2026-03-05 16:56:37,913 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:56:40,398 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000860.png
+2026-03-05 16:56:40,414 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000860.png
+2026-03-05 16:56:40,415 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000860.png
+2026-03-05 16:56:40,416 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000860.png
+2026-03-05 16:56:40,428 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (375, 500, 3)
+2026-03-05 16:56:40,430 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 16:56:42,875 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000860.png
+2026-03-05 16:56:42,887 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000860.png
+2026-03-05 16:56:42,888 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000860.png
+2026-03-05 16:56:45,365 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000860.png
+2026-03-05 16:56:45,378 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000860.png
+2026-03-05 16:56:45,379 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000860.png
+2026-03-05 16:56:47,966 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000860.png
+2026-03-05 16:56:47,978 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000860.png
+2026-03-05 16:56:47,979 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000860.png
+2026-03-05 16:56:50,474 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000860.png
+2026-03-05 16:56:50,486 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000860.png
+2026-03-05 16:56:50,487 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000860.png
+2026-03-05 17:12:30,555 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/001043.png
+2026-03-05 17:12:30,574 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (427, 640, 3)
+2026-03-05 17:12:30,576 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 17:12:33,259 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_001043.png
+2026-03-05 17:12:33,275 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_001043.png
+2026-03-05 17:12:33,276 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_001043.png
+2026-03-05 17:13:14,596 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000006.png
+2026-03-05 17:13:14,612 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (418, 560, 3)
+2026-03-05 17:13:14,614 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 17:13:17,271 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000006.png
+2026-03-05 17:13:17,286 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000006.png
+2026-03-05 17:13:17,287 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000006.png
+2026-03-05 17:14:38,946 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000286.png
+2026-03-05 17:14:38,952 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (256, 256, 3)
+2026-03-05 17:14:38,953 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 17:14:41,559 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000286.png
+2026-03-05 17:14:41,566 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000286.png
+2026-03-05 17:14:41,566 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000286.png
+2026-03-05 17:16:44,049 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000521.png
+2026-03-05 17:16:44,056 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (256, 256, 3)
+2026-03-05 17:16:44,058 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 17:16:46,763 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000521.png
+2026-03-05 17:16:46,769 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000521.png
+2026-03-05 17:16:46,769 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000521.png
+2026-03-05 17:27:07,235 - external_experts.SAM2.sam2_client - INFO - 读取图片: dataset/CVBench/2D/000100.png
+2026-03-05 17:27:07,245 - external_experts.SAM2.sam2_client - INFO - 图片尺寸: (311, 472, 3)
+2026-03-05 17:27:07,246 - external_experts.SAM2.sam2_client - INFO - 发送推理请求...
+2026-03-05 17:27:10,103 - external_experts.SAM2.sam2_client - INFO - 拼接图像已保存至: outputs/sam_combined_000100.png
+2026-03-05 17:27:10,113 - external_experts.SAM2.sam2_client - INFO - 掩码可视化已保存至: outputs/sam_overlay_000100.png
+2026-03-05 17:27:10,114 - external_experts.SAM2.sam2_client - INFO - 原始掩码已保存至: outputs/sam_mask_000100.png

@@ -1,0 +1,2164 @@
+INFO:spagent.tools.depth_tool:Using real depth estimation service at http://127.0.0.1:20019
+INFO:spagent.tools.detection_tool:Using real GroundingDINO service at http://127.0.0.1:20022
+INFO:spagent.tools.segmentation_tool:Using real SAM2 service at http://127.0.0.1:20020
+INFO:spagent.tools.detection_tool:Using real GroundingDINO service at http://localhost:20022
+INFO:spagent.tools.segmentation_tool:Using real SAM2 service at http://localhost:20020
+INFO:spagent.tools.depth_tool:Using real depth estimation service at http://localhost:20019
+INFO:spagent.models.gpt_model:Initialized GPT model: Qwen2.5-VL-72B-Instruct
+INFO:spagent.core.tool:Registered tool: detect_objects_tool
+INFO:spagent.core.tool:Registered tool: segment_image_tool
+INFO:spagent.core.tool:Registered tool: depth_estimation_tool
+INFO:spagent.core.spagent:Initialized SPAgent with model: Qwen2.5-VL-72B-Instruct
+
+============================================================
+Running depth encoding experiment: colormap=plasma
+============================================================
+
+Evaluating configuration: depth_plasma
+Loading data from /raid/.cache/tmp/tmptxgjnzuv.jsonl
+Evaluating 21 samples with Qwen2.5-VL-72B-Instruct
+Evaluating:   0%|          | 0/21 [00:00<?, ?it/s]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the chair and the pizza in the image provided, where is the chair located with respect to the pizza?
+Select from the following choices:
+(A) above
+(B) below
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:httpx:HTTP Request: POST http://localhost:8001/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:spagent.core.spagent:Response: <think>
+To determine the relative position of the chair with respect to the pizza, I will first detect the chair and the pizza in the image. Then, I will analyze their positions.
+</think>
+<tool_call>
+{"name": "detect_objects_tool", "arguments": {"image_path": "dataset/CVBench/2D/001139.png", "text_prompt": "chair"}}
+⚗
+<tool_call>
+📐
+
+{"name": "detect_objects_tool", "arguments": {"image_path": "dataset/CVBench/2D/001139.png", "text_prompt": "pizza"}}
+⚗
+
+
+
+{"name": "depth_estimation_tool", "arguments": {"image_path": "dataset/CVBench/2D/001139.png"}}
+⚗
+
+<think>
+Based on the object detection results, the chair is located behind the table, and the pizza is on the table. The depth estimation also confirms that the chair is further away from the camera than the pizza. Therefore, the chair is located above the pizza.
+</think>
+<answer>(A)</answer>
+INFO:spagent.core.spagent:Executing 3 tool calls in iteration 1...
+INFO:spagent.core.spagent:Executing tool: detect_objects_tool with args: {'image_path': 'dataset/CVBench/2D/001139.png', 'text_prompt': 'chair'}
+INFO:spagent.tools.detection_tool:Running object detection on: dataset/CVBench/2D/001139.png with prompt: chair
+INFO:spagent.core.spagent:Executing tool: detect_objects_tool with args: {'image_path': 'dataset/CVBench/2D/001139.png', 'text_prompt': 'pizza'}
+INFO:external_experts.GroundingDINO.grounding_dino_client:读取图片: dataset/CVBench/2D/001139.png
+INFO:spagent.tools.detection_tool:Running object detection on: dataset/CVBench/2D/001139.png with prompt: pizza
+INFO:spagent.core.spagent:Executing tool: depth_estimation_tool with args: {'image_path': 'dataset/CVBench/2D/001139.png'}
+INFO:spagent.tools.depth_tool:Running depth estimation on: dataset/CVBench/2D/001139.png
+INFO:external_experts.GroundingDINO.grounding_dino_client:读取图片: dataset/CVBench/2D/001139.png
+INFO:external_experts.Depth_AnythingV2.depth_client:读取图片: dataset/CVBench/2D/001139.png
+INFO:external_experts.GroundingDINO.grounding_dino_client:图片尺寸: (480, 640, 3)
+INFO:external_experts.Depth_AnythingV2.depth_client:图片尺寸: (480, 640, 3)
+INFO:external_experts.GroundingDINO.grounding_dino_client:图片尺寸: (480, 640, 3)
+INFO:external_experts.Depth_AnythingV2.depth_client:发送推理请求（colormap=plasma）...
+INFO:external_experts.GroundingDINO.grounding_dino_client:发送目标检测请求，文本提示：chair
+INFO:external_experts.GroundingDINO.grounding_dino_client:发送目标检测请求，文本提示：pizza
+INFO:external_experts.Depth_AnythingV2.depth_client:深度图已保存至: outputs/depth_plasma_001139.png
+INFO:spagent.tools.depth_tool:Depth estimation completed successfully
+INFO:spagent.core.spagent:Tool depth_estimation_tool completed successfully
+INFO:external_experts.GroundingDINO.grounding_dino_client:检测结果已保存至: outputs/detected_001139.png
+INFO:external_experts.GroundingDINO.grounding_dino_client:检测到 1 个目标
+INFO:spagent.tools.detection_tool:Object detection completed successfully
+INFO:spagent.core.spagent:Tool detect_objects_tool completed successfully
+INFO:external_experts.GroundingDINO.grounding_dino_client:检测结果已保存至: outputs/detected_001139.png
+INFO:external_experts.GroundingDINO.grounding_dino_client:检测到 1 个目标
+INFO:spagent.tools.detection_tool:Object detection completed successfully
+INFO:spagent.core.spagent:Tool detect_objects_tool completed successfully
+INFO:spagent.core.spagent:Sorted additional images: ['depth_plasma_001139.png', 'detected_001139.png', 'detected_001139.png']
+INFO:spagent.core.spagent:Answer provided in iteration 1, but continuing workflow if more tool calls exist
+INFO:spagent.core.spagent:=== Iteration 2/3 ===
+INFO:spagent.core.spagent:Getting continuation response for iteration 2...
+INFO:httpx:HTTP Request: POST http://localhost:8001/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+INFO:openai._base_client:Retrying request to /chat/completions in 0.440146 seconds
+INFO:httpx:HTTP Request: POST http://localhost:8001/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+INFO:openai._base_client:Retrying request to /chat/completions in 0.926248 seconds
+INFO:httpx:HTTP Request: POST http://localhost:8001/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 178, in gpt_multiple_images_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1047, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.InternalServerError: Error code: 500 - {'error': {'message': 'unrecognized data stream contents when reading image file', 'type': 'InternalServerError', 'param': None, 'code': 500}}
+ERROR:spagent.models.gpt_model:GPT multiple images inference failed: Error code: 500 - {'error': {'message': 'unrecognized data stream contents when reading image file', 'type': 'InternalServerError', 'param': None, 'code': 500}}
+Evaluating:   5%|▍         | 1/21 [00:16<05:29, 16.46s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the couch and the chair in the image provided, where is the couch located with respect to the chair?
+Select from the following choices:
+(A) left
+(B) right
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:httpx:HTTP Request: POST http://localhost:8001/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:spagent.core.spagent:Response: <think>
+To determine the relative position of the couch with respect to the chair, I will first detect both objects in the image.
+</think>
+<tool_call>
+{"name": "detect_objects_tool", "arguments": {"image_path": "dataset/CVBench/2D/001378.png", "text_prompt": "couch"}}
+⚗
+<tool_call>
+
+{"name": "detect_objects_tool", "arguments": {"image_path": "dataset/CVBench/2D/001378.png", "text_prompt": "chair"}}
+⚗
+
+📐
+
+
+
+
+<think>
+Based on the detected bounding boxes, the couch is located to the left of the chair in the image.
+</think>
+<answer>(A)</answer>
+INFO:spagent.core.spagent:Executing 2 tool calls in iteration 1...
+INFO:spagent.core.spagent:Executing tool: detect_objects_tool with args: {'image_path': 'dataset/CVBench/2D/001378.png', 'text_prompt': 'couch'}
+INFO:spagent.tools.detection_tool:Running object detection on: dataset/CVBench/2D/001378.png with prompt: couch
+INFO:spagent.core.spagent:Executing tool: detect_objects_tool with args: {'image_path': 'dataset/CVBench/2D/001378.png', 'text_prompt': 'chair'}
+INFO:spagent.tools.detection_tool:Running object detection on: dataset/CVBench/2D/001378.png with prompt: chair
+INFO:external_experts.GroundingDINO.grounding_dino_client:读取图片: dataset/CVBench/2D/001378.png
+INFO:external_experts.GroundingDINO.grounding_dino_client:读取图片: dataset/CVBench/2D/001378.png
+INFO:external_experts.GroundingDINO.grounding_dino_client:图片尺寸: (426, 640, 3)
+INFO:external_experts.GroundingDINO.grounding_dino_client:图片尺寸: (426, 640, 3)
+INFO:external_experts.GroundingDINO.grounding_dino_client:发送目标检测请求，文本提示：couch
+INFO:external_experts.GroundingDINO.grounding_dino_client:发送目标检测请求，文本提示：chair
+INFO:external_experts.GroundingDINO.grounding_dino_client:检测结果已保存至: outputs/detected_001378.png
+INFO:external_experts.GroundingDINO.grounding_dino_client:检测到 1 个目标
+INFO:spagent.tools.detection_tool:Object detection completed successfully
+INFO:spagent.core.spagent:Tool detect_objects_tool completed successfully
+INFO:external_experts.GroundingDINO.grounding_dino_client:检测结果已保存至: outputs/detected_001378.png
+INFO:external_experts.GroundingDINO.grounding_dino_client:检测到 1 个目标
+INFO:spagent.tools.detection_tool:Object detection completed successfully
+INFO:spagent.core.spagent:Tool detect_objects_tool completed successfully
+INFO:spagent.core.spagent:Sorted additional images: ['detected_001378.png', 'detected_001378.png']
+INFO:spagent.core.spagent:Answer provided in iteration 1, but continuing workflow if more tool calls exist
+INFO:spagent.core.spagent:=== Iteration 2/3 ===
+INFO:spagent.core.spagent:Getting continuation response for iteration 2...
+INFO:httpx:HTTP Request: POST http://localhost:8001/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:spagent.core.spagent:Response: <think>
+The previous analysis has already determined that the couch is located to the left of the chair based on the detected bounding boxes. There is no need for further investigation as the relative positions are clear.
+</think>
+<answer>(A)</answer>
+INFO:spagent.core.spagent:No tool calls found in iteration 2
+INFO:spagent.core.spagent:Ending workflow: final answer provided or max iterations reached
+Evaluating:  10%|▉         | 2/21 [00:26<03:56, 12.46s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the grass and the mountain in the image provided, where is the grass located with respect to the mountain?
+Select from the following choices:
+(A) above
+(B) below
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:httpx:HTTP Request: POST http://localhost:8001/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:spagent.core.spagent:Response: <think>
+To determine the relative position of the grass with respect to the mountain, I need to analyze the spatial arrangement of these elements in the image. The grass appears to be in the foreground while the mountain is in the background. To confirm this observation, I will use the `depth_estimation_tool` to generate a depth map of the image.
+</think>
+<tool_call>
+{"name": "depth_estimation_tool", "arguments": {"image_path": "dataset/CVBench/2D/000418.png"}}
+⚗
+INFO:spagent.core.spagent:Executing 1 tool calls in iteration 1...
+INFO:spagent.core.spagent:Executing tool: depth_estimation_tool with args: {'image_path': 'dataset/CVBench/2D/000418.png'}
+INFO:spagent.tools.depth_tool:Running depth estimation on: dataset/CVBench/2D/000418.png
+INFO:external_experts.Depth_AnythingV2.depth_client:读取图片: dataset/CVBench/2D/000418.png
+INFO:external_experts.Depth_AnythingV2.depth_client:图片尺寸: (256, 256, 3)
+INFO:external_experts.Depth_AnythingV2.depth_client:发送推理请求（colormap=plasma）...
+INFO:external_experts.Depth_AnythingV2.depth_client:深度图已保存至: outputs/depth_plasma_000418.png
+INFO:spagent.tools.depth_tool:Depth estimation completed successfully
+INFO:spagent.core.spagent:Tool depth_estimation_tool completed successfully
+INFO:spagent.core.spagent:Sorted additional images: ['depth_plasma_000418.png']
+INFO:spagent.core.spagent:=== Iteration 2/3 ===
+INFO:spagent.core.spagent:Getting continuation response for iteration 2...
+INFO:httpx:HTTP Request: POST http://localhost:8001/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:spagent.core.spagent:Response: <think>
+The depth map generated by the `depth_estimation_tool` shows that the grass area is highlighted in bright yellow, indicating it is closer to the viewer compared to the mountain, which is represented in darker purple tones. This confirms that the grass is indeed in the foreground and the mountain is in the background. Therefore, the grass is located below the mountain.
+</think>
+<answer>(B) below</answer>
+INFO:spagent.core.spagent:No tool calls found in iteration 2
+INFO:spagent.core.spagent:Ending workflow: final answer provided or max iterations reached
+Evaluating:  14%|█▍        | 3/21 [00:37<03:37, 12.07s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the animal (annotated by the red box) and the tree in the image provided, where is the animal (annotated by the red box) located with respect to the tree?
+Select from the following choices:
+(A) left
+(B) right
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.405793 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.795147 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  19%|█▉        | 4/21 [03:39<22:21, 78.92s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the heater and the chest of drawers in the image provided, where is the heater located with respect to the chest of drawers?
+Select from the following choices:
+(A) left
+(B) right
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.392335 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.824951 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  24%|██▍       | 5/21 [06:40<30:54, 115.89s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the cow (annotated by the red box) and the sheep in the image provided, where is the cow (annotated by the red box) located with respect to the sheep?
+Select from the following choices:
+(A) left
+(B) right
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.445401 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.996526 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  29%|██▊       | 6/21 [09:42<34:33, 138.24s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the mouse (annotated by the red box) and the laptop in the image provided, where is the mouse (annotated by the red box) located with respect to the laptop?
+Select from the following choices:
+(A) left
+(B) right
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.485623 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.879396 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  33%|███▎      | 7/21 [12:43<35:33, 152.39s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the umbrella and the handbag in the image provided, where is the umbrella located with respect to the handbag?
+Select from the following choices:
+(A) above
+(B) below
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.468248 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.859859 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  38%|███▊      | 8/21 [15:45<35:01, 161.67s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the bottle and the suitcase in the image provided, where is the bottle located with respect to the suitcase?
+Select from the following choices:
+(A) left
+(B) right
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:httpx:HTTP Request: POST http://localhost:8001/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:spagent.core.spagent:Response: <think>
+To determine the relative position of the bottle with respect to the suitcase, I will first detect both objects in the image.
+</think>
+<tool_call>
+{"name": "detect_objects_tool", "arguments": {"image_path": "dataset/CVBench/2D/001384.png", "text_prompt": "bottle"}}
+⚗
+<tool_call>
+{"name": "detect_objects_tool", "arguments": {"image_path": "dataset/CVBench/2D/001384.png", "text_prompt": "suitcase"}}
+⚗
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+⚗
+<think>
+Based on the detected positions of the bottle and the suitcase, the bottle is clearly positioned to the right of the suitcase.
+</think>
+<answer>(B)</answer>
+INFO:spagent.core.spagent:Executing 2 tool calls in iteration 1...
+INFO:spagent.core.spagent:Executing tool: detect_objects_tool with args: {'image_path': 'dataset/CVBench/2D/001384.png', 'text_prompt': 'bottle'}
+INFO:spagent.tools.detection_tool:Running object detection on: dataset/CVBench/2D/001384.png with prompt: bottle
+INFO:spagent.core.spagent:Executing tool: detect_objects_tool with args: {'image_path': 'dataset/CVBench/2D/001384.png', 'text_prompt': 'suitcase'}
+INFO:spagent.tools.detection_tool:Running object detection on: dataset/CVBench/2D/001384.png with prompt: suitcase
+INFO:external_experts.GroundingDINO.grounding_dino_client:读取图片: dataset/CVBench/2D/001384.png
+INFO:external_experts.GroundingDINO.grounding_dino_client:读取图片: dataset/CVBench/2D/001384.png
+INFO:external_experts.GroundingDINO.grounding_dino_client:图片尺寸: (375, 500, 3)
+INFO:external_experts.GroundingDINO.grounding_dino_client:图片尺寸: (375, 500, 3)
+INFO:external_experts.GroundingDINO.grounding_dino_client:发送目标检测请求，文本提示：bottle
+INFO:external_experts.GroundingDINO.grounding_dino_client:发送目标检测请求，文本提示：suitcase
+INFO:external_experts.GroundingDINO.grounding_dino_client:检测结果已保存至: outputs/detected_001384.png
+INFO:external_experts.GroundingDINO.grounding_dino_client:检测到 1 个目标
+INFO:spagent.tools.detection_tool:Object detection completed successfully
+INFO:spagent.core.spagent:Tool detect_objects_tool completed successfully
+INFO:external_experts.GroundingDINO.grounding_dino_client:检测结果已保存至: outputs/detected_001384.png
+INFO:external_experts.GroundingDINO.grounding_dino_client:检测到 1 个目标
+INFO:spagent.tools.detection_tool:Object detection completed successfully
+INFO:spagent.core.spagent:Tool detect_objects_tool completed successfully
+INFO:spagent.core.spagent:Sorted additional images: ['detected_001384.png', 'detected_001384.png']
+INFO:spagent.core.spagent:Answer provided in iteration 1, but continuing workflow if more tool calls exist
+INFO:spagent.core.spagent:=== Iteration 2/3 ===
+INFO:spagent.core.spagent:Getting continuation response for iteration 2...
+INFO:httpx:HTTP Request: POST http://localhost:8001/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:spagent.core.spagent:Response: <think>
+The previous analysis has already determined that the bottle is to the right of the suitcase based on the detected positions. There is no need for further investigation as the relative positions are clear.
+</think>
+<answer>(B)</answer>
+INFO:spagent.core.spagent:No tool calls found in iteration 2
+INFO:spagent.core.spagent:Ending workflow: final answer provided or max iterations reached
+Evaluating:  43%|████▎     | 9/21 [15:57<22:59, 114.98s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the bottle (annotated by the red box) and the wine glass in the image provided, where is the bottle (annotated by the red box) located with respect to the wine glass?
+Select from the following choices:
+(A) left
+(B) right
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.421203 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.909022 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  48%|████▊     | 10/21 [18:59<24:50, 135.52s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the grass and the bucket in the image provided, where is the grass located with respect to the bucket?
+Select from the following choices:
+(A) above
+(B) below
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.424751 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.750125 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  52%|█████▏    | 11/21 [22:00<24:55, 149.54s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the bowl and the banana in the image provided, where is the bowl located with respect to the banana?
+Select from the following choices:
+(A) left
+(B) right
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.463670 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.783707 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  57%|█████▋    | 12/21 [25:01<23:53, 159.26s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the apple (annotated by the red box) and the orange in the image provided, where is the apple (annotated by the red box) located with respect to the orange?
+Select from the following choices:
+(A) left
+(B) right
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.409343 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.962869 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  62%|██████▏   | 13/21 [28:03<22:07, 165.99s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the potted plant (annotated by the red box) and the laptop in the image provided, where is the potted plant (annotated by the red box) located with respect to the laptop?
+Select from the following choices:
+(A) left
+(B) right
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.493837 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.945684 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  67%|██████▋   | 14/21 [31:05<19:55, 170.72s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the person (annotated by the red box) and the snowboard in the image provided, where is the person (annotated by the red box) located with respect to the snowboard?
+Select from the following choices:
+(A) left
+(B) right
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.458248 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.808358 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  71%|███████▏  | 15/21 [34:06<17:23, 173.96s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the sports ball and the person in the image provided, where is the sports ball located with respect to the person?
+Select from the following choices:
+(A) above
+(B) below
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.490609 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.922620 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  76%|███████▌  | 16/21 [37:08<14:41, 176.27s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the backpack (annotated by the red box) and the truck in the image provided, where is the backpack (annotated by the red box) located with respect to the truck?
+Select from the following choices:
+(A) above
+(B) below
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.418084 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.847997 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  81%|████████  | 17/21 [40:09<11:51, 177.84s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the tree and the steps in the image provided, where is the tree located with respect to the steps?
+Select from the following choices:
+(A) above
+(B) below
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.434980 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.754636 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  86%|████████▌ | 18/21 [43:11<08:56, 178.91s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the building and the manhole in the image provided, where is the building located with respect to the manhole?
+Select from the following choices:
+(A) above
+(B) below
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.496902 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.761590 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  90%|█████████ | 19/21 [46:12<05:59, 179.67s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the person (annotated by the red box) and the horse in the image provided, where is the person (annotated by the red box) located with respect to the horse?
+Select from the following choices:
+(A) left
+(B) right
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.446592 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.912868 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating:  95%|█████████▌| 20/21 [49:14<03:00, 180.24s/it]INFO:spagent.core.spagent:Starting problem solving for question: Considering the relative positions of the banana (annotated by the red box) and the spoon in the image provided, where is the banana (annotated by the red box) located with respect to the spoon?
+Select from the following choices:
+(A) left
+(B) right
+ (max_iterations=3)
+INFO:spagent.core.spagent:=== Iteration 1/3 ===
+INFO:spagent.core.spagent:Getting initial model response...
+INFO:openai._base_client:Retrying request to /chat/completions in 0.432916 seconds
+INFO:openai._base_client:Retrying request to /chat/completions in 0.900163 seconds
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+        self.READ_NUM_BYTES, timeout=timeout
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 982, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/raid/miniconda3/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/raid/william/project/spagent/spagent/vllm_models/gpt.py", line 99, in gpt_single_image_inference
+    response = client.chat.completions.create(**kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/resources/chat/completions/completions.py", line 1192, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/raid/miniconda3/lib/python3.13/site-packages/openai/_base_client.py", line 1000, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+ERROR:spagent.models.gpt_model:GPT single image inference failed: Request timed out.
+Evaluating: 100%|██████████| 21/21 [52:15<00:00, 180.63s/it]Evaluating: 100%|██████████| 21/21 [52:15<00:00, 149.31s/it]
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001139.png
+[参数] max_tokens: None, temperature: 0.0
+[推理成功] 返回长度: 850
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像数量: 4
+[参数] max_tokens: 4096, temperature: 0.0
+[图像处理] 成功编码 4/4 张图像
+[推理失败] 推理失败: InternalServerError: Error code: 500 - {'error': {'message': 'unrecognized data stream contents when reading image file', 'type': 'InternalServerError', 'param': None, 'code': 500}}
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001378.png
+[参数] max_tokens: None, temperature: 0.0
+[推理成功] 返回长度: 546
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像数量: 3
+[参数] max_tokens: 4096, temperature: 0.0
+[图像处理] 成功编码 3/3 张图像
+[推理成功] 返回长度: 251
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/000418.png
+[参数] max_tokens: None, temperature: 0.0
+[推理成功] 返回长度: 467
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像数量: 2
+[参数] max_tokens: 4096, temperature: 0.0
+[图像处理] 成功编码 2/2 张图像
+[推理成功] 返回长度: 414
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/000566.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/000626.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001092.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001222.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001327.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001384.png
+[参数] max_tokens: None, temperature: 0.0
+[推理成功] 返回长度: 618
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像数量: 3
+[参数] max_tokens: 4096, temperature: 0.0
+[图像处理] 成功编码 3/3 张图像
+[推理成功] 返回长度: 243
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001284.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/000491.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001167.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001239.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001404.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001133.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001366.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001285.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/000510.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/000521.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001244.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+[推理开始] 模型: Qwen2.5-VL-72B-Instruct, 图像: dataset/CVBench/2D/001372.png
+[参数] max_tokens: None, temperature: 0.0
+[推理失败] 推理失败: APITimeoutError: Request timed out.
+✓ Detailed interaction records saved to: depth_plasma_detailed_interactions.json
+
+Results for depth_plasma:
+
+============================================================
+BLINK DATASET EVALUATION RESULTS
+============================================================
+Model: Qwen2.5-VL-72B-Instruct
+Total samples: 21
+Successful samples: 3
+Failed samples: 18
+Overall accuracy: 1.0000 (100.00%)
+Average inference time: 11.14 seconds
+Total inference time: 33.43 seconds
+
+Task-wise Statistics:
+----------------------------------------
+Relation            : 1.0000 (3/3)
+
+Correct questions: 3 IDs
+Incorrect questions: 0 IDs
+
+Failed samples (18):
+----------------------------------------
+ID: Relation_1139, Error: Error code: 500 - {'error': {'message': 'unrecognized data stream contents when reading image file', 'type': 'InternalServerError', 'param': None, 'code': 500}}
+ID: Relation_566, Error: Request timed out.
+ID: Relation_626, Error: Request timed out.
+ID: Relation_1092, Error: Request timed out.
+ID: Relation_1222, Error: Request timed out.
+... and 13 more
+
+All results saved to ./test/CVBench_Qwen2.5-VL-72B-Instruct-depth-plasma_retry2/spagent_evaluation_results_Qwen2.5_VL_72B_Instruct_3_all.json
+Found 21 failed samples to retry
+Filtered dataset: 21 samples → /raid/.cache/tmp/tmptxgjnzuv.jsonl
+
+Running: /raid/miniconda3/bin/python examples/evaluation/evaluate_depth_encoding.py --data_path /raid/.cache/tmp/tmptxgjnzuv.jsonl --output_dir ./test/CVBench_Qwen2.5-VL-72B-Instruct-depth-plasma_retry2 --model Qwen2.5-VL-72B-Instruct --colormap plasma --output_dir ./test/CVBench_Qwen2.5-VL-72B-Instruct-depth-plasma_retry2
+
+
+Merged results saved to: test/CVBench_Qwen2.5-VL-72B-Instruct-depth-plasma_merged_merged/spagent_evaluation_results_Qwen2.5_VL_72B_Instruct_3_all.json
+  Total:      500
+  Successful: 482
+  Failed:     18
+  Accuracy:   0.7220 (72.20%)
