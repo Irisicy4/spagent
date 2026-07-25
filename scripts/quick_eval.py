@@ -108,7 +108,15 @@ _load_dotenv()
 
 # ── SPAgent ───────────────────────────────────────────────────────────────────
 from spagent.core import SPAgent, build_general_vision_continuation_hint
-from spagent.core.prompts import SPATIAL_2_ROLE, SPATIAL_2_WORKFLOW, SPATIAL_2_CONTINUATION_HINT, build_system_prompt
+from spagent.core.prompts import (
+    SPATIAL_2_ROLE,
+    SPATIAL_2_WORKFLOW,
+    SPATIAL_2_CONTINUATION_HINT,
+    SPATIAL_3_ROLE,
+    SPATIAL_3_WORKFLOW,
+    SPATIAL_3_CONTINUATION_HINT,
+    build_system_prompt,
+)
 from spagent.models import GPTModel, QwenModel, QwenVLLMModel
 
 
@@ -1183,7 +1191,7 @@ def main():
                             "filters that column instead."
                         ))
     parser.add_argument("--prompt", default="general",
-                        choices=["spatial", "spatial2", "general"],
+                        choices=["spatial", "spatial2", "spatial3", "general"],
                         help=(
                             "System prompt style. "
                             "'spatial' uses the built-in SPATIAL_3D_ROLE + SPATIAL_3D_WORKFLOW + "
@@ -1191,6 +1199,8 @@ def main():
                             "'spatial2' uses the dedicated SPATIAL_2_ROLE + SPATIAL_2_WORKFLOW + "
                             "SPATIAL_2_CONTINUATION_HINT (ego-quadrant / compass-bearing / "
                             "motion-direction / counting recipes; does not touch the 'spatial' prompt). "
+                            "'spatial3' uses SPATIAL_3_ROLE + SPATIAL_3_WORKFLOW + "
+                            "SPATIAL_3_CONTINUATION_HINT (autonomous Pi3 viewpoint exploration). "
                             "'general' (default) uses a concise tool-hint prompt."
                         ))
     parser.add_argument("--rl-trained", action="store_true",
@@ -1315,6 +1325,21 @@ def main():
             max_workers=4,
             system_prompt=spatial2_system_prompt_template,
             continuation_hint=SPATIAL_2_CONTINUATION_HINT,
+        )
+    elif args.prompt == "spatial3":
+        # Third spatial prompt: SPATIAL_3_ROLE + SPATIAL_3_WORKFLOW +
+        # SPATIAL_3_CONTINUATION_HINT (autonomous viewpoint exploration). Same
+        # legacy-template mechanism as spatial2 so SPAgent._render_role_prompt fills in
+        # the real tool schemas; leaves both other spatial prompts untouched.
+        spatial3_system_prompt_template = build_system_prompt(
+            SPATIAL_3_ROLE, "{tools_json}", workflow=SPATIAL_3_WORKFLOW
+        )
+        agent = SPAgent(
+            model=model_instance,
+            tools=tools,
+            max_workers=4,
+            system_prompt=spatial3_system_prompt_template,
+            continuation_hint=SPATIAL_3_CONTINUATION_HINT,
         )
     else:
         # ── General prompt: per-tool role hints (original behaviour) ──────────

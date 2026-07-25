@@ -44,6 +44,10 @@ from .prompts import (
     SPATIAL_2_WORKFLOW,
     SPATIAL_2_CONTINUATION_HINT,
     create_spatial2_system_prompt,
+    SPATIAL_3_ROLE,
+    SPATIAL_3_WORKFLOW,
+    SPATIAL_3_CONTINUATION_HINT,
+    create_spatial3_system_prompt,
 )
 
 __all__ = [
@@ -80,4 +84,8 @@ __all__ = [
     'SPATIAL_2_WORKFLOW',
     'SPATIAL_2_CONTINUATION_HINT',
     'create_spatial2_system_prompt',
+    'SPATIAL_3_ROLE',
+    'SPATIAL_3_WORKFLOW',
+    'SPATIAL_3_CONTINUATION_HINT',
+    'create_spatial3_system_prompt',
 ]

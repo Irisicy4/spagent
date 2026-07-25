@@ -216,6 +216,72 @@ still missing.
 Then verify your answer against the original photos one more time. Output analysis in
 <think></think> and only the option letter/number in <answer></answer>."""
 
+# ─── Spatial-3 workflow (third spatial preset, independent of the two above) ──
+#
+# The original viewpoint-exploration workflow: no per-task-type solvers, just
+# guidance on autonomously exploring NEW Pi3 rendering angles.
+
+SPATIAL_3_ROLE = "You are a helpful assistant that can analyze images and answer questions."
+
+SPATIAL_3_WORKFLOW = """# Multi-Step Workflow
+You can perform MULTIPLE rounds of tool calls and analysis. When using 3D reconstruction tools (Pi3), autonomously explore viewpoints:
+
+**IMPORTANT: The input image(s) already show the scene at (azimuth=0°, elevation=0°) viewpoint. DO NOT call Pi3 tools with (0°, 0°) as it will just return the same view you already have!
+The camera is visualized as a pyramid frustum, where the apex represents the camera's position and viewing direction.**
+
+
+# Recommended NEW viewing angles to explore:
+- Left views: azimuth=-45° or -90° (see scenes from right view)
+- Right views: azimuth=45° or 90° (see scenes from left view)
+- Top views: elevation=30° to 60° (see scenes from top view, better capture the object relation and relatifve position of cam and objects.)
+- Back views: azimuth=180° or ±135° (see scenes from back view)
+- Diagonal views: combine azimuth and elevation (e.g., 45°, 30°)
+
+Workflow:
+1. Analyze the current view(s) you have
+2. Decide which NEW angles (NOT 0°,0°!) would help answer the question
+3. Call tools with specific angles that are DIFFERENT from (0°,0°)
+4. **If you have multiple input images**: Try different rotation_reference_camera values (1, 2, 3, etc.) to see the scene from different camera positions base on your analysis on the question.
+5. **Consider using camera_view=true** to get first-person perspective from specific camera positions, especially useful for understanding spatial relationships and what each camera can actually see
+6. After each round, analyze whether additional angles, camera positions, or perspective modes would reduce uncertainty
+8. Continue until additional views no longer change your conclusion
+9. Only put number (like 1,2,3) or Options in <answer></answer> tags, do not put any other text.
+
+
+Note that in 3D reconstruction, the camera numbering corresponds directly to the image numbering — cam1 represents the first frame.
+You can examine the image to understand what is around cam1.
+The 3D reconstruction provides relative positional information, so you should reason interactively and complementarily between the 2D image and the 3D reconstruction to form a complete understanding.
+You need to analyze deeply the camera, its orientation, and the content captured in the frame.
+
+TIPS: For questions related to orientation or relative positioning, it is recommended to choose top view."""
+
+SPATIAL_3_CONTINUATION_HINT = """1. **Continue investigating** - Call tools with DIFFERENT parameters:
+   - **IMPORTANT**: Your original input images are already at (azimuth=0°, elevation=0°). DO NOT call Pi3 tools with (0°, 0°) again!
+   - For Pi3 tools: Try NEW viewing angles to understand the 3D structure better
+   - Recommended NEW angles (NOT 0°,0°!):
+     * Left: (-45°, 0°) or (-90°, 0°)
+     * Right: (45°, 0°) or (90°, 0°)
+     * Top: (0°, 45°) or (0°, 60°)
+     * Bottom: (0°, -45°)
+     * Back: (180°, 0°) or (±135°, 0°)
+     * Diagonal: (45°, 30°) or (-45°, 30°)
+   - Each NEW angle reveals different aspects of the 3D structure
+
+   **Advanced Pi3 Parameters**:
+   - **rotation_reference_camera** (integer, 1-based): When you have multiple input images, try DIFFERENT camera positions as rotation centers
+     * Default is 1 (first camera), Set to 2, 3, etc. to rotate around different camera positions
+   - **camera_view** (boolean): False = global bird's-eye view; True = first-person camera view
+
+2. **Provide final answer** - If you have sufficient information, output your analysis in <think></think> and final answer in <answer></answer>.
+
+Instructions:
+- Think: Do you need to see the object from another NEW angle (NOT 0°,0°!) to answer the question better?
+- If YES: Use <tool_call></tool_call> to request a DIFFERENT viewing angle (avoid 0°,0° as you already have it!)
+- If NO: output your thinking process in <think></think> and your final answer in <answer></answer>. Only put Options in <answer></answer> tags, do not put any other text.
+
+Note that in 3D reconstruction, the camera numbering corresponds directly to the image numbering — cam1 represents the first frame.
+The 3D reconstruction provides relative positional information, so reason interactively and complementarily between 2D images and the 3D reconstruction."""
+
 
 # ─── Per-tool guidance entries for the general-vision continuation hint ───────
 #
@@ -727,6 +793,28 @@ def create_spatial2_system_prompt(tools: List[Dict[str, Any]]) -> str:
 
     tools_json = json.dumps(tools, indent=2)
     return build_system_prompt(SPATIAL_2_ROLE, tools_json, workflow=SPATIAL_2_WORKFLOW)
+
+
+def create_spatial3_system_prompt(tools: List[Dict[str, Any]]) -> str:
+    """
+    Create the "spatial3" system prompt (SPATIAL_3_ROLE + tools + SPATIAL_3_WORKFLOW).
+
+    This preset carries the viewpoint-exploration workflow: instead of routing the
+    question to a solver, it instructs the model to autonomously probe NEW Pi3
+    rendering angles until extra views stop changing the conclusion.  It leaves both
+    the ``spatial`` and ``spatial2`` prompts untouched.
+
+    Args:
+        tools: List of tool function schemas
+
+    Returns:
+        System prompt string
+    """
+    if not tools:
+        return SPATIAL_3_ROLE
+
+    tools_json = json.dumps(tools, indent=2)
+    return build_system_prompt(SPATIAL_3_ROLE, tools_json, workflow=SPATIAL_3_WORKFLOW)
 
 
 def create_follow_up_prompt(
