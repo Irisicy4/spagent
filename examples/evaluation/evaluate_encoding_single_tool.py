@@ -19,10 +19,14 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.append(str(project_root))
 
 from spagent.core.prompts import GENERAL_VISION_SYSTEM_PROMPT, GENERAL_VISION_CONTINUATION_HINT
-from spagent.tools import DepthEstimationTool
+from spagent.tools import DepthEstimationTool, ObjectDetectionTool
 from spagent.tools.encoding_seg_tools import (
     ReferringSegmentationTool, SemanticSegmentationTool, SEG_ENCODINGS,
 )
+from spagent.external_experts.GroundingDINO.grounding_dino_image_and_text_tool import (
+    GroundingDINOImageAndTextTool,
+)
+from spagent.external_experts.GroundingDINO_text_only import GroundingDINOTextOnlyTool
 from spagent.utils.utils import print_evaluation_results
 from spagent_evaluation import evaluate_tool_config
 
@@ -33,6 +37,7 @@ TOOL_SERVERS = {
 }
 
 DEPTH_ENCODINGS = ["gray", "plasma", "turbo"]
+DET_ENCODINGS = ["image", "imagetext", "textnorm", "textpixel"]
 
 
 def build_tools(tool: str, encoding: str):
@@ -42,6 +47,16 @@ def build_tools(tool: str, encoding: str):
         assert encoding in DEPTH_ENCODINGS, f"depth encoding must be one of {DEPTH_ENCODINGS}"
         return [DepthEstimationTool(use_mock=False, server_url=TOOL_SERVERS["depth"],
                                     colormap=encoding)]
+    if tool == "det":
+        assert encoding in DET_ENCODINGS, f"det encoding must be one of {DET_ENCODINGS}"
+        url = TOOL_SERVERS["grounding_dino"]
+        if encoding == "image":
+            return [ObjectDetectionTool(use_mock=False, server_url=url)]
+        if encoding == "imagetext":
+            return [GroundingDINOImageAndTextTool(server_url=url)]
+        return [GroundingDINOTextOnlyTool(
+            server_url=url,
+            coord_format="pixel" if encoding == "textpixel" else "norm")]
     if tool == "refseg":
         assert encoding in SEG_ENCODINGS, f"seg encoding must be one of {SEG_ENCODINGS}"
         return [ReferringSegmentationTool(encoding=encoding,
@@ -58,7 +73,7 @@ def build_tools(tool: str, encoding: str):
 def main():
     parser = argparse.ArgumentParser(description="Single-tool encoding evaluation")
     parser.add_argument('--tool', type=str, required=True,
-                        choices=['none', 'depth', 'refseg', 'semseg'])
+                        choices=['none', 'depth', 'refseg', 'semseg', 'det'])
     parser.add_argument('--encoding', type=str, default='none')
     parser.add_argument('--data_path', type=str, required=True)
     parser.add_argument('--max_samples', type=int, default=None)
