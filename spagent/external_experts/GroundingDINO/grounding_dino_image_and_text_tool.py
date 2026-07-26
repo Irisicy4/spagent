@@ -137,7 +137,13 @@ class GroundingDINOImageAndTextTool(Tool):
         detections: List[Dict[str, Any]] = []
         boxes, labels, confidences = [], [], []
         for det in raw.get("detections", []):
-            norm_bbox = [round(v, 4) for v in det["bbox"]]
+            # The server passes GroundingDINO's raw predict() boxes through,
+            # which are normalized CXCYWH (not xyxy as the key implies).
+            # Convert so the textual bboxes match the promised xyxy format.
+            cx, cy, bw, bh = det["bbox"]
+            xyxy = [max(cx - bw / 2, 0.0), max(cy - bh / 2, 0.0),
+                    min(cx + bw / 2, 1.0), min(cy + bh / 2, 1.0)]
+            norm_bbox = [round(v, 4) for v in xyxy]
             detections.append({"label": det["label"], "bbox": norm_bbox})
             boxes.append(norm_bbox)
             labels.append(det["label"])

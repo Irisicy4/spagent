@@ -141,10 +141,15 @@ class GroundingDINOTextOnlyTool(Tool):
                 ),
             }
 
-        # Server returns bbox already normalized to [0, 1] by the image W/H
+        # Server returns bbox normalized to [0, 1] — but in CXCYWH order
+        # (GroundingDINO's raw predict() output passed through under an
+        # xyxy-named key). Convert to true xyxy before exposing as text.
         detections: List[Dict[str, Any]] = []
         for det in raw.get("detections", []):
-            norm_bbox = [round(v, 4) for v in det["bbox"]]
+            cx, cy, bw, bh = det["bbox"]
+            xyxy = [max(cx - bw / 2, 0.0), max(cy - bh / 2, 0.0),
+                    min(cx + bw / 2, 1.0), min(cy + bh / 2, 1.0)]
+            norm_bbox = [round(v, 4) for v in xyxy]
             detections.append({"label": det["label"], "bbox": norm_bbox})
 
         result_str = json.dumps(detections, ensure_ascii=False)
