@@ -131,7 +131,15 @@ class GroundingDINOTextOnlyTool(Tool):
         if raw is None or not raw.get("success"):
             msg = (raw or {}).get("message", "No detections or server error")
             logger.warning("Detection returned no results: %s", msg)
-            return {"success": True, "detections": [], "result": "[]"}
+            return {
+                "success": True,
+                "detections": [],
+                "result": "[]",
+                "description": (
+                    "Object detection ran but found no objects matching the "
+                    "prompt above the confidence threshold."
+                ),
+            }
 
         # Server returns bbox already normalized to [0, 1] by the image W/H
         detections: List[Dict[str, Any]] = []
@@ -146,4 +154,11 @@ class GroundingDINOTextOnlyTool(Tool):
             "success": True,
             "detections": detections,
             "result": result_str,
+            # CRITICAL: `description` is the ONLY channel the agent loop
+            # injects into the model's continuation prompt
+            # (spagent/core/spagent.py: tool text is appended solely from
+            # result["description"]). Without this key the detection JSON is
+            # computed and logged but NEVER shown to the controller, making
+            # the text-only encoding an empty (no-information) arm.
+            "description": f"Detected objects (normalized xyxy bboxes): {result_str}",
         }
