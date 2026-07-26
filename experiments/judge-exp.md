@@ -35,7 +35,9 @@ aggregation = across-repeat t-CI + per-item bootstrap (`ci_aggregate.py --ci-run
 | B1-3 | 72B depth gray/plasma/turbo | .7318/.7220/.7328 | running | — |
 | B4 | 72B best-combo (text+turbo) | never run | running | — |
 | C1 | 32B det ×3 encodings | 73.2 / — / 75.4 (tex) | running | — |
-| C3 | BLINK-3B det image-only / text-only | 37.0 / 37.8 | queued (moondream key verified) | — |
+| C3 | BLINK-3B det image-only / text-only | 37.0 / 37.8 | running (four-tool stack) | — |
+| A3' | 72B det **text-only-FIXED** | n/a (new arm) | running ×3 | — |
+| C3' | BLINK-3B det **text-only-FIXED** | n/a (new arm) | running ×3 | — |
 
 ### ⚠️ Interim headline finding (A2 vs A3)
 The paper's +1.09pp text-only advantage **does not reproduce** across 3
@@ -46,6 +48,19 @@ batching nondeterminism + tool stochasticity) is comparable to the claimed
 delta. Final judgment awaits A1 + the **paired per-item analysis** (§5),
 which is far more sensitive than unpaired CIs.
 Failure contamination ruled out: 0–2 failed items per completed run.
+
+### 🚨 Fidelity finding #7: the text-only arm was broken by construction
+The agent loop injects tool text into prompts from exactly one key —
+`result["description"]` — and `GroundingDINOTextOnlyTool` never returned it.
+Its bbox JSON was computed and logged but NEVER shown to the controller
+(verified in live continuation prompts). File dates show the original
+published text-only runs (incl. CV-Bench 72.34) used this same path, so the
+paper's SpAgent "text-only" condition is better read as "no detection
+info". Fix: commit `aaa1d9d` (standalone, pushed for review) adds the
+description channel. The 3 broken-arm CV-Bench repeats are retired to
+`ci_runs/_broken_arm_det-text-only/` (kept as the faithful replication of
+the published condition); canonical `det-text-only` slots now hold the
+FIXED arm. BLINK text-only reruns restarted with the fix.
 
 ## 3. New experiment N1 — segmentation-encoding Stage II
 
