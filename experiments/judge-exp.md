@@ -219,6 +219,44 @@ runs — the comparison is WITHIN the encoding axis, which is the point.
 - **H2**: polygon-text ≥ overlay for instance-style tasks (Stage-I transfer).
 - **H3**: opacity-100 and mask-only sink (occlusion cost at agent level).
 
+## 3.2 New experiment N3 — coordinate-format realization of "text xyxy" (DONE)
+
+**Motivation (the §5.3 repro nuance).** The paper's Result B claims text-only
+xyxy is the Stage-I success case and the strongest Stage-II run. On SpAgent
+the published arm transmitted NOTHING (description bug), and the repo's
+intended realization is *normalized [0,1]* xyxy (docs/detection_encoding.md)
+— a convention the paper never states. N3 asks: which realization of "text
+xyxy" actually carries the claimed value? Answer: **pixel coordinates + image
+size**. This is the reproduction arm for Result B going forward.
+
+| Realization of "text xyxy" (72B, ×3) | Count | Depth | Distance | Relation | Overall |
+|---|---|---|---|---|---|
+| broken / no info (as published) | 61.2 | 67.3 | 72.1 | 83.9 | 70.45 |
+| cxcywh mislabeled (server passthrough) | — | — | — | — | 69.96 |
+| normalized xyxy (repo's intended spec) | 62.4 | 66.7 | 69.8 | 85.3 | 70.65 |
+| **pixel xyxy + image W×H (N3)** | 62.6 | 68.0 | **72.7** | **86.9** | **71.96** |
+| image+text, corrected text (context) | 63.0 | 68.0 | 72.1 | 86.7 | 72.04 |
+
+**Discussion points (for the paper's Discussion section):**
+1. The §5.3 SpAgent ordering ("text-only xyxy strongest") is only realized
+   when the text uses PIXEL coordinates with the image size stated —
+   matching Qwen2.5-VL's absolute-coordinate grounding pretraining. The
+   normalized variant is statistically indistinguishable from sending
+   nothing (p=0.78 vs no-info), and mildly *harms* the 3D tasks
+   (Depth 66.7 / Distance 69.8, both below the no-info arm).
+2. Pixel text-only ≈ image+text on every task slice: correctly-formatted
+   text fully substitutes for the annotated image. "Visual redundancy"
+   (the framework default) buys nothing that well-formatted text doesn't.
+3. Gains concentrate exactly where coordinates carry the answer
+   (Distance +2.9, Relation +1.7 over normalized); Count is flat — and the
+   seg counterpart inverts (normalized polygons BEAT pixel polygons for
+   counting, 64.3 vs 62.1): **the coordinate convention must match what the
+   task extracts, not a global best**. Stage I cannot see this axis because
+   judging quality is insensitive to it; Stage II is where it binds.
+4. Effects are ~2× diluted by tool usage (detection fires on ~57% of
+   items); tool-conditioned paired deltas point the same way (+0.8pp
+   pixel-vs-normalized on the 285 det-invoked items).
+
 ## 4. New experiment N2 — visibility ablation (I1) on SpAgent
 
 The paper ran intervention I1 (visibility of tool output) only on HuggingGPT
