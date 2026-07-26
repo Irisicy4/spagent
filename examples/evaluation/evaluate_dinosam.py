@@ -94,8 +94,9 @@ def main():
     parser.add_argument('--output_dir', type=str, default='evaluation_results',
                         help='Directory to store evaluation results (default: evaluation_results)')
     parser.add_argument('--detection_text_only', action='store_true',
-    parser.add_argument('--with_moondream', action='store_true', help='Add MoondreamTool (paper Table-7 four-tool stack; used for BLINK runs).')
                         help='Use GroundingDINO_text_only (text-only detection) instead of standard GroundingDINO')
+    parser.add_argument('--with_moondream', action='store_true',
+                        help='Add MoondreamTool (paper Table-7 four-tool stack; used for BLINK runs).')
 
     # Data collection arguments
     parser.add_argument('--enable_data_collection', action='store_true',
