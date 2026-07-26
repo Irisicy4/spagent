@@ -41,6 +41,26 @@ aggregation = across-repeat t-CI + per-item bootstrap (`ci_aggregate.py --ci-run
 | C3' | BLINK-3B det **text-only-FIXED** | n/a (new arm) | **done ×3** | **38.81 [36.15, 41.47]** |
 | A3' | 72B det **text-only-FIXED** | n/a (new arm) | relaunched ×3 on fresh :8003 (~07:55, prior attempt lost to a degraded vLLM server) | — |
 
+### FINAL: detection text-format four-way (72B, CV-Bench-500, ×3 each)
+
+| Text format | Mean | vs broken (paired) |
+|---|---|---|
+| cxcywh mislabeled xyxy (as published, post-description-fix) | 69.96 | −0.5pp, p=1.0 |
+| broken (no info injected; published condition) | 70.45 | ref |
+| normalized xyxy (corrected, 4dbb1b1) | 70.65 | +0.1pp, p=0.78 |
+| **pixel xyxy + image WxH (operator-suggested)** | **71.96** | +1.5pp, p=0.16 |
+| image+text-xyxy (image channel + corrected text) | **72.04** | best overall |
+
+Monotone in coordinate-format quality/pretraining match (Qwen2.5-VL grounds
+in absolute pixels). Pixel text-only ≈ image+text — correctly-formatted text
+alone nearly recovers the annotated image's full value; normalized fractions
+throw that value away. No single step is significant at n=3, but the
+ordering + the 20:12 / 31:20 discordant patterns are consistent.
+Counting is the opposite: semseg polygon-NORMALIZED 64.33 > polygon-PIXEL
+62.09 (6:1 discordants) — count tasks consume instance structure, not
+coordinates; localization tasks consume coordinates. Encoding must match
+what the task extracts.
+
 ### Emerging story (updated 07/26 ~08:00)
 1. **combo-v2 (fixed detection text + plasma depth) = 77.1%** — +5.7pp over the
    original combo-v1 and +4.8pp over the paper's best Table-4 number, with the
