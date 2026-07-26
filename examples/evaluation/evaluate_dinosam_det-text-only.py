@@ -38,9 +38,14 @@ TOOL_SERVERS = {
     "moondream": "http://localhost:20024",     # Moondream VLM
 }
 
+# "norm" (default) or "pixel" — pixel emits integer pixel xyxy + image WxH,
+# matching Qwen2.5-VL's absolute-coordinate grounding pretraining.
+DET_TEXT_COORD_FORMAT = os.environ.get("DET_TEXT_COORD_FORMAT", "norm")
+
 TOOL_CONFIGS = {
     "dinosam": [
-        GroundingDINOTextOnlyTool(server_url=TOOL_SERVERS["grounding_dino"]),
+        GroundingDINOTextOnlyTool(server_url=TOOL_SERVERS["grounding_dino"],
+                                  coord_format=DET_TEXT_COORD_FORMAT),
         SegmentationTool(use_mock=False, server_url=TOOL_SERVERS["sam2"]),
         DepthEstimationTool(use_mock=False, server_url=TOOL_SERVERS["depth"]),
     ]

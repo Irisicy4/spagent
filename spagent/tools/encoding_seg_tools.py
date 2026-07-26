@@ -38,7 +38,7 @@ from core.tool import Tool
 
 logger = logging.getLogger(__name__)
 
-SEG_ENCODINGS = ["overlay", "instance", "polygon", "maskonly"]
+SEG_ENCODINGS = ["overlay", "instance", "polygon", "maskonly", "pixelpoly"]
 
 # distinct BGR colors for instances (same palette as sam2_client)
 _COLORS = [
@@ -116,8 +116,13 @@ def _sam2_mask(server_url: str, image_bgr: np.ndarray, box: List[float]) -> Opti
     return (arr > 0).astype(np.uint8)
 
 
-def _polygons_of(mask: np.ndarray, max_points: int = 24) -> List[List[List[float]]]:
-    """Simplified polygon(s) of a binary mask in normalized xy, 3 decimals."""
+def _polygons_of(mask: np.ndarray, max_points: int = 24,
+                 pixel: bool = False) -> List[List[List[float]]]:
+    """Simplified polygon(s) of a binary mask.
+
+    pixel=False: normalized xy, 3 decimals. pixel=True: integer pixel xy
+    (matches Qwen2.5-VL's absolute-coordinate grounding pretraining).
+    """
     h, w = mask.shape[:2]
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     polys = []
@@ -129,7 +134,10 @@ def _polygons_of(mask: np.ndarray, max_points: int = 24) -> List[List[List[float
         if len(approx) > max_points:
             step = len(approx) // max_points + 1
             approx = approx[::step]
-        polys.append([[round(x / w, 3), round(y / h, 3)] for x, y in approx])
+        if pixel:
+            polys.append([[int(x), int(y)] for x, y in approx])
+        else:
+            polys.append([[round(x / w, 3), round(y / h, 3)] for x, y in approx])
     return polys
 
 
@@ -184,16 +192,24 @@ class _EncodedSegTool(Tool):
                "labels": [i["label"] for i in instances],
                "boxes": [i["bbox"] for i in instances]}
 
-        if enc == "polygon":
+        if enc in ("polygon", "pixelpoly"):
+            h, w = seg["hw"]
+            pixel = enc == "pixelpoly"
             poly_lines = []
             for i, ins in enumerate(instances):
-                polys = _polygons_of(ins["mask"])
+                polys = _polygons_of(ins["mask"], pixel=pixel)
                 poly_lines.append(f"  #{i + 1} {ins['label']} "
                                   f"(area {ins['area_frac'] * 100:.1f}%): polygons={polys}")
+            if pixel:
+                head = (f"Segmentation of '{query}': {len(instances)} instance(s). "
+                        f"The image is {w}x{h} pixels (width x height). Mask outlines "
+                        f"as (x,y) PIXEL-coordinate polygons (origin top-left):\n")
+            else:
+                head = (f"Segmentation of '{query}': {len(instances)} instance(s). "
+                        f"Mask outlines as normalized (x,y) polygons "
+                        f"(origin top-left, values 0-1):\n")
             raw["description"] = (
-                f"Segmentation of '{query}': {len(instances)} instance(s). "
-                f"Mask outlines as normalized (x,y) polygons "
-                f"(origin top-left, values 0-1):\n" + "\n".join(poly_lines) +
+                head + "\n".join(poly_lines) +
                 "\nNo visualization image is provided; use the polygon coordinates.")
             return raw  # text-only: NO output_path / vis_path
 

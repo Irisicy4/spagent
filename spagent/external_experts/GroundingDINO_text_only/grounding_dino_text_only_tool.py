@@ -35,22 +35,33 @@ class GroundingDINOTextOnlyTool(Tool):
     {"label": <str>, "bbox": [x1, y1, x2, y2]} dicts.
     """
 
-    def __init__(self, server_url: str = "http://localhost:20022"):
+    def __init__(self, server_url: str = "http://localhost:20022",
+                 coord_format: str = "norm"):
         """
         Args:
             server_url: Base URL of the running GroundingDINO Flask server,
                         e.g. "http://10.8.131.51:20022".
+            coord_format: "norm"  -> [0,1] normalized xyxy (default);
+                          "pixel" -> integer pixel xyxy, with the image
+                                     width/height stated in the description
+                                     (matches Qwen2.5-VL's absolute-coordinate
+                                     grounding pretraining format).
         """
+        assert coord_format in ("norm", "pixel"), coord_format
+        coord_desc = (
+            "normalized to [0, 1] by image width/height" if coord_format == "norm"
+            else "in integer pixel coordinates (image size is stated in the result)")
         super().__init__(
             name="detect_objects_text_only",
             description=(
                 "Detect objects in an image using GroundingDINO and return "
                 "only the text detection results as a list of "
                 "{\"label\": <str>, \"bbox\": [x1, y1, x2, y2]} entries "
-                "where bbox coordinates are normalized to [0, 1] by image width/height."
+                f"where bbox coordinates are {coord_desc}."
             ),
         )
         self.server_url = server_url
+        self.coord_format = coord_format
         self._client = GroundingDINOClient(server_url=server_url)
 
     @property
@@ -144,13 +155,23 @@ class GroundingDINOTextOnlyTool(Tool):
         # Server returns bbox normalized to [0, 1] — but in CXCYWH order
         # (GroundingDINO's raw predict() output passed through under an
         # xyxy-named key). Convert to true xyxy before exposing as text.
+        img_w = img_h = None
+        if self.coord_format == "pixel":
+            from PIL import Image
+            with Image.open(image_path) as im:
+                img_w, img_h = im.size
+
         detections: List[Dict[str, Any]] = []
         for det in raw.get("detections", []):
             cx, cy, bw, bh = det["bbox"]
             xyxy = [max(cx - bw / 2, 0.0), max(cy - bh / 2, 0.0),
                     min(cx + bw / 2, 1.0), min(cy + bh / 2, 1.0)]
-            norm_bbox = [round(v, 4) for v in xyxy]
-            detections.append({"label": det["label"], "bbox": norm_bbox})
+            if self.coord_format == "pixel":
+                bbox = [int(xyxy[0] * img_w), int(xyxy[1] * img_h),
+                        int(xyxy[2] * img_w), int(xyxy[3] * img_h)]
+            else:
+                bbox = [round(v, 4) for v in xyxy]
+            detections.append({"label": det["label"], "bbox": bbox})
 
         result_str = json.dumps(detections, ensure_ascii=False)
         logger.info("Detected %d object(s): %s", len(detections), result_str)
@@ -165,5 +186,9 @@ class GroundingDINOTextOnlyTool(Tool):
             # result["description"]). Without this key the detection JSON is
             # computed and logged but NEVER shown to the controller, making
             # the text-only encoding an empty (no-information) arm.
-            "description": f"Detected objects (normalized xyxy bboxes): {result_str}",
+            "description": (
+                f"Detected objects (pixel xyxy bboxes; image is {img_w}x{img_h} "
+                f"pixels, width x height): {result_str}"
+                if self.coord_format == "pixel"
+                else f"Detected objects (normalized xyxy bboxes): {result_str}"),
         }
