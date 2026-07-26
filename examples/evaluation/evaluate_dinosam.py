@@ -42,18 +42,28 @@ TOOL_SERVERS = {
     "moondream": "http://localhost:20024",     # Moondream VLM
 }
 
-def get_dinosam_tools(use_detection_text_only: bool):
-    """Build dinosam tool list; detection can be standard GroundingDINO or text-only."""
+def get_dinosam_tools(use_detection_text_only: bool, with_moondream: bool = False):
+    """Build dinosam tool list; detection can be standard GroundingDINO or text-only.
+
+    with_moondream restores the four-tool stack of the paper's Table 7
+    (GroundingDINO + SAM2 + Depth-AV2 + Moondream fallback VQA) — the
+    configuration the historical BLINK runs used (their tool stats show
+    heavy moondream usage). CV-Bench sweeps keep the three-tool stack.
+    """
     detection_tool = (
         GroundingDINOTextOnlyTool(server_url=TOOL_SERVERS["grounding_dino"])
         if use_detection_text_only
         else ObjectDetectionTool(use_mock=False, server_url=TOOL_SERVERS["grounding_dino"])
     )
-    return [
+    tools = [
         detection_tool,
         SegmentationTool(use_mock=False, server_url=TOOL_SERVERS["sam2"]),
         DepthEstimationTool(use_mock=False, server_url=TOOL_SERVERS["depth"]),
     ]
+    if with_moondream:
+        from spagent.tools import MoondreamTool
+        tools.append(MoondreamTool(use_mock=False, server_url=TOOL_SERVERS["moondream"]))
+    return tools
 
 
 def main():
@@ -84,6 +94,7 @@ def main():
     parser.add_argument('--output_dir', type=str, default='evaluation_results',
                         help='Directory to store evaluation results (default: evaluation_results)')
     parser.add_argument('--detection_text_only', action='store_true',
+    parser.add_argument('--with_moondream', action='store_true', help='Add MoondreamTool (paper Table-7 four-tool stack; used for BLINK runs).')
                         help='Use GroundingDINO_text_only (text-only detection) instead of standard GroundingDINO')
 
     # Data collection arguments
@@ -105,7 +116,7 @@ def main():
 
     # Run evaluation for each tool configuration
     all_results = {}
-    tool_configs = {"dinosam": get_dinosam_tools(use_detection_text_only=args.detection_text_only)}
+    tool_configs = {"dinosam": get_dinosam_tools(use_detection_text_only=args.detection_text_only, with_moondream=args.with_moondream)}
     for config_name, tools in tool_configs.items():
         # NEW: Create DataCollector if enabled
         data_collector = None
