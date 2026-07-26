@@ -108,6 +108,47 @@ matched no-tool baselines on the same slices.
   (Stage-I transfer); H3 maskonly sinks (occlusion control); depth single-tool
   should replicate gray/plasma >> turbo without stack dilution.
 
+### E4 results (first 3 repeats complete ~11:00; repeats 4-6 running for power)
+
+72B (×3 repeats, mean acc; paired-vs-baseline verdicts from `paired_analysis.py`):
+
+| Arm | Depth+Distance (216) | Count (164) | Relation (120) |
+|---|---|---|---|
+| no-tool | **.8349** | .5833 | .8306 |
+| depth gray / plasma / turbo | .8272 / .8102 / **.6914** | | |
+| semseg overlay / instance / polygon / maskonly | | .6301 / .6382 / **.6443** / .6382 | |
+| refseg overlay / instance / polygon / maskonly | | | .8533 / **.8620** / .8118 / .8442 |
+
+32B mirror (deterministic, ×1):
+
+| Arm | Depth+Distance | Count | Relation |
+|---|---|---|---|
+| no-tool | .8102 | **.6707** | **.9250** |
+| depth gray / plasma / turbo | **.8148** / .8102 / **.6435** | | |
+| semseg (best/worst) | | .6402 / .6159 | |
+| refseg (best/worst) | | | .8667 / .8500 |
+
+Headline findings:
+1. **Turbo depth colormap is actively destructive at both scales in
+   single-tool isolation**: 72B −14.4pp vs no-tool (McNemar p=0.0002),
+   −13.6pp vs gray (p=0.0003); 32B −16.7pp. Gray/plasma are ~neutral.
+   A bad encoding doesn't merely fail to help — it poisons the controller,
+   even though QC samples show the model reading the legend correctly.
+2. **Tool benefit is controller-capacity-dependent.** At 72B, semseg lifts
+   Count by +4.7..+6.1pp (all four encodings; polygon-text +6.1 is the only
+   CI excluding 0, p=0.029-0.076 range). At 32B EVERY single-tool arm is
+   neutral-to-harmful on its slice (semseg −3..−5.5 on Count, refseg −6..−7.5
+   on Relation, depth ≤+0.5).
+3. **Encoding×task crossover**: polygon-text is the BEST semseg encoding for
+   counting (+6.1) but the WORST refseg encoding for relation (−2.8) —
+   symbolic text suits identity/count queries; spatial queries want image
+   overlays (instance-color best, +1.9 ns). H2 holds for counting only;
+   H3 (maskonly sinks) rejected for counting (identity, not appearance).
+4. E1 close-out with the FIXED text arm (69.96 ×3 on fresh server): all four
+   72B detection encodings sit in one 70-71 noise band; fixed-text vs
+   broken-text p=1.0 → at 72B the detection text content is irrelevant on
+   CV-Bench; the paper's +1.09 text-only advantage is conclusively artifact.
+
 ## 3. New experiment N1 — segmentation-encoding Stage II
 
 Motivation: the paper sweeps seg encodings only in Stage I (judging) and
