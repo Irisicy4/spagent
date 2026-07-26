@@ -15,7 +15,7 @@ to the segmentation axis and to interventions the paper could not run.
 |---|---|---|
 | Table 4 SpAgent (71.08 / 71.20 / 72.29) | disk finals 71.25 / 71.20 / 72.34 | ✅ match; ±0.1 = merge-state (paper froze image-only at 204/500; retry chains later reached 500) |
 | Detection encodings (image-only / image+text / text-xyxy) | three forked tools, spec in `docs/detection_encoding.md` | ✅ exact |
-| Depth base=plasma, ablations turbo/gray (paper Table 6) | Stage-II disk: turbo .7328 > gray .7318 > plasma .7220 | ⚠️ plasma (Stage-I favourite) is LAST at agent runtime — Stage-I→II transfer questionable for depth; CI reruns will adjudicate |
+| Depth colormaps: Stage-I ONLY in the paper (Table 6/Fig 4; §5.3/Table 4 is detection-only) | Stage-II disk singles (UNPUBLISHED): turbo .7328 > gray .7318 > plasma .7220 | ✅ resolved: the on-disk singles were flukes — ×3 reruns give gray=plasma (.758) ≫ turbo (.699), so our E2/E4 runs are the FIRST Stage-II depth-encoding evidence and they MATCH Stage-I plasma-over-turbo |
 | Tool stack (paper Table 7: GDINO+SAM2+DepthAV2+Moondream) | CV-Bench scripts wire 3 tools (no moondream); verified 0 moondream calls in real runs | ⚠️ harmless text/stack mismatch, note for camera-ready |
 | 32B comparison (tex table 73.2 / 75.4) | on-disk 32B artifacts are a dead batch (500/500 prediction=None) | ❌ unbacked → rerunning (batch C1) |
 | BLINK-3B table (37.0 / 37.8) | disk artifacts intact & consistent | ✅ backed; CI rerun unblocked by operator-provided moondream key |
