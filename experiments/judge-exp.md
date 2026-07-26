@@ -27,17 +27,30 @@ Protocol: 500-item CV-Bench, `temperature=0`, per-run **sandbox** (private
 runs concurrent; results in `results/<E>/cvbench_<model>/ci_runs/<variant>/repeatK/`;
 aggregation = across-repeat t-CI + per-item bootstrap (`ci_aggregate.py --ci-runs`).
 
-| # | Config | Reported | Rerun status | Interim mean [95% CI] |
+| # | Config | Reported | Rerun status | Mean [95% t-CI] |
 |---|---|---|---|---|
-| A1 | 72B det image-only | 71.08 (204/500) | running | — |
+| A1 | 72B det image-only | 71.08 (204/500) | **done ×3** (backfilled ~470-474/500 ok) | **69.89** (.7004/.7006/.6957) |
 | A2 | 72B det image+text | 71.20 (ref) | **done ×3** | **71.10 [68.47, 73.74]** (.7174/.7169/.6988) |
-| A3 | 72B det text-only | **72.29 (+1.09)** | **done ×3** | **70.45 [68.48, 72.41]** (.7100/.7080/.6954) |
-| B1-3 | 72B depth gray/plasma/turbo | .7318/.7220/.7328 | running | — |
-| B4 | 72B best-combo (text+turbo) | never run | running | — |
-| C1 | 32B det ×3 encodings | 73.2 / — / 75.4 (tex) | running | — |
-| C3 | BLINK-3B det image-only / text-only | 37.0 / 37.8 | running (four-tool stack) | — |
-| A3' | 72B det **text-only-FIXED** | n/a (new arm) | running ×3 | — |
-| C3' | BLINK-3B det **text-only-FIXED** | n/a (new arm) | running ×3 | — |
+| A3 | 72B det text-only (broken, as published) | **72.29 (+1.09)** | **done ×3** (retired) | **70.45 [68.48, 72.41]** |
+| B1-3 | 72B depth gray/plasma/turbo | .7318/.7220/.7328 | **done ×3 each** | **gray 75.79 [73.10,78.48] / plasma 75.79 [74.77,76.81] / turbo 69.90 [67.88,71.93]** |
+| B4 | 72B combo-v1 (text+turbo) | never run | **done ×3** | **71.45 [68.88, 74.02]** |
+| B5 | 72B **combo-v2 (FIXED text + plasma)** | n/a (new arm) | **done ×3** | **77.13 [76.37, 77.89]** (.7720/.7680/.7740) — best config measured |
+| C1 | 32B det img-only / img+text / text-only(broken) | 73.2 / — / 75.4 (tex) | **done ×3 each** | **69.80 (deterministic) / 71.07 [68.62,73.52] / 71.53 [70.39,72.68]** |
+| C1' | 32B det **text-only-FIXED** | n/a (new arm) | **done ×3** | **69.80 [67.52, 72.08]** (.690/.696/.708) — BELOW broken arm |
+| C3 | BLINK-3B det image-only / text-only(broken) | 37.0 / 37.8 | **done ×3 each** | **37.46 [31.04,43.89] / 38.81 [36.15,41.47]** |
+| C3' | BLINK-3B det **text-only-FIXED** | n/a (new arm) | **done ×3** | **38.81 [36.15, 41.47]** |
+| A3' | 72B det **text-only-FIXED** | n/a (new arm) | relaunched ×3 on fresh :8003 (~07:55, prior attempt lost to a degraded vLLM server) | — |
+
+### Emerging story (updated 07/26 ~08:00)
+1. **combo-v2 (fixed detection text + plasma depth) = 77.1%** — +5.7pp over the
+   original combo-v1 and +4.8pp over the paper's best Table-4 number, with the
+   tightest CI of any arm. Both stage-I-informed choices (plasma, real text)
+   contribute.
+2. At 32B the FIXED text arm (69.8) lands BELOW the broken no-info arm (71.5):
+   raw bbox text can HURT a mid-size controller — consistent with the dilution
+   +distraction hypothesis; awaiting the paired per-item analysis.
+3. Depth: gray=plasma >> turbo, reversing the original single-run ordering and
+   vindicating Stage-I's plasma pick; turbo (the published default) is worst.
 
 ### ⚠️ Interim headline finding (A2 vs A3)
 The paper's +1.09pp text-only advantage **does not reproduce** across 3
@@ -61,6 +74,39 @@ description channel. The 3 broken-arm CV-Bench repeats are retired to
 `ci_runs/_broken_arm_det-text-only/` (kept as the faithful replication of
 the published condition); canonical `det-text-only` slots now hold the
 FIXED arm. BLINK text-only reruns restarted with the fix.
+
+## 2b. E4 — single-tool encoding sweep (RUNNING since 07/26 ~08:00)
+
+Operator-prioritized instantiation of N1 plus a depth single-tool arm: test the
+output ENCODING of (a) depth, (b) referring segmentation, (c) semantic
+segmentation — each with exactly ONE tool registered, on the CV-Bench task
+slice that tool should provably help. Tool benefit itself is proven by
+matched no-tool baselines on the same slices.
+
+| Axis | Tool (most confident of category) | Slice (from the same 500-sample) | Encodings |
+|---|---|---|---|
+| baseline | none | all 3 slices | — |
+| depth | DepthAnythingV2 (single tool) | Depth+Distance (216) | gray / plasma / turbo |
+| refseg | GDINO→SAM2 referring pipeline (`ReferringSegmentationTool`) | Relation (120) | overlay / instance / polygon / maskonly |
+| semseg | GDINO→SAM2 open-vocab class pipeline (`SemanticSegmentationTool`) | Count (164) | overlay / instance / polygon / maskonly |
+
+- Encodings implement paper Table-6 seg axes: S1 overlay-base, S3
+  color-by-instance, S5 polygon-text (text-only, no image), S6 mask-only
+  (negative control, black background).
+- New code: `spagent/tools/encoding_seg_tools.py`,
+  `examples/evaluation/evaluate_encoding_single_tool.py`,
+  `experiments/run_encoding_sweep.sh`; slices in `experiments/data_slices/`.
+- Verified before launch: description reaches controller (polygon arm's model
+  answer references "outlined as a polygon"); images attach via output_path;
+  renders visually QC'd. Found+fixed a real plumbing bug: the GDINO :20022
+  server returns normalized CXCYWH under an xyxy-named key — naive reading
+  produces garbage SAM2 prompts (mirror-32B seg arms restarted post-fix).
+- Fleet: 72B ×3 repeats — :8001 base+depth+refseg, :8003 semseg; 32B mirror
+  ×1 repeat (deterministic) on :8002. Results under
+  `results/E4-encoding-single-tool/<model>/ci_runs/<arm>/repeatK/`.
+- Hypotheses: H1 tool>none on its slice; H2 polygon-text ≥ overlay
+  (Stage-I transfer); H3 maskonly sinks (occlusion control); depth single-tool
+  should replicate gray/plasma >> turbo without stack dilution.
 
 ## 3. New experiment N1 — segmentation-encoding Stage II
 
