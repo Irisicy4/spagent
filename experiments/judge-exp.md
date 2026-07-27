@@ -41,15 +41,21 @@ aggregation = across-repeat t-CI + per-item bootstrap (`ci_aggregate.py --ci-run
 | C3' | BLINK-3B det **text-only-FIXED** | n/a (new arm) | **done ×3** | **38.81 [36.15, 41.47]** |
 | A3' | 72B det **text-only-FIXED** | n/a (new arm) | relaunched ×3 on fresh :8003 (~07:55, prior attempt lost to a degraded vLLM server) | — |
 
-### FINAL: detection text-format four-way (72B, CV-Bench-500, ×3 each)
+### FINAL: detection text-format four-way (72B, CV-Bench-500, n=5 where noted)
 
-| Text format | Mean | vs broken (paired) |
+| Text format | Mean [95% CI] | vs broken (paired) |
 |---|---|---|
-| cxcywh mislabeled xyxy (as published, post-description-fix) | 69.96 | −0.5pp, p=1.0 |
-| broken (no info injected; published condition) | 70.45 | ref |
-| normalized xyxy (corrected, 4dbb1b1) | 70.65 | +0.1pp, p=0.78 |
-| **pixel xyxy + image WxH (operator-suggested)** | **71.96** | +1.5pp, p=0.16 |
-| image+text-xyxy (image channel + corrected text) | **72.04** | best overall |
+| cxcywh mislabeled xyxy (as published, post-description-fix, ×3) | 69.96 | −0.5pp, p=1.0 |
+| broken (no info injected; published condition, ×3) | 70.45 | ref |
+| normalized xyxy (corrected, 4dbb1b1, **n=5**) | 71.43 [70.04, 72.82] | +0.8pp, p=0.33 |
+| **pixel xyxy + image WxH (n=5)** | **72.70 [70.51, 74.88]** | **+2.1pp, McNemar p=0.037** (bootstrap CI [−0.4,+4.7], borderline) |
+| image+text-xyxy (**n=5**) | 72.62 [71.57, 73.67] | pixel ties it exactly (−0.2, p=0.41) |
+
+n=5 verdicts: pixel is the only text realization that (borderline-
+significantly) beats the no-info condition and it fully ties image+text;
+normalized xyxy remains ≈ no-info (p=0.33); pixel>normalized is +1.3pp
+(p=0.20) here and replicates in sign on V*Bench (+2.1, independent data) —
+consistent ordering across every benchmark tested, individually sub-threshold.
 
 Monotone in coordinate-format quality/pretraining match (Qwen2.5-VL grounds
 in absolute pixels). Pixel text-only ≈ image+text — correctly-formatted text
