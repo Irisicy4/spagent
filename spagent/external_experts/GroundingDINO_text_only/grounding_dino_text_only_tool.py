@@ -12,6 +12,7 @@ Example output:
     ]
 """
 
+import os
 import sys
 import json
 import logging
@@ -176,7 +177,7 @@ class GroundingDINOTextOnlyTool(Tool):
         result_str = json.dumps(detections, ensure_ascii=False)
         logger.info("Detected %d object(s): %s", len(detections), result_str)
 
-        return {
+        out = {
             "success": True,
             "detections": detections,
             "result": result_str,
@@ -192,3 +193,10 @@ class GroundingDINOTextOnlyTool(Tool):
                 if self.coord_format == "pixel"
                 else f"Detected objects (normalized xyxy bboxes): {result_str}"),
         }
+        # Replication switch: the ORIGINALLY PUBLISHED arm shipped WITHOUT a
+        # description key, so its payload never reached the controller. Setting
+        # DET_TEXT_SUPPRESS_DESCRIPTION=1 reproduces that published condition
+        # exactly (used for the no-information reference row in the paper).
+        if os.environ.get("DET_TEXT_SUPPRESS_DESCRIPTION") == "1":
+            out.pop("description", None)
+        return out
