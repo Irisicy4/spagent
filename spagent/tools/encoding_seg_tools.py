@@ -29,9 +29,16 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+import itertools
 import cv2
 import numpy as np
 import requests
+
+# SAM2 is called once per instance, so a single Flask worker serialises the
+# whole fleet (measured: 23.6 s/call under load vs 1.0 s on an idle replica).
+# SAM2_URLS lets a run spread its calls over several replicas round-robin.
+_SAM2_POOL = [u for u in os.environ.get("SAM2_URLS", "").split(",") if u.strip()]
+_SAM2_CYCLE = itertools.cycle(_SAM2_POOL) if _SAM2_POOL else None
 
 sys.path.append(str(Path(__file__).parent.parent))
 from core.tool import Tool
@@ -93,6 +100,8 @@ def _gdino_detect(server_url: str, image_path: str, text_prompt: str,
 
 def _sam2_mask(server_url: str, image_bgr: np.ndarray, box: List[float]) -> Optional[np.ndarray]:
     """Call the SAM2 server with a box prompt; return a binary mask (H,W) or None."""
+    if _SAM2_CYCLE is not None:
+        server_url = next(_SAM2_CYCLE)
     _, buf = cv2.imencode(".jpg", image_bgr)
     resp = requests.post(
         f"{server_url.rstrip('/')}/infer",
