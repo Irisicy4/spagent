@@ -134,10 +134,13 @@ def _polygons_of(mask: np.ndarray, max_points: int = 24,
         if len(approx) > max_points:
             step = len(approx) // max_points + 1
             approx = approx[::step]
+        # NOTE: cast through float()/int() -- numpy>=2 reprs scalars as
+        # "np.float64(0.35)", which would leak into the injected text.
         if pixel:
             polys.append([[int(x), int(y)] for x, y in approx])
         else:
-            polys.append([[round(x / w, 3), round(y / h, 3)] for x, y in approx])
+            polys.append([[round(float(x) / w, 3), round(float(y) / h, 3)]
+                          for x, y in approx])
     return polys
 
 
