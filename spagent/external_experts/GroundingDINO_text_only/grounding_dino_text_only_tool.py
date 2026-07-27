@@ -48,7 +48,7 @@ class GroundingDINOTextOnlyTool(Tool):
                                      (matches Qwen2.5-VL's absolute-coordinate
                                      grounding pretraining format).
         """
-        assert coord_format in ("norm", "pixel"), coord_format
+        assert coord_format in ("norm", "pixel", "canon"), coord_format
         coord_desc = (
             "normalized to [0, 1] by image width/height" if coord_format == "norm"
             else "in integer pixel coordinates (image size is stated in the result)")
@@ -157,7 +157,7 @@ class GroundingDINOTextOnlyTool(Tool):
         # (GroundingDINO's raw predict() output passed through under an
         # xyxy-named key). Convert to true xyxy before exposing as text.
         img_w = img_h = None
-        if self.coord_format == "pixel":
+        if self.coord_format in ("pixel", "canon"):
             from PIL import Image
             with Image.open(image_path) as im:
                 img_w, img_h = im.size
@@ -167,15 +167,36 @@ class GroundingDINOTextOnlyTool(Tool):
             cx, cy, bw, bh = det["bbox"]
             xyxy = [max(cx - bw / 2, 0.0), max(cy - bh / 2, 0.0),
                     min(cx + bw / 2, 1.0), min(cy + bh / 2, 1.0)]
-            if self.coord_format == "pixel":
-                bbox = [int(xyxy[0] * img_w), int(xyxy[1] * img_h),
-                        int(xyxy[2] * img_w), int(xyxy[3] * img_h)]
+            if self.coord_format in ("pixel", "canon"):
+                bbox = [(xyxy[0] * img_w), (xyxy[1] * img_h),
+                        (xyxy[2] * img_w), (xyxy[3] * img_h)]
+                if self.coord_format == "pixel":
+                    bbox = [int(v) for v in bbox]
             else:
                 bbox = [round(v, 4) for v in xyxy]
             detections.append({"label": det["label"], "bbox": bbox})
 
         result_str = json.dumps(detections, ensure_ascii=False)
         logger.info("Detected %d object(s): %s", len(detections), result_str)
+
+        if self.coord_format == "canon":
+            # Byte-aligned with the Stage-I reference encoder
+            # (/raid/icy/vision-judge-encoding, encoders/object_detection.py:
+            #  to_text(fmt="xyxy") + text_prompt("xyxy")): one compact JSON
+            # object per line, 1-decimal PIXEL coords, preceded by the exact
+            # schema header the judges saw.
+            lines = "\n".join(
+                json.dumps({"label": d["label"],
+                            "bbox": [round(float(v), 1) for v in d["bbox"]]},
+                           separators=(",", ":"))
+                for d in detections)
+            canon_desc = "\n".join([
+                "Prediction in the format of xyxy (one bounding box per line).",
+                'Schema: {"label":"class_name","bbox":[x1,y1,x2,y2]}.',
+                "Coordinates: (x1,y1) = top-left, (x2,y2) = bottom-right, "
+                "in image pixel coordinates.",
+                lines,
+            ])
 
         out = {
             "success": True,
@@ -188,6 +209,7 @@ class GroundingDINOTextOnlyTool(Tool):
             # computed and logged but NEVER shown to the controller, making
             # the text-only encoding an empty (no-information) arm.
             "description": (
+                canon_desc if self.coord_format == "canon" else
                 f"Detected objects (pixel xyxy bboxes; image is {img_w}x{img_h} "
                 f"pixels, width x height): {result_str}"
                 if self.coord_format == "pixel"
