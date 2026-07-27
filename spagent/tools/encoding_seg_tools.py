@@ -38,7 +38,8 @@ from core.tool import Tool
 
 logger = logging.getLogger(__name__)
 
-SEG_ENCODINGS = ["overlay", "instance", "polygon", "maskonly", "pixelpoly"]
+SEG_ENCODINGS = ["overlay", "instance", "polygon", "maskonly", "pixelpoly",
+                 "separate", "instancebox"]
 
 # distinct BGR colors for instances (same palette as sam2_client)
 _COLORS = [
@@ -231,6 +232,31 @@ class _EncodedSegTool(Tool):
                 canvas[m] = cv2.addWeighted(canvas[m], 0.5, col[m], 0.5, 0)
             head = (f"Segmented {len(instances)} instance(s) matching '{query}' "
                     f"(one distinct color per instance")
+        elif enc == "separate":
+            # Stage-I reference "Separate": masks composited OPAQUELY in solid
+            # green on a pure black canvas -- no photo, no boxes, no labels.
+            canvas = np.zeros_like(image)
+            for ins in instances:
+                canvas[ins["mask"].astype(bool)] = (0, 255, 0)
+            head = (f"Segmentation of '{query}' shown as solid green regions on a "
+                    f"black canvas; the original image is provided separately "
+                    f"({len(instances)} instance(s)")
+        elif enc == "instancebox":
+            # Stage-I reference "Color-by-Instance": per-instance colour blended
+            # over the photo, PLUS a per-instance box and numbered label.
+            canvas = image.copy()
+            for i, ins in enumerate(instances):
+                m = ins["mask"].astype(bool)
+                col = _COLORS[i % len(_COLORS)]
+                layer = np.zeros_like(canvas); layer[m] = col
+                canvas[m] = cv2.addWeighted(canvas[m], 0.5, layer[m], 0.5, 0)
+                x1, y1, x2, y2 = [int(v) for v in ins["bbox"]]
+                cv2.rectangle(canvas, (x1, y1), (x2, y2), col, 2)
+                cv2.putText(canvas, f"{ins['label']} {i + 1}", (x1 + 3, max(y1 - 5, 12)),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, col, 2)
+            head = (f"Segmented {len(instances)} instance(s) matching '{query}' "
+                    f"(one distinct colour per instance, each with its own box and "
+                    f"numbered label")
         else:  # maskonly
             canvas = np.zeros_like(image)
             for i, ins in enumerate(instances):
