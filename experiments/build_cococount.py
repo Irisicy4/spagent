@@ -25,10 +25,11 @@ from pathlib import Path
 
 COCO = Path("/raid/william/project/data/coco")
 OUT = Path(__file__).resolve().parent / "data_slices" / "tailored"
-IMG = OUT / "images" / "cococount"
+IMG = OUT / "images" / ("cococount_easy" if os.environ.get("COCOCOUNT_EASY") == "1" else "cococount")
 IMG.mkdir(parents=True, exist_ok=True)
 rng = random.Random(42)
 N_ITEMS = 300
+EASY = os.environ.get("COCOCOUNT_EASY") == "1"
 
 
 def iou(a, b):
@@ -58,14 +59,17 @@ def main():
         info = imgs[img_id]
         area_img = info["width"] * info["height"]
         for cid, anns in per_cat.items():
-            big = [a for a in anns if a["area"] >= 0.003 * area_img]
+            min_area = 0.006 if EASY else 0.003
+            big = [a for a in anns if a["area"] >= min_area * area_img]
             n = len(big)
-            if not (3 <= n <= 8) or n != len(anns):
+            lo_n, hi_n = (3, 6) if EASY else (3, 8)
+            if not (lo_n <= n <= hi_n) or n != len(anns):
                 continue  # require all instances countable, else GT is unfair
             boxes = [a["bbox"] for a in big]
-            crowded = any(iou(boxes[i], boxes[j]) > 0.05
+            overlap = any(iou(boxes[i], boxes[j]) > 0.05
                           for i in range(len(boxes)) for j in range(i + 1, len(boxes)))
-            if not crowded:
+            # crowded variant REQUIRES overlap; easy variant forbids it
+            if (not overlap) if not EASY else overlap:
                 continue
             if len(per_cat) < 2:      # need distractor categories
                 continue
@@ -83,22 +87,20 @@ def main():
         seen_pair[(cid, n)] += 1
 
         fname = imgs[img_id]["file_name"]
-        rel = f"images/cococount/{fname}"
+        rel = f"images/{'cococount_easy' if EASY else 'cococount'}/{fname}"
         dst = OUT / rel
         if not dst.exists():
             os.symlink(COCO / "val2017" / fname, dst)
 
-        lo = max(1, n - rng.randint(0, 3))
-        opts = sorted({lo, lo + 1, lo + 2, lo + 3} | {n})
-        opts = sorted(o for o in opts if o >= 1)[:4]
-        while len(opts) < 4:
-            opts.append(max(opts) + 1)
-        if n not in opts:
-            opts[-1] = n
-            opts = sorted(set(opts))
+        # place the answer uniformly among the feasible positions so no letter
+        # carries a prior (options stay ascending, which is natural for counts)
+        k = rng.randint(0, min(3, n - 1))
+        opts = [n - k + j for j in range(4)]
         letters = "ABCD"
         name = cats[cid]
-        plural = name if name.endswith("s") else name + "s"
+        plural = (name if name.endswith("s")
+                  else name + "es" if name.endswith(("ch", "sh", "x"))
+                  else name + "s")
         q = (f"How many {plural} are in the image?\n"
              f"Select from the following choices:\n" +
              "\n".join(f"({letters[j]}) {opts[j]}" for j in range(len(opts))) + "\n")
@@ -108,18 +110,18 @@ def main():
             "conversations": [{"from": "human", "value": q},
                               {"from": "gpt", "value": letters[opts.index(n)]}],
             "task": "Count", "input_type": "image", "output_type": "MCQ",
-            "data_source": "COCO-Count-Crowded", "others": {"gt_count": n,
+            "data_source": "COCO-Count-Easy" if EASY else "COCO-Count-Crowded", "others": {"gt_count": n,
                                                             "category": name},
             "subtask": "",
         })
 
-    with open(OUT / "cococount.jsonl", "w") as f:
+    with open(OUT / ("cococount_easy.jsonl" if EASY else "cococount.jsonl"), "w") as f:
         for r in rows:
             f.write(json.dumps(r) + "\n")
     dist = defaultdict(int)
     for r in rows:
         dist[r["others"]["gt_count"]] += 1
-    print(f"cococount: {len(rows)} items from {len(cand)} candidates; "
+    print(f"{'cococount_easy' if EASY else 'cococount'}: {len(rows)} items from {len(cand)} candidates; "
           f"count distribution {dict(sorted(dist.items()))}")
 
 
