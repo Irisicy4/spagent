@@ -17,6 +17,12 @@ from core.tool import Tool
 
 logger = logging.getLogger(__name__)
 
+# POLARITY NOTE (fixed at source in depth_server.py): the renderer now
+# flips disparity before colormapping, so BRIGHT = NEAREST as these legends say
+# (verified against DA-2K ground truth: the brighter pixel is the annotated
+# CLOSER point in only 1/25 items). The legends below therefore describe the
+# image as it is actually drawn; the previous wording claimed the opposite and
+# contradicted every rendered map.
 DEPTH_COLORMAP_LEGENDS = {
     "gray": (
         "The color palette is grayscale, where bright white tones represent "

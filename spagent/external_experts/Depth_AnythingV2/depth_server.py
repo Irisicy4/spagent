@@ -179,7 +179,13 @@ def infer():
             }
             cmap_name = COLORMAP_NAMES.get(colormap, 'turbo')
             cmap = matplotlib.colormaps.get_cmap(cmap_name)
-            depth = (cmap(depth_norm)[:, :, :3] * 255)[:, :, ::-1].astype(np.uint8)
+            # Depth-Anything V2 emits DISPARITY (near = large), so depth_norm is
+            # near=1/far=0 -- the opposite of what the table above assumes. Without
+            # this flip gray_r paints the nearest surface BLACK, which is what made
+            # every colormap contradict its own legend (verified against DA-2K:
+            # the brighter pixel was the annotated closer point in 1/25 items).
+            depth_for_cmap = 1.0 - depth_norm
+            depth = (cmap(depth_for_cmap)[:, :, :3] * 255)[:, :, ::-1].astype(np.uint8)
         else:
             depth = (depth_norm * 255).astype(np.uint8)
         
