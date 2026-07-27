@@ -39,7 +39,7 @@ from core.tool import Tool
 logger = logging.getLogger(__name__)
 
 SEG_ENCODINGS = ["overlay", "instance", "polygon", "maskonly", "pixelpoly",
-                 "separate", "instancebox"]
+                 "separate", "instancebox", "matrix"]
 
 # distinct BGR colors for instances (same palette as sam2_client)
 _COLORS = [
@@ -195,6 +195,28 @@ class _EncodedSegTool(Tool):
         raw = {"success": True, "num_instances": len(instances),
                "labels": [i["label"] for i in instances],
                "boxes": [i["bbox"] for i in instances]}
+
+        if enc == "matrix":
+            # Stage-I reference "Text" for semantic seg: sub-sampled class-id
+            # matrix -- majority vote over 20x20-pixel cells, one line per grid
+            # row of space-separated integers, IDs remapped 1..N with a legend.
+            h, w = seg["hw"]
+            cell = 20
+            rows_n, cols_n = max(1, h // cell), max(1, w // cell)
+            grid = np.zeros((rows_n, cols_n), dtype=int)
+            legend = []
+            for i, ins in enumerate(instances):
+                legend.append(f"{i + 1} = {ins['label']}")
+                m = ins["mask"][:rows_n * cell, :cols_n * cell]
+                # block-mean by reshape: majority vote inside each cell
+                occ = m.reshape(rows_n, cell, cols_n, cell).mean(axis=(1, 3)) > 0.5
+                grid[(grid == 0) & occ] = i + 1
+            body = "\n".join(" ".join(str(int(v)) for v in row) for row in grid)
+            raw["description"] = (
+                f"Segmentation of '{query}' as a sub-sampled class-id matrix "
+                f"({rows_n}x{cols_n} cells, each cell = {cell}x{cell} image pixels; "
+                f"0 = background).\nLegend: " + "; ".join(legend) + "\n" + body)
+            return raw  # text-only
 
         if enc in ("polygon", "pixelpoly"):
             h, w = seg["hw"]
