@@ -46,7 +46,7 @@ from core.tool import Tool
 logger = logging.getLogger(__name__)
 
 SEG_ENCODINGS = ["overlay", "instance", "polygon", "maskonly", "pixelpoly",
-                 "separate", "instancebox", "matrix"]
+                 "separate", "instancebox", "matrix", "overlayref"]
 
 # distinct BGR colors for instances (same palette as sam2_client)
 _COLORS = [
@@ -204,6 +204,33 @@ class _EncodedSegTool(Tool):
         raw = {"success": True, "num_instances": len(instances),
                "labels": [i["label"] for i in instances],
                "boxes": [i["bbox"] for i in instances]}
+
+        if enc == "overlayref":
+            # Stage-I "Overlay" (instance-seg WORST, median .508), faithful to
+            # /raid/icy/vision-judge-encoding encoders/instance_segmentation.py
+            # draw(): the blend covers the WHOLE FRAME, not just the mask, so the
+            # photo is darkened everywhere behind a mostly-black layer. Colour is
+            # BY CLASS, boundaries are drawn after the blend at full opacity, and
+            # there are no labels and no boxes.
+            layer = np.zeros_like(image)
+            class_col = {}
+            for ins in instances:
+                col = class_col.setdefault(
+                    ins["label"], _COLORS[len(class_col) % len(_COLORS)])
+                layer[ins["mask"].astype(bool)] = col
+            canvas = cv2.addWeighted(layer, 0.5, image, 0.5, 0)
+            for ins in instances:
+                cnts, _ = cv2.findContours(ins["mask"], cv2.RETR_EXTERNAL,
+                                           cv2.CHAIN_APPROX_SIMPLE)
+                cv2.drawContours(canvas, cnts, -1, (255, 255, 255), 2)
+            out = f"outputs/{self.name}_{self.encoding}_{stem}.png"
+            cv2.imwrite(out, canvas)
+            raw["output_path"] = out
+            raw["description"] = (
+                f"Segmentation of '{query}': {len(instances)} instance(s), shown as "
+                f"colour-per-class masks blended over the image; region boundaries "
+                f"are outlined in white.")
+            return raw
 
         if enc == "matrix":
             # Stage-I reference "Text" for semantic seg: sub-sampled class-id
