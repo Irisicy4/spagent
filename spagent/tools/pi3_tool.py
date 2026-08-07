@@ -484,7 +484,9 @@ class Pi3Tool(Tool):
             raw_result = {
                 "success": True,
                 "ply_filename": f"cached_result_{scene_id}.ply",
-                "points_count": 50000,  # Default value for cached results
+                # real count is unknown on the cached path (backend not contacted)
+                "points_count": None,
+                "cached": True,
                 "camera_views": camera_views
             }
             payload = PointCloudPayload(

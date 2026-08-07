@@ -472,7 +472,9 @@ class MapAnythingTool(Tool):
             raw_result = {
                 "success": True,
                 "ply_filename": f"cached_mapanything_result_{scene_id}.ply",
-                "points_count": 50000,
+                # real count is unknown on the cached path (backend not contacted)
+                "points_count": None,
+                "cached": True,
                 "camera_views": camera_views
             }
             payload = PointCloudPayload(
