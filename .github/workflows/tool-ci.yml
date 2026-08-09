@@ -1,0 +1,51 @@
+name: tool-ci
+
+# No-compute PR gate for tool contributions.
+#
+# Every catalog tool is exercised in mock mode against the standardized
+# ToolResult contract; only tools *changed by the PR* gate the merge, the
+# rest are informational (so legacy debt never blocks a contributor).
+# Heavy-dependency tools that cannot even import on the runner are
+# reported as DEP-SKIP, not failed — the with-compute lane
+# (tool-real-smoke.yml) covers them.
+
+on:
+  pull_request:
+    paths:
+      - "spagent/**"
+      - "test/**"
+      - ".github/workflows/tool-ci.yml"
+  push:
+    branches: [main]
+
+jobs:
+  tool-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install no-compute deps
+        run: python -m pip install numpy pillow requests opencv-python-headless
+      - name: Tool contract report (gates changed tools, reports all)
+        run: |
+          case "${{ github.event_name }}" in
+            pull_request) base="${{ github.event.pull_request.base.sha }}" ;;
+            *)            base="$(git rev-parse HEAD~1)" ;;
+          esac
+          python test/tool_ci_report.py --changed-from "${base}"
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install test deps
+        run: python -m pip install pytest numpy pillow requests opencv-python-headless
+      - name: Core contract/render suite
+        run: python -m pytest test/test_tool_result.py test/test_render.py test/test_render_integration.py -q
