@@ -9,14 +9,26 @@ name: tool-ci
 # reported as DEP-SKIP, not failed — the with-compute lane
 # (tool-real-smoke.yml) covers them.
 
+# Trigger only on PRs that touch the tool stack:
+# - spagent/tools/**            the tools themselves + catalog
+# - spagent/core/**             the ToolResult contract / render layer every
+#                               tool is validated against (a core change gates
+#                               ALL tools via --changed-from)
+# - spagent/external_experts/** clients + mock services the tools call in mock mode
+# - the harness + contract test files themselves
 on:
   pull_request:
     paths:
-      - "spagent/**"
-      - "test/**"
+      - "spagent/tools/**"
+      - "spagent/core/**"
+      - "spagent/external_experts/**"
+      - "test/tool_ci_report.py"
+      - "test/tool_real_smoke.py"
+      - "test/test_tool_result.py"
+      - "test/test_render.py"
+      - "test/test_render_integration.py"
+      - "test/verify_all_tools.py"
       - ".github/workflows/tool-ci.yml"
-  push:
-    branches: [main]
 
 jobs:
   tool-contract:
@@ -31,12 +43,7 @@ jobs:
       - name: Install no-compute deps
         run: python -m pip install numpy pillow requests opencv-python-headless
       - name: Tool contract report (gates changed tools, reports all)
-        run: |
-          case "${{ github.event_name }}" in
-            pull_request) base="${{ github.event.pull_request.base.sha }}" ;;
-            *)            base="$(git rev-parse HEAD~1)" ;;
-          esac
-          python test/tool_ci_report.py --changed-from "${base}"
+        run: python test/tool_ci_report.py --changed-from "${{ github.event.pull_request.base.sha }}"
 
   unit-tests:
     runs-on: ubuntu-latest
