@@ -37,6 +37,35 @@ from tool_ci_report import CALL_KW                                       # noqa:
 IMG = "assets/dog.jpeg"
 PASS, FAIL = "✅", "❌"
 
+# What the smoke measures per category, and why. Rendered as a legend and in
+# failure details. These encode the PR #230 verification-campaign rules:
+# measure the artifact, never the label.
+MEASURE_INFO = {
+    "detection": "boxes project to in-bounds, non-degenerate pixel xyxy "
+                 "(x2>x1, y2>y1, inside the image) and confidence aligns 1:1 "
+                 "with boxes. 0 detections is a VALID finding. Guards the "
+                 "normalized-cxcywh-under-an-xyxy-key bug (symptom: y2<y1).",
+    "segmentation": "the mask file exists on disk and its dims equal the input "
+                    "image dims; coverage is reported. A success without any "
+                    "mask carrier fails.",
+    "depth": "reported `shape` equals the input image dims and the output "
+             "visualization exists on disk.",
+    "3d_reconstruction": "`points_count` is a real positive integer and the "
+                         "result is NOT served from the visualization cache — "
+                         "the cached path once fabricated points_count=50000 "
+                         "and contaminated a verification table.",
+    "orientation": "azimuth/elevation are inside their valid ranges "
+                   "(0–360 / −90–90).",
+    "point_grounding": "every returned point lies inside the image bounds.",
+    "optical_flow": "the raw flow .npy exists, loads, and is (H, W, 2); with "
+                    "--flow-shift N, a synthetic N-px shift must be recovered "
+                    "within 0.5 px.",
+    "ocr": "the `text` key exists (empty text is a VALID finding — blank pages "
+           "are real).",
+    "image_generation": "the generated file exists, is non-empty, and decodes "
+                        "as an image.",
+}
+
 
 def _img_dims(path=IMG):
     from PIL import Image
@@ -44,12 +73,16 @@ def _img_dims(path=IMG):
         return im.size  # (W, H)
 
 
-def measure(entry, res, notes, flow_shift=None):
-    """Category-specific artifact measurements. Appends to notes, returns ok."""
+def measure(entry, res, notes, problems, flow_shift=None):
+    """Category-specific artifact measurements.
+
+    Observations go to ``notes``; each violation goes to ``problems`` with
+    expected-vs-observed wording. Returns True when no problems were added.
+    """
     import numpy as np
     cat = res.get("category") or entry.category
     W, H = _img_dims()
-    ok = True
+    before = len(problems)
 
     if cat == "detection":
         boxes = res.get("boxes") or []
@@ -58,15 +91,17 @@ def measure(entry, res, notes, flow_shift=None):
         if boxes:
             conf = res.get("confidence")
             if conf is not None and len(conf) != len(boxes):
-                ok = False
-                notes.append(f"confidence misaligned: {len(conf)} vs {len(boxes)} boxes")
+                problems.append(f"confidence misaligned: expected one score per box "
+                                f"({len(boxes)}), observed {len(conf)} — a consumer "
+                                "would attach scores to the wrong objects")
             if payload is not None and hasattr(payload, "to_xyxy_pixel"):
                 px = payload.to_xyxy_pixel()
                 bad = [b for b in px
                        if not (0 <= b[0] < b[2] <= W and 0 <= b[1] < b[3] <= H)]
                 if bad:
-                    ok = False
-                    notes.append(f"degenerate/out-of-bounds pixel boxes: {bad[:2]} (img {W}x{H})")
+                    problems.append(f"expected pixel boxes with x2>x1, y2>y1 inside "
+                                    f"{W}x{H}; observed {bad[:2]} — the declared "
+                                    "box_format likely mislabels the actual convention")
                 else:
                     notes.append(f"pixel boxes sane, e.g. {px[0]}")
 
@@ -76,35 +111,36 @@ def measure(entry, res, notes, flow_shift=None):
             from PIL import Image
             m = np.array(Image.open(mp).convert("L"))
             if m.shape != (H, W):
-                ok = False
-                notes.append(f"mask dims {m.shape} != image ({H},{W})")
+                problems.append(f"expected mask dims ({H},{W}) matching the input "
+                                f"image; observed {m.shape}")
             else:
                 notes.append(f"mask {m.shape}, coverage {(m > 127).mean():.3f}")
         elif not res.get("masks"):
-            ok = False
-            notes.append("no mask_path and no masks")
+            problems.append("success=True but NO mask artifact: neither mask_path "
+                            "(file) nor masks (arrays) present — a segmentation "
+                            "result with nothing segmented-shaped in it")
 
     elif cat == "depth":
         shape = res.get("shape")
         if list(shape or [])[:2] != [H, W]:
-            ok = False
-            notes.append(f"depth shape {shape} != image ({H},{W},3)")
+            problems.append(f"expected depth shape [{H}, {W}, ...] matching the "
+                            f"input image; observed {shape}")
         else:
             notes.append(f"depth shape {shape}")
         out = res.get("output_path")
         if out and not os.path.exists(out):
-            ok = False
-            notes.append(f"output_path missing on disk: {out}")
+            problems.append(f"output_path advertised but missing on disk: {out}")
 
     elif cat == "3d_reconstruction":
         raw = res.get("result") or {}
         if raw.get("cached"):
-            ok = False
-            notes.append("served from stale cache — delete outputs/<tool>_*png and rerun")
+            problems.append("served from the visualization cache, not the backend "
+                            "— delete outputs/<tool>_*png and rerun for a real "
+                            "measurement")
         pc = raw.get("points_count")
         if not (isinstance(pc, int) and pc > 0):
-            ok = False
-            notes.append(f"points_count not a positive int: {pc!r}")
+            problems.append(f"expected a positive integer points_count from a real "
+                            f"reconstruction; observed {pc!r}")
         else:
             notes.append(f"{pc:,} points")
 
@@ -112,8 +148,8 @@ def measure(entry, res, notes, flow_shift=None):
         raw = res.get("result") or {}
         az, el = raw.get("azimuth"), raw.get("elevation")
         if az is None or not (0 <= az <= 360) or el is None or not (-90 <= el <= 90):
-            ok = False
-            notes.append(f"angles out of range: az={az} el={el}")
+            problems.append(f"expected azimuth in [0,360] and elevation in "
+                            f"[-90,90]; observed az={az} el={el}")
         else:
             notes.append(f"az={az} el={el} rot={raw.get('rotation')}")
 
@@ -122,50 +158,54 @@ def measure(entry, res, notes, flow_shift=None):
         bad = [p for p in pts
                if not (0 <= p.get("x", -1) <= W and 0 <= p.get("y", -1) <= H)]
         if bad:
-            ok = False
-            notes.append(f"out-of-bounds points: {bad[:2]}")
+            problems.append(f"expected points inside {W}x{H}; observed {bad[:2]}")
         else:
             notes.append(f"{len(pts)} point(s) in bounds")
 
     elif cat == "optical_flow":
         fp = res.get("flow_path")
         if not (fp and os.path.exists(fp)):
-            ok = False
-            notes.append("raw flow .npy missing")
+            problems.append("expected raw per-pixel flow saved as .npy "
+                            "(flow_path); observed none — only the colorized "
+                            "visualization exists, which cannot be consumed "
+                            "numerically")
         else:
             flow = np.load(fp)
             if flow.ndim != 3 or flow.shape[-1] != 2:
-                ok = False
-                notes.append(f"flow shape {flow.shape} not (H,W,2)")
+                problems.append(f"expected flow array (H, W, 2); observed {flow.shape}")
             else:
                 notes.append(f"flow {flow.shape}")
                 if flow_shift:
                     dx = float(flow[:, 20:, 0].mean())
                     if abs(dx - flow_shift) > 0.5:
-                        ok = False
-                    notes.append(f"recovered dx={dx:.2f} (target {flow_shift})")
+                        problems.append(f"synthetic {flow_shift}px shift NOT "
+                                        f"recovered: expected mean dx≈{flow_shift}, "
+                                        f"observed {dx:.2f}")
+                    else:
+                        notes.append(f"recovered dx={dx:.2f} (target {flow_shift})")
 
     elif cat == "ocr":
         if "text" not in res:
-            ok = False
-            notes.append("no text key")  # empty text itself is a valid finding
+            problems.append("expected a `text` key (empty string is fine — blank "
+                            "pages are valid findings); observed no text key at all")
         else:
             notes.append(f"text len {len(res.get('text') or '')}")
 
     elif cat == "image_generation":
         p = res.get("output_path")
         if not (p and os.path.exists(p) and os.path.getsize(p) > 0):
-            ok = False
-            notes.append(f"generated image missing/empty: {p}")
+            problems.append(f"expected a non-empty generated image on disk; "
+                            f"observed output_path={p!r} "
+                            f"(exists={bool(p and os.path.exists(p))})")
         else:
             from PIL import Image
             with Image.open(p) as im:
                 notes.append(f"image {im.size}, {os.path.getsize(p):,} bytes")
 
     else:
-        notes.append(f"(no artifact measurement for category {cat})")
+        notes.append(f"(no artifact measurement defined for category {cat!r})")
 
-    return ok
+    return len(problems) == before
 
 
 def _probe(url):
@@ -183,15 +223,19 @@ def _probe(url):
 
 
 def smoke_tool(entry, url, flow_shift):
-    notes = []
+    notes, problems = [], []
     kw = dict(CALL_KW.get(entry.key) or {})
     if not kw:
-        return FAIL, ["no CALL_KW entry"]
+        return FAIL, notes, ["no CALL_KW entry in test/tool_ci_report.py — the "
+                             "smoke cannot invoke this tool; add a minimal row"]
 
     effective_url = url or DEFAULT_SERVER_URLS.get(entry.key)
     if effective_url and not _probe(effective_url):
-        return FAIL, [f"backend unreachable: {effective_url} — start the server first "
-                      "(a dead backend can masquerade as a zero-finding success)"]
+        return FAIL, notes, [
+            f"backend unreachable at {effective_url} — start the server first. "
+            "This is checked out-of-band because several tools convert a dead "
+            "backend into a success=True zero-finding result, which would make "
+            "this smoke pass vacuously"]
     tools, errs = build_tools([entry.key], use_mock=False,
                               overrides={entry.key: {"server_url": url}} if url else None)
     if not tools:
@@ -212,15 +256,19 @@ def smoke_tool(entry, url, flow_shift):
     try:
         res = tool.call(**kw)
     except Exception as e:
-        return FAIL, [f"call raised {type(e).__name__}: {e}"[:140]]
+        return FAIL, notes, [f"real call RAISED {type(e).__name__}: {e}"[:200]
+                             + " — tools must return error dicts, not raise"]
     if not isinstance(res, dict) or not res.get("success"):
-        return FAIL, [f"call failed: {str((res or {}).get('error'))[:120]}"]
+        return FAIL, notes, ["real call returned success=False: "
+                             + str((res or {}).get("error"))[:200]]
 
-    okc, unmet = validate_payload(res, res.get("category") or entry.category)
+    cat = res.get("category") or entry.category
+    okc, unmet = validate_payload(res, cat)
     if not okc:
-        notes.append(f"contract unmet: {unmet}")
-    ok = measure(entry, res, notes, flow_shift=flow_shift)
-    return (PASS if (ok and okc) else FAIL), notes
+        problems.append(f"category contract `{cat}` unmet: the standardized "
+                        f"result must carry ONE OF {unmet}; none present")
+    measure(entry, res, notes, problems, flow_shift=flow_shift)
+    return (FAIL if problems else PASS), notes, problems
 
 
 def main():
@@ -242,17 +290,45 @@ def main():
         return 1
 
     md = ["# Tool real-backend smoke report (with-compute)", "",
+          "Live backends, artifact-measuring checks: what is verified per "
+          "category is listed at the bottom.", "",
           "| tool | server | status | measurements |", "|---|---|---|---|"]
-    failed = []
+    failed, details = [], []
     for k in keys:
         e = entries[k]
         url = urls.get(k) or DEFAULT_SERVER_URLS.get(k, "")
-        status, notes = smoke_tool(e, urls.get(k), args.flow_shift)
+        status, notes, problems = smoke_tool(e, urls.get(k), args.flow_shift)
         if status == FAIL:
             failed.append(k)
-        md.append(f"| {k} | {url or '(local)'} | {status} | " + "; ".join(notes)[:200] + " |")
+            details.append((k, e.category, problems))
+        cells = "; ".join(notes + [f"✗ {p}" for p in problems])
+        md.append(f"| {k} | {url or '(local)'} | {status} | {cells[:250]} |")
     md.append("")
-    md.append(f"## {'❌ failed: ' + ', '.join(failed) if failed else '✅ all requested tools passed'}")
+
+    if details:
+        md.append("## Failure details")
+        md.append("")
+        for k, cat, problems in details:
+            md.append(f"### `{k}` ({cat})")
+            doc = MEASURE_INFO.get(cat)
+            if doc:
+                md.append(f"*This category's smoke verifies that:* {doc}")
+            md.append("")
+            for p in problems:
+                md.append(f"- ✗ {p}")
+            md.append("")
+
+    md.append("<details><summary>What the smoke verifies per category</summary>")
+    md.append("")
+    for cat, doc in MEASURE_INFO.items():
+        md.append(f"- **{cat}** — {doc}")
+    md.append("")
+    md.append("All categories additionally require: backend reachable "
+              "(probed out-of-band), real call succeeds without raising, and "
+              "the category contract is satisfied.")
+    md.append("</details>")
+    md.append("")
+    md.append(f"## {'❌ failed: ' + ', '.join(failed) + ' — see Failure details above' if failed else '✅ all requested tools passed'}")
     report = "\n".join(md)
 
     print(report)

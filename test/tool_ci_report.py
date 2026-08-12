@@ -70,6 +70,52 @@ CALL_KW = {
 
 CHECKS = ["build", "schema", "call", "toolresult", "contract", "render", "boxes", "failpath"]
 
+# What each check verifies and how to fix a failure. Rendered as a legend in
+# every report and quoted in the per-tool failure details.
+CHECK_INFO = {
+    "build": (
+        "the tool constructs from the catalog with `use_mock=True` and zero VRAM",
+        "register the tool in `spagent/tools/catalog.py`, accept `use_mock=True`, "
+        "and provide a format-faithful mock client"),
+    "schema": (
+        "`tool.parameters` is a JSON schema dict with `type` and `properties` — "
+        "this is the schema the VLM sees for tool-calling",
+        "expose a `parameters` property returning "
+        "`{'type': 'object', 'properties': {...}, 'required': [...]}`"),
+    "call": (
+        "a minimal mock call (kwargs from CALL_KW in test/tool_ci_report.py) "
+        "returns a dict with `success: True`",
+        "add/adjust the tool's CALL_KW row and make the mock path succeed on it"),
+    "toolresult": (
+        "the success result is a `ToolResult` envelope "
+        "(`spagent/core/tool_result.py`), not a plain dict — plain dicts bypass "
+        "contract validation and standardized rendering",
+        "return `ToolResult(success=True, payload=<typed payload>, "
+        "description=..., result=<raw>)`; keep legacy keys as extras"),
+    "contract": (
+        "the result satisfies its category contract (`validate_payload`): every "
+        "category requires ONE OF its payload carriers "
+        "(e.g. segmentation → masks/mask_path/polygon/rle; "
+        "detection → boxes+labels; ocr → text)",
+        "surface the required carrier field — the raw data usually already "
+        "exists in the backend response and just isn't being returned"),
+    "render": (
+        "`render(result)` produces non-empty model-facing text under both the "
+        "`default` and `all` presets — what the VLM would actually receive",
+        "populate `description` and payload fields the projection can select"),
+    "boxes": (
+        "detection boxes project to sane pixels via `payload.to_xyxy_pixel()`: "
+        "x2>x1 and y2>y1 — guards the normalized-cxcywh-under-an-xyxy-key bug "
+        "that shipped for weeks (symptom: y2 < y1)",
+        "emit boxes in the declared `box_format`; never relabel a convention "
+        "without converting the values"),
+    "failpath": (
+        "calling with a nonexistent input image returns `success: False` "
+        "without raising — agents feed tools bad paths routinely",
+        "validate input paths at the top of `call()` (in mock mode too) and "
+        "return an error dict instead of raising"),
+}
+
 PASS, FAIL, SKIP, NA = "✅", "❌", "⏭ dep", "—"
 
 
@@ -89,87 +135,103 @@ def _bad_image_kwargs(kw):
 
 
 def check_tool(entry):
-    """Run all checks for one catalog entry. Returns (results dict, notes list)."""
+    """Run all checks for one catalog entry.
+
+    Returns (results dict, notes list, fails dict) — ``fails`` maps a check
+    name to the observed problem, used for the verbose failure-details section.
+    """
     r = {c: NA for c in CHECKS}
     notes = []
+    fails = {}
     key = entry.key
+
+    def fail(check, msg, status=FAIL):
+        r[check] = status
+        notes.append(msg)
+        if status == FAIL:
+            fails[check] = msg
 
     # build
     try:
         tools, errs = build_tools([key], use_mock=True)
     except Exception as e:
-        r["build"] = SKIP if _is_dep_error(e) else FAIL
-        notes.append(f"build: {type(e).__name__}: {e}"[:100])
-        return r, notes
+        fail("build", f"{type(e).__name__}: {e}"[:150],
+             SKIP if _is_dep_error(e) else FAIL)
+        return r, notes, fails
     if not tools:
-        r["build"] = SKIP if any("No module" in e or "import" in e.lower() for e in errs) else FAIL
-        notes.append(f"build: {'; '.join(errs)}"[:100])
-        return r, notes
+        dep = any("No module" in e or "import" in e.lower() for e in errs)
+        fail("build", "; ".join(errs)[:150], SKIP if dep else FAIL)
+        return r, notes, fails
     tool = tools[0]
     r["build"] = PASS
 
     # schema
     try:
         p = tool.parameters
-        r["schema"] = PASS if isinstance(p, dict) and p.get("type") and "properties" in p else FAIL
-        if r["schema"] == FAIL:
-            notes.append("schema: parameters missing type/properties")
+        if isinstance(p, dict) and p.get("type") and "properties" in p:
+            r["schema"] = PASS
+        else:
+            fail("schema", f"`parameters` is {type(p).__name__} without "
+                           "type/properties — the VLM cannot call this tool")
     except Exception as e:
-        r["schema"] = FAIL
-        notes.append(f"schema: {type(e).__name__}: {e}"[:80])
+        fail("schema", f"accessing `parameters` raised {type(e).__name__}: {e}"[:120])
 
     # call kwargs available?
     if key not in CALL_KW:
-        notes.append("no CALL_KW entry — add one for this tool")
-        r["call"] = FAIL
-        return r, notes
+        fail("call", "no CALL_KW entry in test/tool_ci_report.py — the gate "
+                     "cannot invoke this tool; add a minimal mock-call row")
+        return r, notes, fails
 
     # mock call
     try:
         res = tool.call(**CALL_KW[key])
     except Exception as e:
-        r["call"] = SKIP if _is_dep_error(e) else FAIL
-        notes.append(f"call: {type(e).__name__}: {e}"[:100])
-        return r, notes
+        fail("call", f"mock call raised {type(e).__name__}: {e}"[:150],
+             SKIP if _is_dep_error(e) else FAIL)
+        return r, notes, fails
     if not isinstance(res, dict):
-        r["call"] = FAIL
-        notes.append(f"call returned {type(res).__name__}, not a dict/ToolResult")
-        return r, notes
+        fail("call", f"call returned {type(res).__name__}, expected a dict/ToolResult")
+        return r, notes, fails
     if not res.get("success"):
-        r["call"] = SKIP if "not found" in str(res.get("error", "")).lower() else FAIL
-        notes.append(f"call failed: {str(res.get('error'))[:80]}")
-        return r, notes
+        err = str(res.get("error"))[:120]
+        fail("call", f"mock call returned success=False: {err}",
+             SKIP if "not found" in err.lower() else FAIL)
+        return r, notes, fails
     r["call"] = PASS
 
-    # ToolResult migration (informational for legacy dicts, but new tools must pass)
-    r["toolresult"] = PASS if isinstance(res, ToolResult) else FAIL
-    if r["toolresult"] == FAIL:
-        notes.append("returns plain dict — new tools must return ToolResult")
+    # ToolResult migration (new tools must pass)
+    if isinstance(res, ToolResult):
+        r["toolresult"] = PASS
+    else:
+        fail("toolresult", "success result is a plain dict, not a ToolResult "
+                           "envelope — it bypasses contract validation and "
+                           "standardized rendering")
 
     # contract
     category = res.get("category") or entry.category
     try:
         ok, unmet = validate_payload(res, category)
-        r["contract"] = PASS if ok else FAIL
-        if not ok:
-            notes.append(f"contract unmet: {unmet}")
+        if ok:
+            r["contract"] = PASS
+        else:
+            fail("contract", f"category `{category}` requires ONE OF these "
+                             f"payload carriers, none present: {unmet}")
     except Exception as e:
-        r["contract"] = FAIL
-        notes.append(f"contract: {type(e).__name__}: {e}"[:80])
+        fail("contract", f"validate_payload raised {type(e).__name__}: {e}"[:120])
 
     # render round-trip, default + all presets
     try:
         for preset in (None, {"preset": "all"}):
             out = render(res, config=preset, tool_name=getattr(tool, "name", None))
             if not (out.text and out.text.strip()):
-                r["render"] = FAIL
-                notes.append(f"render produced empty text (preset={preset})")
+                fail("render", f"render() produced EMPTY text under preset="
+                               f"{preset or 'default'} — the VLM would receive "
+                               "nothing from this tool")
                 break
         else:
             r["render"] = PASS
     except Exception as e:
-        r["render"] = FAIL
-        notes.append(f"render: {type(e).__name__}: {e}"[:80])
+        fail("render", f"render() raised {type(e).__name__}: {e}"[:120])
 
     # box-convention sanity (detection-style payloads only)
     boxes = res.get("boxes")
@@ -178,15 +240,18 @@ def check_tool(entry):
         try:
             px = payload.to_xyxy_pixel()
             bad = [b for b in px if not (b[2] > b[0] and b[3] > b[1])]
-            r["boxes"] = FAIL if bad else PASS
             if bad:
-                notes.append(f"degenerate pixel boxes (x2<=x1 or y2<=y1): {bad[:2]}")
+                fail("boxes", f"pixel projection yields degenerate boxes "
+                              f"(x2<=x1 or y2<=y1): {bad[:2]} — box_format "
+                              "likely mislabels the actual convention")
+            else:
+                r["boxes"] = PASS
         except ValueError as e:
-            r["boxes"] = FAIL
-            notes.append(f"boxes: {e}")
+            fail("boxes", f"to_xyxy_pixel() failed: {e} — normalized boxes "
+                          "need image_width/image_height in the payload")
     elif boxes:
-        r["boxes"] = FAIL
-        notes.append("boxes present but payload lacks to_xyxy_pixel()")
+        fail("boxes", "result has `boxes` but its payload lacks "
+                      "to_xyxy_pixel() — use DetectionPayload")
 
     # failure path: bad image must yield success=False, never raise
     kw = CALL_KW[key]
@@ -196,13 +261,15 @@ def check_tool(entry):
             if isinstance(bad_res, dict) and not bad_res.get("success"):
                 r["failpath"] = PASS
             else:
-                r["failpath"] = FAIL
-                notes.append("missing-image call did not return success=False")
+                fail("failpath", "call with a nonexistent image returned "
+                                 f"success={bad_res.get('success')!r} — bad "
+                                 "input paths must yield success=False")
         except Exception as e:
-            r["failpath"] = FAIL
-            notes.append(f"missing-image call raised {type(e).__name__}")
+            fail("failpath", f"call with a nonexistent image RAISED "
+                             f"{type(e).__name__} — must return an error dict "
+                             "instead")
 
-    return r, notes
+    return r, notes, fails
 
 
 def changed_tool_keys(base):
@@ -240,10 +307,10 @@ def main():
 
     rows, gate_failures = [], []
     for entry in TOOL_CATALOG:
-        results, notes = check_tool(entry)
-        rows.append((entry.key, entry.category, results, notes))
+        results, notes, fails = check_tool(entry)
+        rows.append((entry.key, entry.category, results, notes, fails))
         is_gated = gated is None or entry.key in gated
-        if is_gated and any(v == FAIL for v in results.values()):
+        if is_gated and fails:
             gate_failures.append(entry.key)
 
     # ---- report ----
@@ -259,14 +326,45 @@ def main():
         gate_failures.extend(f"unregistered:{o}" for o in orphans)
     md.append("| tool | category | " + " | ".join(CHECKS) + " | notes |")
     md.append("|" + "---|" * (len(CHECKS) + 3))
-    for key, cat, results, notes in rows:
+    for key, cat, results, notes, _fails in rows:
         gate_mark = "**" if (gated is not None and key in gated) else ""
         md.append(f"| {gate_mark}{key}{gate_mark} | {cat} | "
                   + " | ".join(results[c] for c in CHECKS)
                   + " | " + "; ".join(notes)[:160] + " |")
     md.append("")
+
+    # verbose failure details: what was tested, what was observed, how to fix
+    failing_rows = [(k, c, f) for k, c, _r, _n, f in rows if f]
+    if failing_rows:
+        md.append("## Failure details")
+        md.append("")
+        for key, cat, fails in failing_rows:
+            gated_note = ("gates this PR" if (gated is None or key in gated)
+                          else "informational — not changed by this PR")
+            md.append(f"### `{key}` ({cat}) — {len(fails)} failing check(s), {gated_note}")
+            md.append("")
+            for check, observed in fails.items():
+                tests, fix = CHECK_INFO[check]
+                md.append(f"- **{check}**")
+                md.append(f"  - *tests that:* {tests}")
+                md.append(f"  - *observed:* {observed}")
+                md.append(f"  - *fix:* {fix}")
+            md.append("")
+
+    # legend: what every column verifies
+    md.append("<details><summary>What each check tests</summary>")
+    md.append("")
+    for check in CHECKS:
+        md.append(f"- **{check}** — {CHECK_INFO[check][0]}")
+    md.append("")
+    md.append("`⏭ dep` = unavailable heavy dependency on this runner: reported, "
+              "never gates (the with-compute lane covers it). `—` = not "
+              "applicable to this tool.")
+    md.append("</details>")
+    md.append("")
+
     if gate_failures:
-        md.append(f"## ❌ gate failed: {', '.join(gate_failures)}")
+        md.append(f"## ❌ gate failed: {', '.join(gate_failures)} — see Failure details above")
     else:
         md.append("## ✅ gate passed"
                   + ("" if gated is None else f" ({len(gated)} gated tool(s))"))
