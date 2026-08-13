@@ -65,3 +65,30 @@ PR #230 verification campaign:
 In CI it runs via `workflow_dispatch` on a self-hosted GPU runner with the
 backends already up; running it locally is equivalent and is the expected
 path while no such runner is registered.
+
+## Lane 3 — full-agent e2e (`tool-agent-e2e.yml`, opt-in)
+
+One real `SPAgent.step()` episode per tool: a live VLM receives your tool's
+schema, must *choose* to invoke it against its live backend, and must produce
+a grounded final answer. This verifies the whole chain — tool description →
+model tool call → backend → `ToolResult` → `render()` projection → answer —
+including whether your tool *description* is good enough for a model to
+actually pick the tool up.
+
+```bash
+# API keys via env vars only (never CLI args). Pick any one provider:
+GEMINI_API_KEY=...    python test/tool_agent_e2e.py --tool <key> --provider gemini
+OPENAI_API_KEY=...    python test/tool_agent_e2e.py --tool <key> --provider openai
+ANTHROPIC_API_KEY=... python test/tool_agent_e2e.py --tool <key> --provider anthropic
+# or a local OpenAI-compatible server (vLLM, llama.cpp):
+python test/tool_agent_e2e.py --tool <key> --provider local \
+    --local-base-url http://localhost:8000/v1 --model <served-model>
+```
+
+Server-backed tools take the same `--url key=http://...` override as lane 2,
+and reuse its dead-backend reachability guard. Episode prompts are
+category-appropriate defaults (override with `--prompt`). Pass criteria: the
+agent loop completes, the model invoked *your* tool, at least one invocation
+succeeded, and the final answer is non-empty. A failure of the form "the
+model never called <tool>" usually means the tool description needs work —
+that is a real finding, not a flaky test.
