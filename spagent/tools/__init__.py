@@ -11,6 +11,7 @@ from .detection_tool import ObjectDetectionTool, ZoomObjectTool, LocalizeObjectT
 from .supervision_tool import SupervisionTool
 from .yoloe_tool import YOLOETool
 from .yolo26_tool import YOLO26Tool
+from .face_detection_tool import FaceDetectionTool
 from .moondream_tool import MoondreamTool
 from .molmo2_tool import Molmo2Tool
 from .pi3_tool import Pi3Tool
@@ -47,6 +48,7 @@ __all__ = [
     'SupervisionTool',
     'YOLOETool',
     'YOLO26Tool',
+    'FaceDetectionTool',
     'MoondreamTool',
     'Molmo2Tool',
     'Pi3Tool',
