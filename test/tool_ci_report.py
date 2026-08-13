@@ -194,9 +194,12 @@ def check_tool(entry):
         fail("call", f"call returned {type(res).__name__}, expected a dict/ToolResult")
         return r, notes, fails
     if not res.get("success"):
-        err = str(res.get("error"))[:120]
+        err = str(res.get("error"))[:150]
+        dep = any(s in err.lower() for s in
+                  ("not found", "no module named", "not installed",
+                   "modulenotfounderror", "importerror"))
         fail("call", f"mock call returned success=False: {err}",
-             SKIP if "not found" in err.lower() else FAIL)
+             SKIP if dep else FAIL)
         return r, notes, fails
     r["call"] = PASS
 

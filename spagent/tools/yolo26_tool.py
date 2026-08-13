@@ -51,6 +51,7 @@ class YOLO26Tool(Tool):
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
         self._model = None
+        self._load_error = None
         self._init_model()
 
     def _init_model(self):
@@ -62,6 +63,9 @@ class YOLO26Tool(Tool):
         except Exception as e:
             logger.error(f"Failed to load YOLO26 model: {e}")
             self._model = None
+            # keep the root cause so call() can report it (a swallowed
+            # ImportError otherwise looks like a generic tool failure)
+            self._load_error = f"{type(e).__name__}: {e}"
 
     @property
     def parameters(self) -> Dict[str, Any]:
@@ -105,9 +109,10 @@ class YOLO26Tool(Tool):
                 }
 
             if self._model is None:
+                cause = f" ({self._load_error})" if self._load_error else ""
                 return {
                     "success": False,
-                    "error": "YOLO26 model is not initialized."
+                    "error": f"YOLO26 model is not initialized{cause}."
                 }
 
             run_conf = self.conf if conf is None else conf
