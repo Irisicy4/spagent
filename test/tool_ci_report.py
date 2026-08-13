@@ -318,34 +318,52 @@ def main():
             gate_failures.append(entry.key)
 
     # ---- report ----
+    # Gated mode (--changed-from / --tools) shows ONLY the changed tools; the
+    # rest of the catalog is still checked but collapsed into one fleet line.
+    # Full-catalog table: run with no arguments.
     md = ["# Tool contract report (no-compute, mock mode)", ""]
     if gated is not None:
-        md.append(f"**Gated tools** (changed in this PR): `{', '.join(gated) or 'none'}`  ")
-        md.append("Other rows are informational.")
+        md.append(f"**Changed tools in this PR** (only these gate the merge): "
+                  f"`{', '.join(gated) or 'none'}`")
         md.append("")
     if orphans and not args.tools:
         md.append(f"⚠️ changed tool file(s) with **no catalog entry**: `{', '.join(orphans)}` "
                   "— new tools must be registered in `spagent/tools/catalog.py`.")
         md.append("")
         gate_failures.extend(f"unregistered:{o}" for o in orphans)
-    md.append("| tool | category | " + " | ".join(CHECKS) + " | notes |")
-    md.append("|" + "---|" * (len(CHECKS) + 3))
-    for key, cat, results, notes, _fails in rows:
-        gate_mark = "**" if (gated is not None and key in gated) else ""
-        md.append(f"| {gate_mark}{key}{gate_mark} | {cat} | "
-                  + " | ".join(results[c] for c in CHECKS)
-                  + " | " + "; ".join(notes)[:160] + " |")
-    md.append("")
+
+    shown = rows if gated is None else [r for r in rows if r[0] in gated]
+    if shown:
+        md.append("| tool | category | " + " | ".join(CHECKS) + " | notes |")
+        md.append("|" + "---|" * (len(CHECKS) + 3))
+        for key, cat, results, notes, _fails in shown:
+            md.append(f"| {key} | {cat} | "
+                      + " | ".join(results[c] for c in CHECKS)
+                      + " | " + "; ".join(notes)[:160] + " |")
+        md.append("")
+
+    if gated is not None:
+        rest = [r for r in rows if r[0] not in gated]
+        broken = [k for k, _c, _r, _n, f in rest if f]
+        skipped = [k for k, _c, r, _n, f in rest if not f and SKIP in r.values()]
+        line = (f"Rest of the catalog ({len(rest)} unchanged tools, non-gating): "
+                f"{len(rest) - len(broken) - len(skipped)} ✅")
+        if skipped:
+            line += f", {len(skipped)} ⏭ dep ({', '.join(skipped)})"
+        if broken:
+            line += f", {len(broken)} ❌ ({', '.join(broken)}) — pre-existing, not caused by this PR"
+        md.append(line + ". Run `python test/tool_ci_report.py` for the full table.")
+        md.append("")
 
     # verbose failure details: what was tested, what was observed, how to fix
-    failing_rows = [(k, c, f) for k, c, _r, _n, f in rows if f]
+    # (gated tools only in gated mode — unchanged tools are summarized above)
+    failing_rows = [(k, c, f) for k, c, _r, _n, f in rows
+                    if f and (gated is None or k in gated)]
     if failing_rows:
         md.append("## Failure details")
         md.append("")
         for key, cat, fails in failing_rows:
-            gated_note = ("gates this PR" if (gated is None or key in gated)
-                          else "informational — not changed by this PR")
-            md.append(f"### `{key}` ({cat}) — {len(fails)} failing check(s), {gated_note}")
+            md.append(f"### `{key}` ({cat}) — {len(fails)} failing check(s)")
             md.append("")
             for check, observed in fails.items():
                 tests, fix = CHECK_INFO[check]
