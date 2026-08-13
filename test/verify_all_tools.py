@@ -23,6 +23,7 @@ CALL_KW = {
     "supervision":  dict(image_path=IMG, task="image_det"),
     "yoloe":        dict(image_path=IMG, task="image", class_names=["dog"]),
     "yolo26":       dict(image_path=IMG),          # real local model (tiny)
+    "face_detection": dict(image_path=IMG),
     "qwenvl":       dict(image_path=IMG, text_prompt="dog"),
     "moondream":    dict(image_path=IMG, task="point", object_name="dog"),
     "molmo2":       dict(image_path=IMG, prompt="Point to the dog"),
