@@ -79,7 +79,7 @@ DEFAULT_SERVER_URLS: Dict[str, str] = {
     "sana": "http://127.0.0.1:30000",
     "yoloe": "http://127.0.0.1:8000",
     "supervision": "http://127.0.0.1:8000",
-    "oneformer": "http://127.0.0.1:20035",
+    "oneformer": "http://127.0.0.1:20038",
 }
 
 

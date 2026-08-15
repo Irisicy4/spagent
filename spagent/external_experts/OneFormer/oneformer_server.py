@@ -5,11 +5,11 @@ Wraps OneFormerLocalClient as an HTTP service so multiple agents can share
 one model instance without reloading weights on every call.
 
 Usage:
-    python spagent/external_experts/OneFormer/oneformer_server.py --port 20035
+    python spagent/external_experts/OneFormer/oneformer_server.py --port 20038
 
     # With a specific model:
     python spagent/external_experts/OneFormer/oneformer_server.py \
-        --model_id shi-labs/oneformer_ade20k_swin_large --port 20035 --device cuda
+        --model_id shi-labs/oneformer_ade20k_swin_large --port 20038 --device cuda
 """
 
 import argparse
@@ -125,7 +125,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="OneFormer inference server")
     parser.add_argument("--model_id", type=str, default=None,
                         help="HuggingFace model ID (overrides ONEFORMER_MODEL_ID env var)")
-    parser.add_argument("--port", type=int, default=20035, help="Port (default: 20035)")
+    parser.add_argument("--port", type=int, default=20038, help="Port (default: 20038)")
     parser.add_argument("--device", type=str, default="cuda", help="Device (default: cuda)")
     args = parser.parse_args()
 

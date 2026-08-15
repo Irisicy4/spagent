@@ -6,7 +6,7 @@ separate service and you want to avoid loading weights into the current process.
 
 Usage:
     from external_experts.OneFormer.oneformer_client import OneFormerClient
-    client = OneFormerClient("http://localhost:20035")
+    client = OneFormerClient("http://localhost:20038")
     result = client.segment("image.jpg", task="panoptic")
 """
 
