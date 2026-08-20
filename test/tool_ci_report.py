@@ -386,35 +386,52 @@ def main():
         md.append(line + ". Run `python test/tool_ci_report.py` for the full table.")
         md.append("")
 
-    # verbose failure details: what was tested, what was observed, how to fix
-    # (gated tools only in gated mode — unchanged tools are summarized above)
-    failing_rows = [(k, c, f) for k, c, _r, _n, f in rows
-                    if f and (gated is None or k in gated)]
-    if failing_rows:
-        md.append("## Failure details")
+    # Per-tool check report: every check as pass/fail with its success
+    # criteria spelled out, and — on failure — what was observed and how to
+    # fix it. Gated tools only (full-catalog mode would be 9 lines × 26 tools;
+    # its failures are still listed, passes are left to the table).
+    STATUS_WORD = {PASS: "✅ pass", FAIL: "❌ FAIL", SKIP: "⏭ dep-skipped",
+                   NA: "— not applicable"}
+    report_rows = [r for r in rows
+                   if (gated is not None and r[0] in gated) or (gated is None and r[4])]
+    if report_rows:
+        md.append("## Check report" if gated is not None else "## Failure details")
         md.append("")
-        for key, cat, fails in failing_rows:
-            md.append(f"### `{key}` ({cat}) — {len(fails)} failing check(s)")
+        for key, cat, results, _notes, fails in report_rows:
+            n_fail = len(fails)
+            verdict = "all checks passed" if not n_fail else f"{n_fail} check(s) failed"
+            md.append(f"### `{key}` ({cat}) — {verdict}")
             md.append("")
-            for check, observed in fails.items():
+            for check in CHECKS:
+                status = results[check]
+                if gated is None and status != FAIL:
+                    continue  # full-catalog mode: failures only
                 tests, fix = CHECK_INFO[check]
-                md.append(f"- **{check}**")
-                md.append(f"  - *tests that:* {tests}")
-                md.append(f"  - *observed:* {observed}")
-                md.append(f"  - *fix:* {fix}")
+                md.append(f"- **{check}**: {STATUS_WORD[status]}")
+                if status == NA:
+                    continue
+                md.append(f"  - *passes if:* {tests}")
+                if check in fails:
+                    md.append(f"  - *failed here:* {fails[check]}")
+                    md.append(f"  - *fix:* {fix}")
+                elif status == SKIP:
+                    md.append("  - *skipped:* heavy dependency unavailable on this "
+                              "runner — verified by the with-compute lane instead")
             md.append("")
 
-    # legend: what every column verifies
-    md.append("<details><summary>What each check tests</summary>")
-    md.append("")
-    for check in CHECKS:
-        md.append(f"- **{check}** — {CHECK_INFO[check][0]}")
-    md.append("")
-    md.append("`⏭ dep` = unavailable heavy dependency on this runner: reported, "
-              "never gates (the with-compute lane covers it). `—` = not "
-              "applicable to this tool.")
-    md.append("</details>")
-    md.append("")
+    # legend: what every column verifies — full-catalog mode only; in gated
+    # mode the Check report above already carries each check's criteria inline
+    if gated is None:
+        md.append("<details><summary>What each check tests</summary>")
+        md.append("")
+        for check in CHECKS:
+            md.append(f"- **{check}** — {CHECK_INFO[check][0]}")
+        md.append("")
+        md.append("`⏭ dep` = unavailable heavy dependency on this runner: reported, "
+                  "never gates (the with-compute lane covers it). `—` = not "
+                  "applicable to this tool.")
+        md.append("</details>")
+        md.append("")
 
     if gate_failures:
         md.append(f"## ❌ gate failed: {', '.join(gate_failures)} — see Failure details above")
