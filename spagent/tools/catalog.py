@@ -20,6 +20,7 @@ from .detection_tool import ObjectDetectionTool, ZoomObjectTool, LocalizeObjectT
 from .supervision_tool import SupervisionTool
 from .yoloe_tool import YOLOETool
 from .yolo26_tool import YOLO26Tool
+from .face_detection_tool import FaceDetectionTool
 from .moondream_tool import MoondreamTool
 from .molmo2_tool import Molmo2Tool
 from .pi3_tool import Pi3Tool
@@ -153,6 +154,14 @@ TOOL_CATALOG: List[ToolCatalogEntry] = [
         QwenVLTool,
         "2d_perception",
         "qwenvl_detection_tool",
+        {},
+        category="detection",
+    ),
+    ToolCatalogEntry(
+        "face_detection",
+        FaceDetectionTool,
+        "2d_perception",
+        "face_detection_tool",
         {},
         category="detection",
     ),

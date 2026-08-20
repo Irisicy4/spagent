@@ -49,6 +49,7 @@ CALL_KW = {
     "supervision":  dict(image_path=IMG, task="image_det"),
     "yoloe":        dict(image_path=IMG, task="image", class_names=["dog"]),
     "yolo26":       dict(image_path=IMG),
+    "face_detection": dict(image_path=IMG),
     "qwenvl":       dict(image_path=IMG, text_prompt="dog"),
     "moondream":    dict(image_path=IMG, task="point", object_name="dog"),
     "molmo2":       dict(image_path=IMG, prompt="Point to the dog"),
@@ -68,7 +69,9 @@ CALL_KW = {
     "wilddet3d":    dict(image_path=IMG, prompt_text="dog"),
 }
 
-CHECKS = ["build", "schema", "call", "toolresult", "contract", "render", "boxes", "failpath"]
+CHECKS = ["build", "schema", "call", "toolresult", "contract", "render", "boxes", "failpath", "docs"]
+
+DOC_FILES = ("docs/Tool/TOOL_USING.md", "docs/Tool/EXTERNAL_EXPERTS.md")
 
 # What each check verifies and how to fix a failure. Rendered as a legend in
 # every report and quoted in the per-tool failure details.
@@ -114,6 +117,11 @@ CHECK_INFO = {
         "without raising — agents feed tools bad paths routinely",
         "validate input paths at the top of `call()` (in mock mode too) and "
         "return an error dict instead of raising"),
+    "docs": (
+        "the tool is documented: its class name, tool name, or catalog key "
+        "appears in docs/Tool/TOOL_USING.md or EXTERNAL_EXPERTS.md",
+        "add the tool to the TOOL_USING.md tool table (and EXTERNAL_EXPERTS.md "
+        "if it has a backend/server) — see other tools' rows for the format"),
 }
 
 PASS, FAIL, SKIP, NA = "✅", "❌", "⏭ dep", "—"
@@ -121,6 +129,22 @@ PASS, FAIL, SKIP, NA = "✅", "❌", "⏭ dep", "—"
 
 def _is_dep_error(exc: Exception) -> bool:
     return isinstance(exc, (ImportError, ModuleNotFoundError, FileNotFoundError, OSError))
+
+
+_DOC_CACHE = None
+
+
+def _doc_corpus() -> str:
+    global _DOC_CACHE
+    if _DOC_CACHE is None:
+        parts = []
+        for f in DOC_FILES:
+            try:
+                parts.append((REPO / f).read_text(encoding="utf-8"))
+            except OSError:
+                pass
+        _DOC_CACHE = "\n".join(parts)
+    return _DOC_CACHE
 
 
 def _bad_image_kwargs(kw):
@@ -150,6 +174,14 @@ def check_tool(entry):
         notes.append(msg)
         if status == FAIL:
             fails[check] = msg
+
+    # docs — static check, runs regardless of how the runtime checks go
+    doc_text = _doc_corpus()
+    if any(s in doc_text for s in (entry.cls.__name__, entry.tool_name, key)):
+        r["docs"] = PASS
+    else:
+        fail("docs", f"neither `{entry.cls.__name__}`, `{entry.tool_name}`, nor "
+                     f"`{key}` appears in {' or '.join(DOC_FILES)}")
 
     # build
     try:
@@ -193,9 +225,12 @@ def check_tool(entry):
         fail("call", f"call returned {type(res).__name__}, expected a dict/ToolResult")
         return r, notes, fails
     if not res.get("success"):
-        err = str(res.get("error"))[:120]
+        err = str(res.get("error"))[:150]
+        dep = any(s in err.lower() for s in
+                  ("not found", "no module named", "not installed",
+                   "modulenotfounderror", "importerror"))
         fail("call", f"mock call returned success=False: {err}",
-             SKIP if "not found" in err.lower() else FAIL)
+             SKIP if dep else FAIL)
         return r, notes, fails
     r["call"] = PASS
 
@@ -314,54 +349,89 @@ def main():
             gate_failures.append(entry.key)
 
     # ---- report ----
+    # Gated mode (--changed-from / --tools) shows ONLY the changed tools; the
+    # rest of the catalog is still checked but collapsed into one fleet line.
+    # Full-catalog table: run with no arguments.
     md = ["# Tool contract report (no-compute, mock mode)", ""]
     if gated is not None:
-        md.append(f"**Gated tools** (changed in this PR): `{', '.join(gated) or 'none'}`  ")
-        md.append("Other rows are informational.")
+        md.append(f"**Changed tools in this PR** (only these gate the merge): "
+                  f"`{', '.join(gated) or 'none'}`")
         md.append("")
     if orphans and not args.tools:
         md.append(f"⚠️ changed tool file(s) with **no catalog entry**: `{', '.join(orphans)}` "
                   "— new tools must be registered in `spagent/tools/catalog.py`.")
         md.append("")
         gate_failures.extend(f"unregistered:{o}" for o in orphans)
-    md.append("| tool | category | " + " | ".join(CHECKS) + " | notes |")
-    md.append("|" + "---|" * (len(CHECKS) + 3))
-    for key, cat, results, notes, _fails in rows:
-        gate_mark = "**" if (gated is not None and key in gated) else ""
-        md.append(f"| {gate_mark}{key}{gate_mark} | {cat} | "
-                  + " | ".join(results[c] for c in CHECKS)
-                  + " | " + "; ".join(notes)[:160] + " |")
-    md.append("")
 
-    # verbose failure details: what was tested, what was observed, how to fix
-    failing_rows = [(k, c, f) for k, c, _r, _n, f in rows if f]
-    if failing_rows:
-        md.append("## Failure details")
+    shown = rows if gated is None else [r for r in rows if r[0] in gated]
+    if shown:
+        md.append("| tool | category | " + " | ".join(CHECKS) + " | notes |")
+        md.append("|" + "---|" * (len(CHECKS) + 3))
+        for key, cat, results, notes, _fails in shown:
+            md.append(f"| {key} | {cat} | "
+                      + " | ".join(results[c] for c in CHECKS)
+                      + " | " + "; ".join(notes)[:160] + " |")
         md.append("")
-        for key, cat, fails in failing_rows:
-            gated_note = ("gates this PR" if (gated is None or key in gated)
-                          else "informational — not changed by this PR")
-            md.append(f"### `{key}` ({cat}) — {len(fails)} failing check(s), {gated_note}")
+
+    if gated is not None:
+        rest = [r for r in rows if r[0] not in gated]
+        broken = [k for k, _c, _r, _n, f in rest if f]
+        skipped = [k for k, _c, r, _n, f in rest if not f and SKIP in r.values()]
+        line = (f"Rest of the catalog ({len(rest)} unchanged tools, non-gating): "
+                f"{len(rest) - len(broken) - len(skipped)} ✅")
+        if skipped:
+            line += f", {len(skipped)} ⏭ dep ({', '.join(skipped)})"
+        if broken:
+            line += f", {len(broken)} ❌ ({', '.join(broken)}) — pre-existing, not caused by this PR"
+        md.append(line + ". Run `python test/tool_ci_report.py` for the full table.")
+        md.append("")
+
+    # Per-tool check report: every check as pass/fail with its success
+    # criteria spelled out, and — on failure — what was observed and how to
+    # fix it. Gated tools only (full-catalog mode would be 9 lines × 26 tools;
+    # its failures are still listed, passes are left to the table).
+    STATUS_WORD = {PASS: "✅ pass", FAIL: "❌ FAIL", SKIP: "⏭ dep-skipped",
+                   NA: "— not applicable"}
+    report_rows = [r for r in rows
+                   if (gated is not None and r[0] in gated) or (gated is None and r[4])]
+    if report_rows:
+        md.append("## Check report" if gated is not None else "## Failure details")
+        md.append("")
+        for key, cat, results, _notes, fails in report_rows:
+            n_fail = len(fails)
+            verdict = "all checks passed" if not n_fail else f"{n_fail} check(s) failed"
+            md.append(f"### `{key}` ({cat}) — {verdict}")
             md.append("")
-            for check, observed in fails.items():
+            for check in CHECKS:
+                status = results[check]
+                if gated is None and status != FAIL:
+                    continue  # full-catalog mode: failures only
                 tests, fix = CHECK_INFO[check]
-                md.append(f"- **{check}**")
-                md.append(f"  - *tests that:* {tests}")
-                md.append(f"  - *observed:* {observed}")
-                md.append(f"  - *fix:* {fix}")
+                md.append(f"- **{check}**: {STATUS_WORD[status]}")
+                if status == NA:
+                    continue
+                md.append(f"  - *passes if:* {tests}")
+                if check in fails:
+                    md.append(f"  - *failed here:* {fails[check]}")
+                    md.append(f"  - *fix:* {fix}")
+                elif status == SKIP:
+                    md.append("  - *skipped:* heavy dependency unavailable on this "
+                              "runner — verified by the with-compute lane instead")
             md.append("")
 
-    # legend: what every column verifies
-    md.append("<details><summary>What each check tests</summary>")
-    md.append("")
-    for check in CHECKS:
-        md.append(f"- **{check}** — {CHECK_INFO[check][0]}")
-    md.append("")
-    md.append("`⏭ dep` = unavailable heavy dependency on this runner: reported, "
-              "never gates (the with-compute lane covers it). `—` = not "
-              "applicable to this tool.")
-    md.append("</details>")
-    md.append("")
+    # legend: what every column verifies — full-catalog mode only; in gated
+    # mode the Check report above already carries each check's criteria inline
+    if gated is None:
+        md.append("<details><summary>What each check tests</summary>")
+        md.append("")
+        for check in CHECKS:
+            md.append(f"- **{check}** — {CHECK_INFO[check][0]}")
+        md.append("")
+        md.append("`⏭ dep` = unavailable heavy dependency on this runner: reported, "
+                  "never gates (the with-compute lane covers it). `—` = not "
+                  "applicable to this tool.")
+        md.append("</details>")
+        md.append("")
 
     if gate_failures:
         md.append(f"## ❌ gate failed: {', '.join(gate_failures)} — see Failure details above")
