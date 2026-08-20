@@ -69,7 +69,9 @@ CALL_KW = {
     "wilddet3d":    dict(image_path=IMG, prompt_text="dog"),
 }
 
-CHECKS = ["build", "schema", "call", "toolresult", "contract", "render", "boxes", "failpath"]
+CHECKS = ["build", "schema", "call", "toolresult", "contract", "render", "boxes", "failpath", "docs"]
+
+DOC_FILES = ("docs/Tool/TOOL_USING.md", "docs/Tool/EXTERNAL_EXPERTS.md")
 
 # What each check verifies and how to fix a failure. Rendered as a legend in
 # every report and quoted in the per-tool failure details.
@@ -115,6 +117,11 @@ CHECK_INFO = {
         "without raising — agents feed tools bad paths routinely",
         "validate input paths at the top of `call()` (in mock mode too) and "
         "return an error dict instead of raising"),
+    "docs": (
+        "the tool is documented: its class name, tool name, or catalog key "
+        "appears in docs/Tool/TOOL_USING.md or EXTERNAL_EXPERTS.md",
+        "add the tool to the TOOL_USING.md tool table (and EXTERNAL_EXPERTS.md "
+        "if it has a backend/server) — see other tools' rows for the format"),
 }
 
 PASS, FAIL, SKIP, NA = "✅", "❌", "⏭ dep", "—"
@@ -122,6 +129,22 @@ PASS, FAIL, SKIP, NA = "✅", "❌", "⏭ dep", "—"
 
 def _is_dep_error(exc: Exception) -> bool:
     return isinstance(exc, (ImportError, ModuleNotFoundError, FileNotFoundError, OSError))
+
+
+_DOC_CACHE = None
+
+
+def _doc_corpus() -> str:
+    global _DOC_CACHE
+    if _DOC_CACHE is None:
+        parts = []
+        for f in DOC_FILES:
+            try:
+                parts.append((REPO / f).read_text(encoding="utf-8"))
+            except OSError:
+                pass
+        _DOC_CACHE = "\n".join(parts)
+    return _DOC_CACHE
 
 
 def _bad_image_kwargs(kw):
@@ -151,6 +174,14 @@ def check_tool(entry):
         notes.append(msg)
         if status == FAIL:
             fails[check] = msg
+
+    # docs — static check, runs regardless of how the runtime checks go
+    doc_text = _doc_corpus()
+    if any(s in doc_text for s in (entry.cls.__name__, entry.tool_name, key)):
+        r["docs"] = PASS
+    else:
+        fail("docs", f"neither `{entry.cls.__name__}`, `{entry.tool_name}`, nor "
+                     f"`{key}` appears in {' or '.join(DOC_FILES)}")
 
     # build
     try:

@@ -16,6 +16,7 @@ Full list of supported external expert models in SPAgent, their default ports, a
 | **VGGT** | 3D | Multi-view 3D Reconstruction & Pose Estimation | Local server (20032) | Reconstructs point clouds + camera extrinsics from image lists or video; uses [facebook/VGGT-1B](https://huggingface.co/facebook/VGGT-1B) |
 | **MapAnything** | 3D | Dense 3D Reconstruction via Depth | Local server (20033) | Dense point clouds from depth maps + camera poses; [facebook/map-anything](https://huggingface.co/facebook/map-anything) |
 | **YOLO26** | 2D | Object Detection | Local (no server) | Fast detection via `ultralytics`; outputs optional annotated image |
+| **FaceDetection** | 2D | Frontal Face Detection | Local (no server) | CPU-only OpenCV Haar cascade; no checkpoint download; pixel-xyxy boxes + annotated image |
 | **Supervision** | 2D | Detection Annotation & Visualization | Local | YOLO + visualization for post-processing |
 | **Qwen2.5-VL** | 2D | Vision-Language Detection | API / local | Grounding and localization from image-text prompts |
 | **OrientAnythingV2** | 3D | Orientation & Rotation Estimation | Local server (20034) | Azimuth/elevation/rotation + symmetry; two-image relative pose; NeurIPS 2025 Spotlight |

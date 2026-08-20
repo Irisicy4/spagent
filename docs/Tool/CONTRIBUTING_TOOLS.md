@@ -19,7 +19,11 @@ smoke** against live backends.
    `external_experts/*/mock_*_service.py` for examples).
 4. Add a minimal mock-call row to `CALL_KW` in `test/tool_ci_report.py`.
    A missing row fails the gate with "no CALL_KW entry".
-5. Run both lanes locally before opening the PR (below).
+5. Document the tool: add a row to the tool table in
+   `docs/Tool/TOOL_USING.md` (and `docs/Tool/EXTERNAL_EXPERTS.md` plus its
+   port table if the tool is server-backed). Lane 1's `docs` check fails
+   undocumented tools.
+6. Run the lanes locally before opening the PR (below).
 
 ## Lane 1 — no-compute contract gate (`tool-ci.yml`, every PR)
 
