@@ -33,6 +33,7 @@ external_experts/
 ├── WildDet3D/                     # Promptable 3D object detection (local, no server)
 ├── FlowSeek/                      # Optical flow estimation between image pairs (local or server port 20036)
 ├── PaddleOCRVL/                   # Document OCR & structured recognition (PaddleOCR-VL-1.5, port 20037)
+├── OneFormer/                     # Universal image segmentation semantic/instance/panoptic (port 20038)
 └── supervision/                   # YOLO object detection and annotation tools
 ```
 
@@ -60,6 +61,7 @@ external_experts/
 | **WildDet3D** | `WildDet3DTool` | Promptable 3D Object Detection | Detect and localize objects in 2D and 3D from a single RGB image; supports text, box, and point prompts; requires `WILDDET3D_ROOT` and `WILDDET3D_CHECKPOINT` env vars | Local (no server) | `image_path`, `prompt_text`(optional), `input_boxes`(optional), `input_points`(optional) |
 | **FlowSeek** | `FlowSeekTool` | Optical Flow Estimation | Estimate dense per-pixel motion between two images (consecutive frames or before/after pairs); returns colorized flow visualization; M variant (ViT-B) or T variant (ViT-S); source vendored in repo, requires `FLOWSEEK_CHECKPOINT` and `FLOWSEEK_DAV2_CHECKPOINT` env vars | Local / Server (port 20036) | `image1_path`, `image2_path`, `output_path`(optional) |
 | **PaddleOCR-VL-1.5** | `PaddleOCRVLTool` | Document OCR & Structured Recognition | 0.9B VLM for plain OCR, table parsing, chart reading, formula → LaTeX, text spotting, and seal recognition; supports local/server/mock; no checkpoint env var required | Local or Server (port 20037) | `image_path`, `task` ("ocr" / "table" / "chart" / "formula" / "spotting" / "seal") |
+| **OneFormer** | `OneFormerTool` | Universal Image Segmentation | Single model for semantic / instance / panoptic; HF auto-download; returns colorized overlay + mask_path id-map | Local / Server (port 20038) | `image_path`, `task` ("semantic" / "instance" / "panoptic") |
 
 **Usage Examples**:
 - For detailed usage examples, please refer to: [Advanced Examples](../Examples/ADVANCED_EXAMPLES.md)
@@ -1475,6 +1477,54 @@ print(result["answer"])
 **Resources**:
 - [PaddleOCR-VL-1.5 on HuggingFace](https://huggingface.co/PaddlePaddle/PaddleOCR-VL-1.5)
 - [Paper](https://arxiv.org/abs/2505.09816)
+
+---
+
+### 17. OneFormer - Universal Image Segmentation
+
+**Function**: Universal image segmentation (semantic / instance / panoptic) with a single model.
+
+**Features**:
+- Three tasks via one checkpoint: `semantic`, `instance`, `panoptic`
+- Local, server (port 20038), and mock modes
+- Auto-downloads from HuggingFace Hub on first use
+- Returns colorized visualization (`output_path`) and integer id mask (`mask_path`) for the standardized segmentation contract
+
+**Setup**:
+
+```bash
+pip install transformers Pillow
+export ONEFORMER_MODEL_ID=shi-labs/oneformer_ade20k_swin_large  # optional
+```
+
+**Local usage**:
+
+```python
+from spagent.tools import OneFormerTool
+tool = OneFormerTool(device="cuda")
+result = tool.call(image_path="image.jpg", task="panoptic")
+print(result["output_path"], result.get("mask_path"))
+```
+
+**Server mode**:
+
+```bash
+python spagent/external_experts/OneFormer/oneformer_server.py --port 20038 --device cuda
+```
+
+```python
+tool = OneFormerTool(server_url="http://localhost:20038")
+```
+
+**Test**:
+
+```bash
+python test/test_tool.py --tool oneformer --image assets/dog.jpeg --use_mock
+python test/test_tool.py --tool oneformer --image assets/dog.jpeg --seg_task panoptic
+```
+
+**Resources**:
+- [OneFormer GitHub](https://github.com/SHI-Labs/OneFormer)
 
 ---
 

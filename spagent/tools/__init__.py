@@ -27,6 +27,7 @@ from .sana_tool import SanaTool
 from .wilddet3d_tool import WildDet3DTool
 from .flowseek_tool import FlowSeekTool
 from .paddleocr_vl_tool import PaddleOCRVLTool
+from .oneformer_tool import OneFormerTool
 from .catalog import (
     TOOL_CATALOG,
     build_all_tools,
@@ -63,6 +64,7 @@ __all__ = [
     'WildDet3DTool',
     'FlowSeekTool',
     'PaddleOCRVLTool',
+    'OneFormerTool',
     'TOOL_CATALOG',
     'build_all_tools',
     'build_tools',

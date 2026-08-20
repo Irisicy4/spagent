@@ -29,6 +29,7 @@ from spagent.tools import (
     VaceTool,
     WildDet3DTool,
     FlowSeekTool,
+    OneFormerTool,
 )
 from spagent.utils.utils import (
     load_json_data, 
@@ -66,6 +67,9 @@ TOOL_CONFIGS = {
     ],
     "flowseek": [
         FlowSeekTool(device="cuda"),
+    ],
+    "oneformer": [
+        OneFormerTool(device="cuda"),
     ],
 }
 

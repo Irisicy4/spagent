@@ -67,6 +67,10 @@ Usage:
 
     # Test PaddleOCR-VL-1.5 (server mode)
     python test/test_tool.py --tool paddleocr_vl --image assets/doc.png --server_url http://0.0.0.0:20037
+
+    # Test OneFormer (mock)
+    python test/test_tool.py --tool oneformer --image assets/dog.jpeg --use_mock
+
 """
 
 import sys
@@ -892,6 +896,63 @@ def test_paddleocr_vl(
     return text or "OK"
 
 
+
+# ============================================================
+# OneFormer Tool Test
+# ============================================================
+
+def test_oneformer(
+    image_paths: List[str],
+    task: str = "panoptic",
+    device: str = "cuda",
+    use_mock: bool = False,
+    output_dir: str = "outputs/tool_test",
+    server_url: Optional[str] = None,
+) -> Optional[str]:
+    """Directly test OneFormer universal segmentation tool."""
+    from spagent.tools import OneFormerTool
+
+    image_path = image_paths[0]
+    if not os.path.exists(image_path):
+        logger.error(f"Image not found: {image_path}")
+        return None
+
+    logger.info("=" * 60)
+    logger.info("OneFormer Tool Test")
+    logger.info("=" * 60)
+    logger.info(f"  Image            : {image_path}")
+    logger.info(f"  Task             : {task}")
+    logger.info(f"  Device           : {device}")
+    logger.info(f"  Use mock         : {use_mock}")
+    logger.info(f"  Server URL       : {server_url or 'local'}")
+    logger.info(f"  Output dir       : {output_dir}")
+    logger.info("-" * 60)
+
+    tool = OneFormerTool(device=device, use_mock=use_mock, server_url=server_url)
+    result = tool.call(image_path=image_path, task=task)
+
+    if not result.get("success"):
+        logger.error(f"OneFormer tool failed: {result.get('error', 'unknown error')}")
+        return None
+
+    logger.info("OneFormer segmentation succeeded!")
+    logger.info(f"  Description      : {result.get('description', '')}")
+    logger.info(f"  Mask path        : {result.get('mask_path', '')}")
+
+    src_path = result.get("output_path")
+    if src_path and os.path.exists(src_path):
+        os.makedirs(output_dir, exist_ok=True)
+        import shutil
+        ext = Path(src_path).suffix
+        dst_path = os.path.join(output_dir, f"OneFormer_test{ext}")
+        shutil.copy2(src_path, dst_path)
+        logger.info(f"  Output saved     : {dst_path}")
+        return dst_path
+
+    logger.warning("No output image path in result.")
+    return None
+
+
 # ============================================================
 # CLI entry point
 # ============================================================
@@ -905,7 +966,7 @@ def parse_args():
         "--tool",
         type=str,
         required=True,
-        choices=["pi3", "pi3x", "depth", "segmentation", "detection", "veo", "sora", "vace", "molmo2", "wilddet3d", "flowseek", "paddleocr_vl"],
+        choices=["pi3", "pi3x", "depth", "segmentation", "detection", "veo", "sora", "vace", "molmo2", "wilddet3d", "flowseek", "paddleocr_vl", "oneformer"],
         help="Which tool to test. depth/segmentation/detection now run real inference (no longer stubs).",
     )
     parser.add_argument(
@@ -980,6 +1041,16 @@ def parse_args():
         help="PaddleOCR-VL task mode (default: ocr).",
     )
 
+
+    oneformer_group = parser.add_argument_group("OneFormer options")
+    oneformer_group.add_argument(
+        "--seg_task",
+        type=str,
+        default="panoptic",
+        choices=["semantic", "instance", "panoptic"],
+        help="OneFormer segmentation task (default: panoptic).",
+    )
+
     molmo2_group = parser.add_argument_group("Molmo2 options")
     molmo2_group.add_argument(
         "--task",
@@ -1026,7 +1097,7 @@ def parse_args():
 
 def main():
     args = parse_args()
-    image_required_tools = {"pi3", "pi3x", "depth", "segmentation", "detection", "vace", "molmo2", "wilddet3d", "paddleocr_vl", "flowseek"}
+    image_required_tools = {"pi3", "pi3x", "depth", "segmentation", "detection", "vace", "molmo2", "wilddet3d", "paddleocr_vl", "flowseek", "oneformer"}
     if args.tool in image_required_tools and not args.image:
         print(f"Error: --image is required for tool '{args.tool}'")
         sys.exit(1)
@@ -1154,6 +1225,16 @@ def main():
             use_mock=args.use_mock,
             output_dir=args.output_dir,
         )
+    elif args.tool == "oneformer":
+        result_path = test_oneformer(
+            image_paths=args.image,
+            task=args.seg_task,
+            device=args.device,
+            use_mock=args.use_mock,
+            output_dir=args.output_dir,
+            server_url=args.server_url,
+        )
+
 
     # --- summary ---
     print()
