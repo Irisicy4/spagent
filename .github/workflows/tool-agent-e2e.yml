@@ -1,0 +1,55 @@
+name: tool-agent-e2e
+
+# Lane 3 (with-compute): full SPAgent episode where a live VLM invokes the
+# tool under test against its live backend. Opt-in only — trigger manually
+# with the backends already running on the runner host.
+#
+# API keys come from repository secrets (GEMINI_API_KEY / OPENAI_API_KEY /
+# ANTHROPIC_API_KEY) and are exposed to the script as environment variables
+# only — never as CLI arguments and never echoed into logs or reports.
+#
+# No self-hosted runner? Run the same check locally:
+#   GEMINI_API_KEY=... python test/tool_agent_e2e.py --tool detection \
+#       --provider gemini --url detection=http://localhost:20122
+
+on:
+  workflow_dispatch:
+    inputs:
+      tools:
+        description: "Comma-separated catalog keys (e.g. detection,depth)"
+        required: true
+      provider:
+        description: "VLM provider driving the agent"
+        required: true
+        type: choice
+        options: [gemini, openai, anthropic, local]
+        default: gemini
+      model:
+        description: "Model name override (required for provider=local)"
+        required: false
+        default: ""
+      urls:
+        description: "Space-separated key=url backend overrides (optional)"
+        required: false
+        default: ""
+      local_base_url:
+        description: "OpenAI-compatible base URL (provider=local only)"
+        required: false
+        default: ""
+
+jobs:
+  agent-e2e:
+    runs-on: [self-hosted, gpu]
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      LOCAL_BASE_URL: ${{ inputs.local_base_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Full-agent e2e
+        run: |
+          args="--tool ${{ inputs.tools }} --provider ${{ inputs.provider }}"
+          if [ -n "${{ inputs.model }}" ]; then args="$args --model ${{ inputs.model }}"; fi
+          for kv in ${{ inputs.urls }}; do args="$args --url $kv"; done
+          python test/tool_agent_e2e.py $args

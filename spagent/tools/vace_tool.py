@@ -131,7 +131,7 @@ class VaceTool(Tool):
             # its VACE repo root (see vace_server.VaceRunner.run_firstframe), not the agent's cwd.
             resolved_image = os.path.abspath(os.path.expanduser(image_path))
 
-            if not self.use_mock and not os.path.exists(resolved_image):
+            if not os.path.exists(resolved_image):
                 return {"success": False, "error": f"Image file not found: {resolved_image}"}
 
             logger.info(f"Generating VACE firstframe video: {prompt[:80]}...")

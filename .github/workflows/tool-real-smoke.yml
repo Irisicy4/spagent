@@ -1,0 +1,37 @@
+name: tool-real-smoke
+
+# With-compute lane: smoke tools against LIVE backends and measure the
+# returned artifacts (box conventions, mask/depth dims, cache stubs, flow
+# recovery). Opt-in only — trigger manually once the needed servers are up
+# on the runner host. Requires a self-hosted runner with GPU access and the
+# backends already running (launch commands: docs/Tool/TOOL_USING.md).
+#
+# No self-hosted runner? Run the same check locally:
+#   python test/tool_real_smoke.py --tool detection --url detection=http://localhost:20122
+
+on:
+  workflow_dispatch:
+    inputs:
+      tools:
+        description: "Comma-separated catalog keys (e.g. detection,segmentation,depth)"
+        required: true
+      urls:
+        description: "Space-separated key=url server overrides (optional)"
+        required: false
+        default: ""
+      flow_shift:
+        description: "flowseek only: synthetic pixel shift to recover (optional)"
+        required: false
+        default: ""
+
+jobs:
+  real-smoke:
+    runs-on: [self-hosted, gpu]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Real-backend smoke
+        run: |
+          args="--tool ${{ inputs.tools }}"
+          for kv in ${{ inputs.urls }}; do args="$args --url $kv"; done
+          if [ -n "${{ inputs.flow_shift }}" ]; then args="$args --flow-shift ${{ inputs.flow_shift }}"; fi
+          python test/tool_real_smoke.py $args
