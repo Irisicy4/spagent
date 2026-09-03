@@ -286,9 +286,12 @@ def test_skill_agent_read_run_answer():
         "name": "zoom_object_tool",
         "arguments": {"image_path": "assets/dog.jpeg", "text_prompt": "dog"},
     }]
-    assert list(res.tool_results) == ["zoom_object_tool_iter2"]
-    assert res.tool_results["zoom_object_tool_iter2"]["success"] is True
-    assert res.used_tools == ["zoom_object_tool_iter2"]
+    assert list(res.tool_results) == ["zoom_object_tool_iter1"]
+    assert res.tool_results["zoom_object_tool_iter1"]["success"] is True
+    assert res.used_tools == ["zoom_object_tool_iter1"]
+    # the read-only first turn is free: read -> run -> answer costs only 2
+    # paid iterations, matching SPAgent's 2-round (tool_call + answer) floor
+    assert res.iterations == 2
     # progressive disclosure: after the read, the full SKILL.md reaches the
     # model inside the continuation prompt (iteration 2)
     assert "## Arguments" in model.prompts[1]
@@ -300,6 +303,27 @@ def test_skill_agent_read_run_answer():
     entries = [e for e in res.memory.entries if e.entry_type == "tool_result"
                and e.metadata.get("tool_name") == "zoom_object_tool"]
     assert entries and "labels:" in entries[-1].text and "boxes:" in entries[-1].text
+
+
+def test_skill_agent_free_read_cap_enforced():
+    # read-only turns are free up to max_read_iterations (default 2); the
+    # 3rd read-only turn in a row exceeds that cap and starts consuming the
+    # paid budget just like run/answer turns -- otherwise a model could farm
+    # unlimited "free" turns by reading one skill per turn forever.
+    agent, model = _make_agent([
+        "<skill_read>zoom_object_tool</skill_read>",
+        "<skill_read>segment_image_tool</skill_read>",
+        "<skill_read>detect_objects_tool</skill_read>",
+        '<skill_run>{"skill": "zoom_object_tool", '
+        '"args": {"image_path": "assets/dog.jpeg", "text_prompt": "dog"}}'
+        "</skill_run>",
+        "<answer>done</answer>",
+    ])
+    res = agent.step("q", images=ASSET, max_tool_iterations=4)
+    assert res.prompts["free_read_iterations"] == "2"
+    # 3rd read (paid) + run (paid) + answer (paid) = 3 paid iterations
+    assert res.iterations == 3
+    assert "done" in res.answer
 
 
 def test_skill_agent_handles_unknown_skill_and_bad_json():
@@ -339,6 +363,91 @@ def test_skill_agent_render_config_override():
     entries = [e for e in res.memory.entries if e.entry_type == "tool_result"]
     text = entries[-1].text
     assert "labels:" in text and "boxes:" not in text
+
+
+def test_skill_agent_parses_args_containing_literal_close_tag():
+    # a string arg that happens to contain the literal text "}</skill_run>"
+    # must NOT truncate the JSON object — json.JSONDecoder.raw_decode (not
+    # a lazy regex) has to find the *real* end of the object.
+    trap = 'a}</skill_run>b'
+    agent, _ = _make_agent([
+        '<skill_run>{"skill": "zoom_object_tool", '
+        '"args": {"image_path": "assets/dog.jpeg", "text_prompt": "' + trap + '"}}'
+        "</skill_run>",
+        "<answer>done</answer>",
+    ])
+    parsed = agent._parse_skill_runs(
+        '<skill_run>{"skill": "zoom_object_tool", '
+        '"args": {"image_path": "assets/dog.jpeg", "text_prompt": "' + trap + '"}}'
+        "</skill_run>"
+    )
+    assert len(parsed) == 1
+    assert parsed[0].get("parse_error") is None
+    assert parsed[0]["skill"] == "zoom_object_tool"
+    assert parsed[0]["args"]["text_prompt"] == trap
+
+
+def test_skill_agent_parses_multiple_runs_after_a_trap_value():
+    trap = 'x}</skill_run>y'
+    response = (
+        '<skill_run>{"skill": "zoom_object_tool", '
+        '"args": {"image_path": "assets/dog.jpeg", "text_prompt": "' + trap + '"}}'
+        "</skill_run>"
+        '<skill_run>{"skill": "segment_image_tool", '
+        '"args": {"image_path": "assets/dog.jpeg"}}</skill_run>'
+    )
+    agent, _ = _make_agent([])
+    parsed = agent._parse_skill_runs(response)
+    assert len(parsed) == 2
+    assert parsed[0]["skill"] == "zoom_object_tool"
+    assert parsed[0]["args"]["text_prompt"] == trap
+    assert parsed[1]["skill"] == "segment_image_tool"
+    assert parsed[1]["args"] == {"image_path": "assets/dog.jpeg"}
+
+
+def test_skill_agent_parses_open_tag_literal_inside_args_string():
+    # a string arg containing the literal text "<skill_run>" (the OPEN tag,
+    # not the close tag tested above) must not be mistaken for the start of
+    # a competing block: the scanner finds the real opening tag first, then
+    # raw_decode consumes the whole JSON object atomically -- the embedded
+    # literal text is never re-scanned as a tag boundary.
+    trap = "demo tag literally: <skill_run> not real"
+    response = (
+        '<skill_run>{"skill": "zoom_object_tool", '
+        '"args": {"image_path": "assets/dog.jpeg", "text_prompt": "' + trap + '"}}'
+        "</skill_run>"
+        '<skill_run>{"skill": "segment_image_tool", '
+        '"args": {"image_path": "assets/dog.jpeg"}}</skill_run>'
+    )
+    agent, _ = _make_agent([])
+    parsed = agent._parse_skill_runs(response)
+    assert len(parsed) == 2
+    assert parsed[0].get("parse_error") is None
+    assert parsed[0]["skill"] == "zoom_object_tool"
+    assert parsed[0]["args"]["text_prompt"] == trap
+    assert parsed[1]["skill"] == "segment_image_tool"
+    assert parsed[1]["args"] == {"image_path": "assets/dog.jpeg"}
+
+
+def test_skill_agent_narrative_open_tag_does_not_swallow_following_real_block():
+    # a literal "<skill_run>" appearing in plain prose (not followed by real
+    # JSON) must not let the error-path fallback search reach past a
+    # genuine block that starts later in the same response -- the fallback
+    # must stop at the next opening tag, not the next closing tag (which
+    # would actually belong to that later, real block).
+    response = (
+        "I mentioned <skill_run> in chat just now, ignore that. "
+        '<skill_run>{"skill": "zoom_object_tool", '
+        '"args": {"image_path": "assets/dog.jpeg", "text_prompt": "dog"}}'
+        "</skill_run>"
+    )
+    agent, _ = _make_agent([])
+    parsed = agent._parse_skill_runs(response)
+    assert len(parsed) == 2
+    assert parsed[0]["parse_error"] == "no JSON object found after <skill_run>"
+    assert parsed[1].get("parse_error") is None
+    assert parsed[1]["skill"] == "zoom_object_tool"
+    assert parsed[1]["args"] == {"image_path": "assets/dog.jpeg", "text_prompt": "dog"}
 
 
 def test_skill_agent_tool_keys_rejects_out_of_subset_run():

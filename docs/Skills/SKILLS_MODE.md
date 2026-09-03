@@ -107,7 +107,10 @@ contains only the skills INDEX plus two instructions:
 
 1. **Read before first use** — `<skill_read>skill_name</skill_read>`
    activates a skill; its full SKILL.md is injected into every subsequent
-   iteration's context.
+   iteration's context. A turn containing only read tags is **free** — it
+   does not consume `max_tool_iterations` — up to a small independent cap
+   (`max_read_iterations`, default 2); batch several `<skill_read>` tags in
+   one turn to activate many skills for the cost of one free turn.
 2. **Invoke via ONE structured format**:
 
    ```
@@ -120,9 +123,17 @@ per-category > preset), and the rendered text + images are appended to the
 shared `AgentMemory`. `<answer>...</answer>` ends the loop; if the model
 never produces answer tags, a final synthesis turn forces one.
 
-Constructor knobs: `skills_dir`, `use_mock`, `render_config`,
-`check_server`, and `tool_overrides` (per catalog key, e.g.
+Constructor knobs: `skills_dir`, `tool_keys` (restrict the active skill set
+to a subset, e.g. `["pi3", "detection"]` — the index and execution both
+respect it), `use_mock`, `render_config`, `check_server`, and
+`tool_overrides` (per catalog key, e.g.
 `{"sana": {"server_url": "http://127.0.0.1:30010"}}`).
+
+`step()` also takes `max_tool_iterations` (the paid budget, comparable to
+SPAgent's) and `max_read_iterations` (free read-only turns before they
+start counting against `max_tool_iterations`; default 2) — pass a higher
+`max_read_iterations` for tasks that genuinely need more than 2 rounds of
+progressive reading rather than one batched read turn.
 
 ## Relation to the tool-call path
 
@@ -153,8 +164,11 @@ CUDA_VISIBLE_DEVICES="" python test/test_skills_real_yolo26.py
 - `SkillAgent` runs skills sequentially (no thread pool) and attaches
   `.mp4` outputs as paths without frame extraction — use SPAgent when
   those matter.
-- Reading a skill consumes a loop iteration (the model is told to batch
-  reads); budget `max_tool_iterations` accordingly.
+- A read-only turn is free (doesn't consume `max_tool_iterations`) up to
+  `max_read_iterations` (default 2); past that cap, further read-only turns
+  count against the budget like any other turn. Batch `<skill_read>` tags
+  into one turn, or pass a higher `max_read_iterations`, for tasks that
+  need more than 2 rounds of progressive reading.
 - The runtime classes in `skills/runtime.py` describe what each backend
   needs, not what is currently running; `cloud-API` tools need provider
   keys, `mock-only` (wilddet3d) needs an external repo checkout to run

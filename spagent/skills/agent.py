@@ -46,8 +46,10 @@ from .run import SkillRunError, run_skill  # noqa: E402
 logger = logging.getLogger(__name__)
 
 _SKILL_READ_RE = re.compile(r"<skill_read>\s*([\w.-]+)\s*</skill_read>")
-_SKILL_RUN_RE = re.compile(r"<skill_run>\s*({.*?})\s*</skill_run>", re.DOTALL)
 _ANSWER_RE = re.compile(r"<answer>(.*?)</answer>", re.DOTALL)
+
+_SKILL_RUN_OPEN = "<skill_run>"
+_SKILL_RUN_CLOSE = "</skill_run>"
 
 
 SKILL_SYSTEM_PROMPT_TEMPLATE = """You are a helpful assistant that answers questions about images by orchestrating specialized skills.
@@ -78,7 +80,9 @@ You can then read or run more skills.
 Rules:
 - Use only skill names that appear in the index; never invent skills or arguments.
 - <skill_run> content must be valid JSON with exactly the keys "skill" and "args".
-- Reading a skill costs an iteration, so batch your reads when possible."""
+- Reading a skill does not use up your run/answer budget by itself — but you
+  can only do this a limited number of times before it starts counting, so
+  don't stall by reading one skill per turn indefinitely."""
 
 
 SKILL_CONTINUATION_HINT = """1. If you still need information, read further skills with <skill_read>name</skill_read> or run them with <skill_run>{"skill": ..., "args": {...}}</skill_run>.
@@ -140,28 +144,79 @@ class SkillAgent:
 
     @staticmethod
     def _parse_skill_runs(response: str) -> List[Dict[str, Any]]:
-        """Parse ``<skill_run>{"skill":..., "args":...}</skill_run>`` blocks."""
+        """Parse ``<skill_run>{"skill":..., "args":...}</skill_run>`` blocks.
+
+        Uses ``json.JSONDecoder.raw_decode`` (not a regex capture group) to
+        find the true end of the JSON object: a naive ``{.*?}`` regex stops
+        at the first ``}`` that happens to be followed by ``</skill_run>``,
+        which truncates the block whenever an ``args`` string value itself
+        contains that literal text (e.g. OCR'd text or an echoed prompt).
+        ``raw_decode`` tracks JSON string/quote semantics, so such content
+        inside a properly quoted string can never be mistaken for the end
+        of the object.
+        """
         runs: List[Dict[str, Any]] = []
-        for raw in _SKILL_RUN_RE.findall(response):
-            try:
-                obj = json.loads(raw)
-            except json.JSONDecodeError as e:
-                logger.warning("Unparseable skill_run block: %s (%s)", raw, e)
-                runs.append({"skill": None, "args": {},
-                             "parse_error": f"invalid JSON: {e}", "raw": raw})
-                continue
-            if not isinstance(obj, dict) or "skill" not in obj:
-                logger.warning("skill_run missing 'skill' key: %s", raw)
-                runs.append({"skill": None, "args": {},
-                             "parse_error": "missing 'skill' key", "raw": raw})
-                continue
-            args = obj.get("args", {})
-            if not isinstance(args, dict):
-                runs.append({"skill": obj["skill"], "args": {},
-                             "parse_error": "'args' must be a JSON object",
-                             "raw": raw})
-                continue
-            runs.append({"skill": obj["skill"], "args": args})
+        decoder = json.JSONDecoder()
+        pos = 0
+        while True:
+            start = response.find(_SKILL_RUN_OPEN, pos)
+            if start == -1:
+                break
+            i = start + len(_SKILL_RUN_OPEN)
+            while i < len(response) and response[i].isspace():
+                i += 1
+
+            obj = end_idx = parse_error = None
+            if i < len(response) and response[i] == "{":
+                try:
+                    obj, end_idx = decoder.raw_decode(response, i)
+                except json.JSONDecodeError as e:
+                    parse_error = f"invalid JSON: {e}"
+            else:
+                parse_error = "no JSON object found after <skill_run>"
+
+            if parse_error is None:
+                j = end_idx
+                while j < len(response) and response[j].isspace():
+                    j += 1
+                if response.startswith(_SKILL_RUN_CLOSE, j):
+                    raw = response[i:end_idx]
+                    pos = j + len(_SKILL_RUN_CLOSE)
+                    if not isinstance(obj, dict) or "skill" not in obj:
+                        logger.warning("skill_run missing 'skill' key: %s", raw)
+                        runs.append({"skill": None, "args": {},
+                                     "parse_error": "missing 'skill' key",
+                                     "raw": raw})
+                        continue
+                    args = obj.get("args", {})
+                    if not isinstance(args, dict):
+                        runs.append({"skill": obj["skill"], "args": {},
+                                     "parse_error": "'args' must be a JSON object",
+                                     "raw": raw})
+                        continue
+                    runs.append({"skill": obj["skill"], "args": args})
+                    continue
+                parse_error = "missing </skill_run> after JSON object"
+
+            # Error path: bound the raw text via a literal search for the
+            # closing tag (best-effort, for logging only), and always
+            # advance `pos` past this block so one bad block can't stall
+            # the scan of the rest of the response. If another opening tag
+            # appears before any closing tag, this fragment has no closing
+            # tag of its own -- stop the span there (and resume scanning
+            # AT that tag, not past it) instead of reaching past it for a
+            # closing tag that actually belongs to that next, real block.
+            next_close = response.find(_SKILL_RUN_CLOSE, i)
+            next_open = response.find(_SKILL_RUN_OPEN, i)
+            if next_open != -1 and (next_close == -1 or next_open < next_close):
+                raw, pos = response[i:next_open], next_open
+            elif next_close == -1:
+                raw, pos = response[i:], len(response)
+            else:
+                raw, pos = response[i:next_close], next_close + len(_SKILL_RUN_CLOSE)
+            logger.warning("Unparseable skill_run block: %s (%s)", raw, parse_error)
+            runs.append({"skill": None, "args": {},
+                         "parse_error": parse_error, "raw": raw})
         return runs
 
     @staticmethod
@@ -247,6 +302,7 @@ class SkillAgent:
         memory: Optional[AgentMemory] = None,
         system_prompt: Optional[str] = None,
         max_tool_iterations: int = 3,
+        max_read_iterations: int = 2,
         max_images_in_context: int = 6,
         render_config: Optional[Dict[str, Any]] = None,
         **model_kwargs,
@@ -255,6 +311,16 @@ class SkillAgent:
 
         Same surface as ``SPAgent.step``: returns a ``StepResult`` whose
         memory can be threaded into later calls for multi-turn use.
+
+        A turn whose response contains ONLY ``<skill_read>`` tags (no
+        ``<skill_run>``, no ``<answer>``) is "free": it does not consume
+        ``max_tool_iterations``, mirroring the fact that SPAgent's schema
+        preload costs 0 rounds -- so the two paths' iteration budgets stay
+        comparable for eval. Free reads are capped independently by
+        ``max_read_iterations`` so a model can't farm unlimited free turns
+        by reading one skill per turn; once that cap is hit, further
+        read-only turns fall back to consuming ``max_tool_iterations`` as
+        before.
         """
         if memory is None:
             memory = AgentMemory()
@@ -283,10 +349,12 @@ class SkillAgent:
         all_additional_images: List[str] = []
         current_images = list(image_paths)
         iteration = 0
+        read_iteration = 0
+        raw_turn = 0
 
         while iteration < max_tool_iterations:
-            iteration += 1
-            if iteration == 1:
+            raw_turn += 1
+            if raw_turn == 1:
                 prompt = system_prompt + "\n\n" + user_prompt
             else:
                 prompt = memory.build_prompt_context(
@@ -297,11 +365,24 @@ class SkillAgent:
 
             response = self._run_model_inference(current_images, prompt,
                                                  **model_kwargs)
-            memory.add_assistant_turn(response, metadata={"iteration": iteration})
 
             reads = self._parse_skill_reads(response)
             runs = self._parse_skill_runs(response)
             has_answer = self._has_answer(response)
+
+            # A read-only turn is "free": it doesn't consume the paid
+            # iteration budget (mirrors SPAgent's 0-round schema preload),
+            # but only up to its own small, independent cap -- past that,
+            # read-only turns fall back to paid iterations, so a model
+            # can't stall by reading one skill per turn forever.
+            is_free_read_turn = (bool(reads) and not runs and not has_answer
+                                 and read_iteration < max_read_iterations)
+            if is_free_read_turn:
+                read_iteration += 1
+            else:
+                iteration += 1
+
+            memory.add_assistant_turn(response, metadata={"iteration": iteration})
 
             # -- skill reads (progressive disclosure phase 2) --------------
             for name in reads:
@@ -411,6 +492,7 @@ class SkillAgent:
             prompts={
                 "system_prompt": system_prompt,
                 "user_prompt": user_prompt,
+                "free_read_iterations": str(read_iteration),
                 "workflow": "skills",
             },
         )
