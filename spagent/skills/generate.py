@@ -12,7 +12,7 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 sys.path.append(str(Path(__file__).parent.parent))
 
@@ -23,18 +23,31 @@ INDEX_NAME = "INDEX.md"
 SKILL_NAME = "SKILL.md"
 
 
-def generate_content() -> Tuple[Dict[str, str], str]:
-    """Return ``({tool_name: SKILL.md text}, INDEX.md text)`` from the catalog."""
-    specs = build_skill_specs()
+def generate_content(
+    tool_keys: Optional[List[str]] = None,
+) -> Tuple[Dict[str, str], str]:
+    """Return ``({tool_name: SKILL.md text}, INDEX.md text)`` from the catalog.
+
+    ``tool_keys``: restrict to this subset (catalog keys or tool names);
+    ``None`` generates the full catalog.
+    """
+    specs = build_skill_specs(tool_keys)
     return {s.tool_name: render_skill_md(s) for s in specs}, render_index_md(specs)
 
 
-def check_drift(skills_dir: Path) -> List[str]:
+def check_drift(
+    skills_dir: Path, tool_keys: Optional[List[str]] = None
+) -> List[str]:
     """Compare on-disk skills with freshly generated content.
 
     Returns a list of human-readable drift lines (empty = in sync).
+    ``tool_keys`` restricts the comparison to a subset, same as
+    :func:`generate_content`. Orphan detection (skill folders with no
+    matching catalog entry) only runs in full-catalog mode (``tool_keys is
+    None``): in subset mode, folders outside the subset are simply not part
+    of this sync, not orphans.
     """
-    skills, index = generate_content()
+    skills, index = generate_content(tool_keys)
     drift: List[str] = []
     for tool_name, content in skills.items():
         path = skills_dir / tool_name / SKILL_NAME
@@ -48,16 +61,22 @@ def check_drift(skills_dir: Path) -> List[str]:
     elif index_path.read_text(encoding="utf-8") != index:
         drift.append(f"stale: {index_path}")
     # skill folders that no longer correspond to a catalog entry
-    if skills_dir.is_dir():
+    if tool_keys is None and skills_dir.is_dir():
         for child in sorted(skills_dir.iterdir()):
             if child.is_dir() and child.name not in skills:
                 drift.append(f"orphan: {child} (not in catalog)")
     return drift
 
 
-def generate(skills_dir: Path) -> Tuple[List[str], int]:
-    """Write all skill folders + INDEX. Returns ``(paths_written, n_skills)``."""
-    skills, index = generate_content()
+def generate(
+    skills_dir: Path, tool_keys: Optional[List[str]] = None
+) -> Tuple[List[str], int]:
+    """Write all skill folders + INDEX. Returns ``(paths_written, n_skills)``.
+
+    ``tool_keys`` restricts generation to a subset, same as
+    :func:`generate_content`.
+    """
+    skills, index = generate_content(tool_keys)
     written: List[str] = []
     for tool_name, content in skills.items():
         folder = skills_dir / tool_name
@@ -80,12 +99,19 @@ def main(argv=None) -> int:
     )
     parser.add_argument("--skills-dir", type=Path, default=default_skills_dir(),
                         help="Target directory (default: <repo>/skills)")
+    parser.add_argument("--tools", default=None,
+                        help="Comma-separated catalog keys or tool names to "
+                             "generate (e.g. pi3,detection). Default: all "
+                             "catalog tools.")
     parser.add_argument("--check", action="store_true",
                         help="Report drift without writing; exit 1 on drift")
     args = parser.parse_args(argv)
 
+    tool_keys = ([p.strip() for p in args.tools.split(",") if p.strip()]
+                 if args.tools else None)
+
     if args.check:
-        drift = check_drift(args.skills_dir)
+        drift = check_drift(args.skills_dir, tool_keys)
         if drift:
             print("\n".join(drift))
             print(f"DRIFT: {len(drift)} item(s) out of sync with the catalog.")
@@ -93,7 +119,7 @@ def main(argv=None) -> int:
         print(f"OK: {args.skills_dir} is in sync with the catalog.")
         return 0
 
-    written, total = generate(args.skills_dir)
+    written, total = generate(args.skills_dir, tool_keys)
     print(f"Generated {total} skills under {args.skills_dir} "
           f"({len(written)} file(s) updated).")
     return 0

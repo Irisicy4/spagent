@@ -26,7 +26,13 @@ from typing import Any, Dict, List, Optional
 sys.path.append(str(Path(__file__).parent.parent))
 
 from core.tool_result import CATEGORY_CONTRACTS, DETECTION, SEGMENTATION  # noqa: E402
-from tools.catalog import TOOL_CATALOG, ToolCatalogEntry, _merge_kwargs  # noqa: E402
+from tools.catalog import (  # noqa: E402
+    TOOL_CATALOG,
+    ToolCatalogEntry,
+    _merge_kwargs,
+    list_catalog_keys,
+    resolve_tool_keys,
+)
 
 from .runtime import RuntimeSpec, get_runtime_spec  # noqa: E402
 
@@ -124,10 +130,26 @@ def _build_for_schema(entry: ToolCatalogEntry):
                 sys.modules.pop(name, None)
 
 
-def build_skill_specs() -> List[SkillSpec]:
-    """One SkillSpec per catalog entry, in catalog order."""
+def build_skill_specs(tool_keys: Optional[List[str]] = None) -> List[SkillSpec]:
+    """One SkillSpec per catalog entry, in catalog order.
+
+    ``tool_keys``: catalog keys or tool function names to restrict to (see
+    ``tools.catalog.resolve_tool_keys``). ``None`` (default) generates specs
+    for the full catalog, unchanged from before this parameter existed.
+    """
+    entries = TOOL_CATALOG
+    if tool_keys is not None:
+        resolved, unknown = resolve_tool_keys(tool_keys)
+        if unknown:
+            raise ValueError(
+                f"Unknown tool identifier(s): {unknown}. "
+                f"Available keys: {list_catalog_keys()}"
+            )
+        by_key = {e.key: e for e in TOOL_CATALOG}
+        entries = [by_key[k] for k in resolved]
+
     specs: List[SkillSpec] = []
-    for entry in TOOL_CATALOG:
+    for entry in entries:
         tool = _build_for_schema(entry)
         overlay_path = _OVERLAY_DIR / f"{entry.key}.md"
         overlay = overlay_path.read_text(encoding="utf-8").strip() if overlay_path.exists() else None

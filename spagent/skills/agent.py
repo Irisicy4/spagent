@@ -97,6 +97,12 @@ class SkillAgent:
     Args:
         model:          Any ``core.model.Model`` wrapper (QwenVLLMModel, ...).
         skills_dir:     Generated skills directory (default: ``<repo>/skills``).
+        tool_keys:      Restrict the active skill set to this subset (catalog
+                        keys or tool function names, e.g. ``["pi3",
+                        "detection"]``). ``None`` (default) loads every skill
+                        found under ``skills_dir``. Skills outside this set
+                        are invisible to the index AND rejected if the model
+                        tries to run them anyway (see ``_execute_run``).
         use_mock:       Build tools with mock backends (no GPU/server).
         tool_overrides: Per-catalog-key constructor overrides, same shape as
                         ``tools.catalog.build_tools(overrides=...)`` — e.g.
@@ -109,13 +115,15 @@ class SkillAgent:
         self,
         model: Model,
         skills_dir: Optional[Union[str, Path]] = None,
+        tool_keys: Optional[List[str]] = None,
         use_mock: bool = False,
         tool_overrides: Optional[Dict[str, Dict[str, Any]]] = None,
         render_config: Optional[Dict[str, Any]] = None,
         check_server: bool = True,
     ):
         self.model = model
-        self.registry = SkillRegistry(Path(skills_dir) if skills_dir else None)
+        self.registry = SkillRegistry(Path(skills_dir) if skills_dir else None,
+                                      tool_keys=tool_keys)
         self.use_mock = use_mock
         self.tool_overrides = tool_overrides or {}
         self.render_config = render_config
@@ -165,16 +173,30 @@ class SkillAgent:
     # ------------------------------------------------------------------
 
     def _execute_run(self, skill_name: str, args: Dict[str, Any]):
-        """Run one skill through the R3 backend; never raises."""
+        """Run one skill through the R3 backend; never raises.
+
+        The registry is the sole source of executable skills: a name that
+        isn't loaded (unknown, or excluded by ``tool_keys``) is rejected
+        here rather than falling through to ``run_skill``, which resolves
+        against the FULL tool catalog regardless of any subset in effect.
+        Without this check, the index/registry filter would be advisory
+        only — the model could still run any catalog tool by name.
+        """
         skill = self.registry.get(skill_name)
-        catalog_key = skill.catalog_key if skill else skill_name
+        if skill is None:
+            return {
+                "success": False,
+                "description": f"skill {skill_name} failed",
+                "error": f"unknown skill {skill_name!r} — not in the active "
+                         f"skill set. Available: {', '.join(self.registry.names())}",
+            }
         try:
             result, _ = run_skill(
                 skill_name,
                 args,
                 use_mock=self.use_mock,
                 check_server=self.check_server,
-                extra_overrides=self.tool_overrides.get(catalog_key),
+                extra_overrides=self.tool_overrides.get(skill.catalog_key),
             )
             return result
         except SkillRunError as e:

@@ -136,6 +136,44 @@ def test_registry_loads_all_skills():
     assert "## Arguments" in zoom.body
 
 
+def test_registry_tool_keys_subset():
+    reg = SkillRegistry(SKILLS_DIR, tool_keys=["pi3", "detection"])
+    assert len(reg) == 2
+    assert set(reg.names()) == {"pi3_tool", "detect_objects_tool"}
+    assert reg.get("zoom_object_tool") is None
+    # index is rebuilt from the filtered set, not the full on-disk INDEX.md
+    assert "pi3_tool" in reg.index_text and "detect_objects_tool" in reg.index_text
+    assert "zoom_object_tool" not in reg.index_text
+    try:
+        SkillRegistry(SKILLS_DIR, tool_keys=["not_a_real_tool"])
+    except ValueError as e:
+        assert "not_a_real_tool" in str(e)
+    else:
+        raise AssertionError("unknown tool_keys entry did not raise ValueError")
+
+
+def test_generate_subset_omits_orphans_full_mode_reports_them():
+    d = Path(tempfile.mkdtemp())
+    try:
+        (d / "not_a_real_tool_dir").mkdir()
+        generate(d, tool_keys=["pi3"])
+        assert (d / "pi3_tool" / "SKILL.md").exists()
+        index = (d / "INDEX.md").read_text(encoding="utf-8")
+        assert "pi3_tool" in index and "zoom_object_tool" not in index
+
+        # subset check: the unrelated leftover folder is not an orphan
+        subset_drift = check_drift(d, tool_keys=["pi3"])
+        assert subset_drift == [], f"unexpected drift in subset mode: {subset_drift}"
+
+        # full-catalog check: same folder IS reported as an orphan (plus
+        # every other catalog skill is "missing" since only pi3 was written)
+        full_drift = check_drift(d, tool_keys=None)
+        assert any("orphan:" in line and "not_a_real_tool_dir" in line
+                   for line in full_drift)
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+
 # ---------------------------------------------------------------------------
 # R3: execution backend
 # ---------------------------------------------------------------------------
@@ -301,6 +339,27 @@ def test_skill_agent_render_config_override():
     entries = [e for e in res.memory.entries if e.entry_type == "tool_result"]
     text = entries[-1].text
     assert "labels:" in text and "boxes:" not in text
+
+
+def test_skill_agent_tool_keys_rejects_out_of_subset_run():
+    # zoom_object_tool exists in the catalog but is excluded from this
+    # agent's subset — the registry must be the hard boundary: the run is
+    # rejected without ever reaching run_skill (which would happily
+    # resolve it against the full catalog).
+    model = ScriptedModel([
+        '<skill_run>{"skill": "zoom_object_tool", '
+        '"args": {"image_path": "assets/dog.jpeg", "text_prompt": "dog"}}'
+        "</skill_run>",
+        "<answer>done</answer>",
+    ])
+    agent = SkillAgent(model=model, skills_dir=SKILLS_DIR, use_mock=True,
+                       tool_keys=["pi3"])
+    assert agent.registry.get("zoom_object_tool") is None
+    res = agent.step("q", images=ASSET, max_tool_iterations=3)
+    result = res.tool_results["zoom_object_tool_iter1"]
+    assert result["success"] is False
+    assert "not in the active skill set" in result["error"]
+    assert res.used_tools == []
 
 
 if __name__ == "__main__":
